@@ -1,53 +1,62 @@
 package com.saveetha.foodstall;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class OSignupActivity extends AppCompatActivity {
 
-    EditText etFullName, etMobile, etPassword, etConfirmPassword;
-    Button btnSignUp;
-    TextView tvLogin;
+    EditText fullnameEditText, phoneEditText, passwordEditText, confirmPasswordEditText;
+    Button signupBtn, userBtn, ownerBtn;
+    TextView loginText;
+
+    boolean isOwnerSelected = true; // default selection
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_osignup);
 
-        // Linking XML views with Java
-        etFullName = findViewById(R.id.etFullName);
-        etMobile = findViewById(R.id.etMobile);
-        etPassword = findViewById(R.id.etPassword);
-        etConfirmPassword = findViewById(R.id.etConfirmPassword);
-        btnSignUp = findViewById(R.id.btnSignUp);
-        tvLogin = findViewById(R.id.tvLogin);
+        // Init views
+        fullnameEditText = findViewById(R.id.fullnameEditText);
+        phoneEditText = findViewById(R.id.phoneEditText);
+        passwordEditText = findViewById(R.id.passwordEditText);
+        confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
+        signupBtn = findViewById(R.id.signupBtn);
+        loginText = findViewById(R.id.loginText);
+        userBtn = findViewById(R.id.userBtn);
+        ownerBtn = findViewById(R.id.ownerBtn);
 
-        // Sign Up button click
-        btnSignUp.setOnClickListener(v -> {
-            String fullName = etFullName.getText().toString().trim();
-            String mobile = etMobile.getText().toString().trim();
-            String password = etPassword.getText().toString().trim();
-            String confirmPassword = etConfirmPassword.getText().toString().trim();
-
-            // Basic validation
-            if(fullName.isEmpty() || mobile.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-            } else if (!password.equals(confirmPassword)) {
-                Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-            } else {
-                // TODO: Add backend signup logic here (PHP API call)
-                Toast.makeText(this, "Signup successful for Owner: " + fullName, Toast.LENGTH_SHORT).show();
-            }
+        // Button toggle logic
+        userBtn.setOnClickListener(v -> {
+            isOwnerSelected = false;
+            userBtn.setBackgroundColor(getResources().getColor(android.R.color.white));
+            userBtn.setTextColor(getResources().getColor(R.color.pink)); // FF6B6B
+            ownerBtn.setBackgroundResource(R.drawable.outline_button);
+            ownerBtn.setTextColor(getResources().getColor(android.R.color.white));
         });
 
-        // Already have account - navigate to login page
-        tvLogin.setOnClickListener(v -> {
-            // TODO: Navigate to OwnerLoginActivity
-            finish(); // Closes current activity for now
+        ownerBtn.setOnClickListener(v -> {
+            isOwnerSelected = true;
+            ownerBtn.setBackgroundColor(getResources().getColor(android.R.color.white));
+            ownerBtn.setTextColor(getResources().getColor(R.color.pink)); // FF6B6B
+            userBtn.setBackgroundResource(R.drawable.outline_button);
+            userBtn.setTextColor(getResources().getColor(android.R.color.white));
+        });
+
+        // Go to login
+        loginText.setOnClickListener(v -> {
+            Intent intent = new Intent(OSignupActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
+
+        // Signup logic placeholder
+        signupBtn.setOnClickListener(v -> {
+            // TODO: Handle signup submission
         });
     }
 }

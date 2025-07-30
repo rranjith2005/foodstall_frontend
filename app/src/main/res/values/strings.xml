@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">foodstall</string>
+    <string name="don_t_have_an_account_signup_here">Don\'t have an account? Signup here</string>
+    <string name="login">Login</string>
+    <string name="enter_your_password">Enter your Password</string>
+    <string name="enter_your_id">Enter your ID</string>
+    <string name="stall_spot">Stall Spot</string>
 </resources>
