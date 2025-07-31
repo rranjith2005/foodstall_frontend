@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodstall">
         <activity
+            android:name=".UhomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AccessActivity"
+            android:exported="false" />
+        <activity
             android:name=".UhomepageActivity"
             android:exported="false" />
         <activity

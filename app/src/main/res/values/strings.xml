@@ -5,4 +5,9 @@
     <string name="enter_your_password">Enter your Password</string>
     <string name="enter_your_id">Enter your ID</string>
     <string name="stall_spot">Stall Spot</string>
+    <string name="skip_for_now">Skip for Now</string>
+    <string name="Continue">Continue</string>
+    <string name="app_permissions_needed">App Permissions Needed</string>
+    <string name="todo">TODO</string>
+    <string name="Csontinue" />
 </resources>
