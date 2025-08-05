@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,160 +9,176 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:paddingBottom="70dp">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:orientation="vertical">
 
-            <!-- Greeting and Bell Icon -->
+            <!-- Header -->
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
                 android:gravity="center_vertical">
 
-                <LinearLayout
-                    android:orientation="vertical"
+                <TextView
+                    android:id="@+id/greetingText"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:text="Hi, user"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:text="What would you like to eat?"
-                        android:textColor="@android:color/white"
-                        android:textSize="14sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:text="Hi, User 👋"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
 
                 <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_settings" />
+                    android:id="@+id/ic_settings"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_settings"
+                    android:tint="@android:color/white" />
             </LinearLayout>
 
             <!-- Search Bar -->
-            <EditText
-                android:layout_marginTop="16dp"
-                android:hint="Search dishes or stalls..."
-                android:drawableStart="@drawable/ic_search"
-                android:background="@drawable/search_bg"
-                android:padding="12dp"
-                android:textColor="@android:color/black"
-                android:textColorHint="#888888"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <!-- Category Buttons -->
             <LinearLayout
-                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/search_bg"
+                android:layout_margin="16dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:paddingHorizontal="12dp">
 
-                <Button
-                    android:text="Open Now"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:backgroundTint="#FFFFFF"
-                    android:textColor="#FF6B6B"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@android:drawable/ic_menu_search"
+                    android:tint="#888888" />
 
-                <Button
-                    android:text="Top Rated"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:backgroundTint="#FF9E9E"
-                    android:textColor="#FFFFFF"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
-
-                <Button
-                    android:text="Western"
-                    android:layout_weight="1"
-                    android:backgroundTint="#FF9E9E"
-                    android:textColor="#FFFFFF"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="Search Stalls or Dishes"
+                    android:paddingStart="8dp"
+                    android:textColor="#000000"
+                    android:textColorHint="#999999" />
             </LinearLayout>
 
-            <!-- Today's Specials -->
+            <!-- Chips -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/filterChips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:singleLine="true"
+                app:singleSelection="false"
+                android:horizontalSpacing="8dp"
+                android:verticalSpacing="8dp">
+
+                <!-- Chip 1 -->
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:id="@+id/chipOpenNow"
+                    android:layout_marginEnd="8dp"
+                    android:text="Open Now"
+                    app:chipBackgroundColor="@color/white"
+                    app:chipStrokeWidth="1dp"
+                    app:chipStrokeColor="@color/chip_border_color" />
+
+                <!-- Chip 2 -->
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:id="@+id/chipTopRated"
+                    android:layout_marginEnd="8dp"
+                    android:text="Top Rated"
+                    app:chipBackgroundColor="@color/white"
+                    app:chipStrokeWidth="1dp"
+                    app:chipStrokeColor="@color/chip_border_color" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+
+
+            <!-- Today’s Specials -->
             <TextView
-                android:layout_marginTop="24dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:text="Today's Specials"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textStyle="bold" />
 
-            <HorizontalScrollView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerSpecials"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="none">
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
 
-                    <!-- Cards Placeholder -->
-                    <include layout="@layout/card_special" />
-                    <include layout="@layout/card_special" />
-                </LinearLayout>
-            </HorizontalScrollView>
 
             <!-- Popular Dishes -->
             <TextView
-                android:layout_marginTop="24dp"
-                android:text="Popular Dishes"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="none">
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <include layout="@layout/card_dish_circle" />
-                    <include layout="@layout/card_dish_circle" />
-                    <include layout="@layout/card_dish_circle" />
-                </LinearLayout>
-            </HorizontalScrollView>
-
-            <!-- Food Stalls -->
-            <TextView
-                android:layout_marginTop="24dp"
-                android:text="Food Stalls"
+                android:text="Popular Dishes"
                 android:textColor="@android:color/white"
-                android:textSize="18sp"
                 android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:textSize="18sp" />
 
-            <include layout="@layout/card_stall_item" />
-            <include layout="@layout/card_stall_item" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerPopularDishes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+            <!-- Nearby Stalls -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nearby Stalls"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:textSize="18sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerStalls"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_marginBottom="100dp"
+                android:overScrollMode="never"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+
         </LinearLayout>
     </ScrollView>
 
@@ -172,6 +189,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@android:color/white"
-        app:menu="@menu/bottom_nav_menu"
-        app:labelVisibilityMode="labeled" />
+        app:itemIconTint="@drawable/nav_selector"
+        app:itemTextColor="@drawable/nav_selector"
+        app:menu="@menu/bottom_nav_menu" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

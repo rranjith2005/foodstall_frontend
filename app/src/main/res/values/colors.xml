@@ -2,9 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="pink">#FF6B6B</color>
-    <color name="ffffff">#FFFFFF</color>
     <color name="gray">#CCCCCC</color>
     <color name="white">#FFFFFF</color> <!-- Also used for switch thumb -->
+    <color name="green">#4CAF50</color>
+    <color name="red">#F44336</color>
+    <color name="light_chip">#FF8B8B</color>
+    <color name="chip_border_color">#FFE1E1</color>
+
 
 
 </resources>

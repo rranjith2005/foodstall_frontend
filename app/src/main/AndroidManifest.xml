@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodstall">
         <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ProfileActivity"
             android:exported="false" />
         <activity
@@ -25,9 +28,6 @@
             android:exported="false" />
         <activity
             android:name=".AccessActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UhomepageActivity"
             android:exported="false" />
         <activity
             android:name=".OSignupActivity"

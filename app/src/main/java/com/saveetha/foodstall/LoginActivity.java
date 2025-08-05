@@ -1,4 +1,4 @@
-package com.example.foodstall;
+package com.saveetha.foodstall;
 
 import android.content.Intent;
 import android.os.Bundle;
