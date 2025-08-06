@@ -5,10 +5,11 @@ import android.os.Bundle;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.MenuItem;
 import android.widget.TextView;
-
+import com.saveetha.foodstall.model.MenuItem;
+import com.saveetha.foodstall.adapter.CategoryAdapter;
+import com.saveetha.foodstall.adapter.MenuItemAdapter;
+import com.saveetha.foodstall.adapter.ReviewAdapter;
 import com.saveetha.foodstall.model.Review;
 
 import java.util.ArrayList;
@@ -58,17 +59,17 @@ public class Uviewmenu extends AppCompatActivity {
 
     private List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
-        items.add(new MenuItem("Garlic Bread", "$4.99", R.drawable.garlic_bread));
-        items.add(new MenuItem("Chicken Rice", "$6.99", R.drawable.chicken_rice));
-        items.add(new MenuItem("Biryani", "$11.99", R.drawable.biryani));
-        items.add(new MenuItem("Chocolate", "$3.99", R.drawable.chocolate));
+        items.add(new MenuItem("Garlic Bread", "$4.99", R.drawable.sd1));
+        items.add(new MenuItem("Chicken Rice", "$6.99", R.drawable.sd2));
+        items.add(new MenuItem("Biryani", "$11.99", R.drawable.sd3));
+        items.add(new MenuItem("Chocolate", "$3.99", R.drawable.pd1));
         return items;
     }
 
     private List<Review> getReviews() {
         List<Review> reviews = new ArrayList<>();
-        reviews.add(new Review("Sarah M.", "Best pizza on campus! The cheese burst is amazing.", "2 days ago", "4.8", R.drawable.profile_sarah));
-        reviews.add(new Review("John D.", "Great food and quick service. Love the garlic bread!", "1 week ago", "4.5", R.drawable.profile_john));
+        reviews.add(new Review("Sarah M.", "Best briyani on campus! The piece  is amazing.", "2 days ago", "4.8", R.drawable.sai));
+        reviews.add(new Review("John D.", "Great food and quick service. Love the garlic bread!", "1 week ago", "4.5", R.drawable.nithi));
         return reviews;
     }
 }

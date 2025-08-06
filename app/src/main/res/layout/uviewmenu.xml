@@ -29,15 +29,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Shop Name"
+            android:text="Aliyas"
             android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_search" />
+
     </LinearLayout>
 
     <ScrollView
@@ -175,12 +172,12 @@
                             android:layout_weight="1"
                             android:text="$12.99"
                             android:textSize="18sp"
-                            android:textColor="#FF6347" />
+                            android:textColor="#FF6B6B" />
 
                         <Button
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
-                            android:backgroundTint="#FF6347"
+                            android:backgroundTint="#FF6B6B"
                             android:text="Add to Cart"
                             android:textAllCaps="false"
                             android:textColor="#FFFFFF" />
@@ -254,7 +251,7 @@
         android:id="@+id/bottomCartBar"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:background="#FF6347"
+        android:background="#FF6B6B"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="16dp"
@@ -277,7 +274,7 @@
             android:layout_height="40dp"
             android:backgroundTint="#FFFFFF"
             android:text="View Cart"
-            android:textColor="#FF6347"
+            android:textColor="#FF6B6B"
             android:textAllCaps="false" />
     </LinearLayout>
 

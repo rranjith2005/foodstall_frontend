@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:scaleType="centerCrop"
-            tools:src="@drawable/garlic_bread" />
+            tools:src="@drawable/sd3" />
 
         <TextView
             android:id="@+id/menu_item_name"
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Garlic Bread"
+            android:text="jistha"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -53,7 +53,7 @@
                 android:id="@+id/menu_item_add_button"
                 android:layout_width="40dp"
                 android:layout_height="30dp"
-                android:backgroundTint="#FF6347"
+                android:backgroundTint="#FF6B6B"
                 android:text="+"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF" />

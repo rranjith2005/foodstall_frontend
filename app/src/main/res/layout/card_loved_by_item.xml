@@ -12,9 +12,9 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/sd1"
+        android:src="@drawable/sd2"
         android:layout_marginEnd="8dp"
-        tools:src="@drawable/sd1" />
+        tools:src="@drawable/sd2" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -26,10 +26,10 @@
             android:id="@+id/loved_by_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Margherita Pizza"
+            android:text="Mandi Briyani"
             android:textSize="16sp"
             android:textStyle="bold"
-            tools:text="Margherita Pizza" />
+            tools:text="Mandi Briyani" />
 
         <TextView
             android:id="@+id/loved_by_item_rating"
@@ -44,10 +44,10 @@
             android:id="@+id/loved_by_item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$10.99"
+            android:text="Rs.90"
             android:textSize="14sp"
             android:textColor="#FF6347"
-            tools:text="$10.99" />
+            tools:text="$Rs.90" />
     </LinearLayout>
 
     <Button
