@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/menu_item_image"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/garlic_bread" />
+
+        <TextView
+            android:id="@+id/menu_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Garlic Bread"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/menu_item_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="$4.99"
+                android:textSize="14sp"
+                android:textColor="#FF6347" />
+
+            <Button
+                android:id="@+id/menu_item_add_button"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:backgroundTint="#FF6347"
+                android:text="+"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

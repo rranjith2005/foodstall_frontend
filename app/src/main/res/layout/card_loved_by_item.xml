@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/loved_by_item_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/sd1"
+        android:layout_marginEnd="8dp"
+        tools:src="@drawable/sd1" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/loved_by_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Margherita Pizza"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="Margherita Pizza" />
+
+        <TextView
+            android:id="@+id/loved_by_item_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="★ 4.8 (120+ reviews)"
+            android:textSize="12sp"
+            android:textColor="#FFC107"
+            tools:text="★ 4.8 (120+ reviews)" />
+
+        <TextView
+            android:id="@+id/loved_by_item_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$10.99"
+            android:textSize="14sp"
+            android:textColor="#FF6347"
+            tools:text="$10.99" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/loved_by_item_add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:backgroundTint="#FF6347"
+        android:text="Add"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:layout_marginStart="8dp" />
+</LinearLayout>
