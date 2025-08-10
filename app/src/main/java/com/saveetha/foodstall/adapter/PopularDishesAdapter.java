@@ -1,4 +1,4 @@
-package com.saveetha.foodstall.adapter; // Make sure this matches your package name
+package com.saveetha.foodstall.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,12 +6,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.saveetha.foodstall.R;
 import com.saveetha.foodstall.model.PopularDish;
-
 import java.util.List;
-import de.hdodenhof.circleimageview.CircleImageView; // You need to add this dependency
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PopularDishesAdapter extends RecyclerView.Adapter<PopularDishesAdapter.PopularViewHolder> {
 
@@ -31,7 +29,7 @@ public class PopularDishesAdapter extends RecyclerView.Adapter<PopularDishesAdap
     @Override
     public void onBindViewHolder(@NonNull PopularViewHolder holder, int position) {
         PopularDish dish = popularDishes.get(position);
-        holder.dishName.setText(dish.name);
+        holder.dishName.setText(dish.dishName);
         holder.dishPrice.setText(dish.price);
         holder.dishImage.setImageResource(dish.imageResId);
     }

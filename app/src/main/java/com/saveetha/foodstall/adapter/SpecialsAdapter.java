@@ -1,4 +1,4 @@
-package com.saveetha.foodstall.adapter; // Make sure this matches your package name
+package com.saveetha.foodstall.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,10 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.saveetha.foodstall.R;
 import com.saveetha.foodstall.model.SpecialDish;
-
 import java.util.List;
 
 public class SpecialsAdapter extends RecyclerView.Adapter<SpecialsAdapter.SpecialViewHolder> {
@@ -31,7 +29,7 @@ public class SpecialsAdapter extends RecyclerView.Adapter<SpecialsAdapter.Specia
     @Override
     public void onBindViewHolder(@NonNull SpecialViewHolder holder, int position) {
         SpecialDish dish = specialDishes.get(position);
-        holder.dishName.setText(dish.name);
+        holder.dishName.setText(dish.dishName);
         holder.stallName.setText(dish.stallName);
         holder.dishPrice.setText(dish.price);
         holder.dishImage.setImageResource(dish.imageResId);

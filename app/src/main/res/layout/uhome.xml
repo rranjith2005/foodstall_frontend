@@ -1,776 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FF6B6B"
-    tools:context=".MainActivity">
+    tools:context=".UhomeActivity">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/scroll_main"
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_nav">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_bar"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <!-- Header row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingStart="24dp"
-                android:paddingEnd="24dp"
-                android:paddingTop="32dp"
-                android:gravity="center_vertical">
+                android:layout_marginBottom="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
+
                     <TextView
-                        android:id="@+id/tv_hi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Hi, Alex"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF" />
+                        android:textColor="#FFFFFF"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
                     <TextView
-                        android:id="@+id/tv_sub"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="What would you like to eat?"
-                        android:textSize="14sp"
-                        android:textColor="#FFFFFF" />
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/iv_bell"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_settings"
-                    android:tint="#FFFFFF"
-                    android:contentDescription="Notifications"/>
+                    android:contentDescription="Search"
+                    android:src="@drawable/ic_settings" />
+
             </LinearLayout>
 
-            <!-- Search Bar -->
             <EditText
-                android:id="@+id/search_bar"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/search_bar_background"
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="8dp"
                 android:hint="Search dishes or stalls..."
-                android:background="@drawable/bg_search"
-                android:textColor="#222"
-                android:textColorHint="#888"
-                android:drawableLeft="@android:drawable/ic_menu_search"
-                android:paddingLeft="16dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginBottom="8dp"
-                />
+                android:padding="12dp" />
 
-            <!-- Chips Row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="6dp">
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
 
                 <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="32dp"
+                    android:layout_height="wrap_content"
                     android:text="Open Now"
-                    android:textColor="#FF6B6B"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/bg_chip_selected"
-                    android:layout_marginEnd="8dp"/>
+                    android:textAllCaps="false"
+                    android:background="@drawable/button_selected_background"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginEnd="8dp" />
+
                 <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="32dp"
+                    android:layout_height="wrap_content"
                     android:text="Top Rated"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:background="@drawable/bg_chip_unselected"
-                    android:layout_marginEnd="8dp"/>
+                    android:textAllCaps="false"
+                    android:background="@drawable/button_unselected_background"
+                    android:textColor="#333333"
+                    android:layout_marginEnd="8dp" />
+
                 <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="32dp"
+                    android:layout_height="wrap_content"
                     android:text="Western"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:background="@drawable/bg_chip_unselected"/>
+                    android:textAllCaps="false"
+                    android:background="@drawable/button_unselected_background"
+                    android:textColor="#333333" />
             </LinearLayout>
 
-            <!-- TODAY'S SPECIALS -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Today's Specials"
                 android:textColor="#FFFFFF"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="24dp"/>
+                android:layout_marginBottom="8dp"/>
 
-            <HorizontalScrollView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/specials_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never"
-                android:layout_marginTop="8dp"
-                android:paddingStart="24dp"
-                android:paddingEnd="24dp"
-                android:scrollbars="none">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_marginBottom="16dp"
+                tools:listitem="@layout/card_special_item" />
 
-                    <!-- Example Special Item 1 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Popular Dishes"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
 
-                    <LinearLayout
-                        android:layout_width="220dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="12dp"
-                        android:background="@drawable/bg_search"
-                        android:orientation="vertical"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="100dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/sd1" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="7dp"
-                            android:text="Margherita Pizza"
-                            android:textColor="#222"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Pizza Hub"
-                            android:textColor="#888"
-                            android:textSize="13sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="$12.99"
-                            android:textColor="#FF6B7B"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="220dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:background="@drawable/bg_search"
-                        android:padding="10dp"
-                        android:layout_marginEnd="12dp">
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="100dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/sd2"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Chicken Burger"
-                            android:textSize="15sp"
-                            android:textColor="#222"
-                            android:textStyle="bold"
-                            android:layout_marginTop="7dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Burger House"
-                            android:textSize="13sp"
-                            android:textColor="#888"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="$8.99"
-                            android:textSize="14sp"
-                            android:textColor="#FF6B7B"
-                            android:textStyle="bold"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </HorizontalScrollView>
-
-            <!-- POPULAR DISHES, NOW FIXED AS PER DESIGN -->
-            <!-- POPULAR DISHES: Structure & Styling as in Image -->
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/popular_dishes_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="136dp"
-                android:orientation="vertical"
-                android:background="@drawable/popular_bg"
-                android:layout_marginTop="28dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:paddingBottom="4dp">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_marginBottom="16dp"
+                tools:listitem="@layout/card_popular_dish" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Popular Dishes"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginStart="18dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Food Stalls"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
 
-                <HorizontalScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="96dp"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginBottom="0dp"
-                    android:scrollbars="none">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <!-- Repeat for each popular dish (4 columns) -->
-                        <!-- Pasta -->
-                        <LinearLayout
-                            android:layout_width="84dp"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center_horizontal"
-                            android:layout_marginEnd="2dp">
-
-                            <ImageView
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
-                                android:background="@drawable/bg_circle_white"
-                                android:scaleType="centerCrop"
-                                android:clipToOutline="true"
-                                android:src="@drawable/pd1"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Pasta"
-                                android:textColor="#FFF"
-                                android:textSize="14sp"
-                                android:textStyle="bold"
-                                android:layout_marginTop="4dp"
-                                android:gravity="center"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="$10.99"
-                                android:textColor="#FFF"
-                                android:textSize="12sp"
-                                android:gravity="center"/>
-                        </LinearLayout>
-
-                        <!-- Burger -->
-                        <LinearLayout
-                            android:layout_width="84dp"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center_horizontal"
-                            android:layout_marginEnd="2dp">
-
-                            <ImageView
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
-                                android:background="@drawable/bg_circle_white"
-                                android:scaleType="centerCrop"
-                                android:clipToOutline="true"
-                                android:src="@drawable/pd2"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Burger"
-                                android:textColor="#FFF"
-                                android:textSize="14sp"
-                                android:textStyle="bold"
-                                android:layout_marginTop="4dp"
-                                android:gravity="center"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="$8.99"
-                                android:textColor="#FFF"
-                                android:textSize="12sp"
-                                android:gravity="center"/>
-                        </LinearLayout>
-
-                        <!-- Pizza -->
-                        <LinearLayout
-                            android:layout_width="84dp"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center_horizontal"
-                            android:layout_marginEnd="2dp">
-
-                            <ImageView
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
-                                android:background="@drawable/bg_circle_white"
-                                android:scaleType="centerCrop"
-                                android:clipToOutline="true"
-                                android:src="@drawable/pd3"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Pizza"
-                                android:textColor="#FFF"
-                                android:textSize="14sp"
-                                android:textStyle="bold"
-                                android:layout_marginTop="4dp"
-                                android:gravity="center"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="$12.99"
-                                android:textColor="#FFF"
-                                android:textSize="12sp"
-                                android:gravity="center"/>
-                        </LinearLayout>
-
-                        <!-- Sushi -->
-                        <LinearLayout
-                            android:layout_width="84dp"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center_horizontal">
-
-                            <ImageView
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
-                                android:background="@drawable/bg_circle_white"
-                                android:scaleType="centerCrop"
-                                android:clipToOutline="true"
-                                android:src="@drawable/sd3"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Sushi"
-                                android:textColor="#FFF"
-                                android:textSize="14sp"
-                                android:textStyle="bold"
-                                android:layout_marginTop="4dp"
-                                android:gravity="center"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="$15.99"
-                                android:textColor="#FFF"
-                                android:textSize="12sp"
-                                android:gravity="center"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </HorizontalScrollView>
-            </LinearLayout>
-
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/stalls_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/popular_bg"
-                android:layout_marginTop="24dp"
-                android:layout_marginStart="14dp"
-                android:layout_marginEnd="14dp"
-                android:paddingBottom="18dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Food Stalls"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginLeft="18dp"
-                    android:layout_marginStart="18dp"/>
-
-                <!-- Stall Card 1: Pizza Hub -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_search"
-                    android:orientation="horizontal"
-                    android:padding="14dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
-                        android:src="@drawable/stall_sample1"
-                        android:scaleType="centerCrop"
-                        android:background="@drawable/bg_circle_white" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="16dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Pizza Hub"
-                            android:textStyle="bold"
-                            android:textColor="#222"
-                            android:textSize="16sp" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="2dp">
-
-                            <ImageView
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
-                                android:src="@android:drawable/btn_star_big_on"
-                                android:tint="#FFD600" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="4.8"
-                                android:textColor="#FFD600"
-                                android:textSize="13sp"
-                                android:layout_marginStart="4dp"/>
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Italian"
-                            android:textColor="#888"
-                            android:textSize="13sp"
-                            android:layout_marginTop="1dp" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="2dp">
-
-                            <ImageView
-                                android:layout_width="14dp"
-                                android:layout_height="14dp"
-                                android:src="@android:drawable/ic_lock_idle_alarm"
-                                android:tint="#888"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="10:00 AM - 10:00 PM"
-                                android:textColor="#888"
-                                android:textSize="13sp"
-                                android:layout_marginStart="4dp"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                    <!-- Open Dot -->
-                    <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:layout_marginStart="8dp"
-                        android:background="@drawable/bg_dot_open"/>
-                </LinearLayout>
-
-                <!-- Stall Card 2: Burger House -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_search"
-                    android:orientation="horizontal"
-                    android:padding="14dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
-                        android:src="@drawable/stall_sample2"
-                        android:scaleType="centerCrop"
-                        android:background="@drawable/bg_circle_white" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="16dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Burger House"
-                            android:textStyle="bold"
-                            android:textColor="#222"
-                            android:textSize="16sp" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="2dp">
-
-                            <ImageView
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
-                                android:src="@android:drawable/btn_star_big_on"
-                                android:tint="#FFD600"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="4.5"
-                                android:textColor="#FFD600"
-                                android:textSize="13sp"
-                                android:layout_marginStart="4dp"/>
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="American"
-                            android:textColor="#888"
-                            android:textSize="13sp"
-                            android:layout_marginTop="1dp" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="2dp">
-
-                            <ImageView
-                                android:layout_width="14dp"
-                                android:layout_height="14dp"
-                                android:src="@android:drawable/ic_lock_idle_alarm"
-                                android:tint="#888"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="11:00 AM - 9:00 PM"
-                                android:textColor="#888"
-                                android:textSize="13sp"
-                                android:layout_marginStart="4dp"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                    <!-- Open Dot -->
-                    <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:layout_marginStart="8dp"
-                        android:background="@drawable/bg_dot_open"/>
-                </LinearLayout>
-
-                <!-- Stall Card 3: Sushi Bar (Closed) -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_search"
-                    android:orientation="horizontal"
-                    android:padding="14dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="18dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
-                        android:src="@drawable/stall_sample3"
-                        android:scaleType="centerCrop"
-                        android:background="@drawable/bg_circle_white" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="16dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Sushi Bar"
-                            android:textStyle="bold"
-                            android:textColor="#222"
-                            android:textSize="16sp" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="2dp">
-
-                            <ImageView
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
-                                android:src="@android:drawable/btn_star_big_on"
-                                android:tint="#FFD600" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="4.9"
-                                android:textColor="#FFD600"
-                                android:textSize="13sp"
-                                android:layout_marginStart="4dp"/>
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Japanese"
-                            android:textColor="#888"
-                            android:textSize="13sp"
-                            android:layout_marginTop="1dp" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="2dp">
-
-                            <ImageView
-                                android:layout_width="14dp"
-                                android:layout_height="14dp"
-                                android:src="@android:drawable/ic_lock_idle_alarm"
-                                android:tint="#888"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="11:30 AM - 8:30 PM"
-                                android:textColor="#888"
-                                android:textSize="13sp"
-                                android:layout_marginStart="4dp"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                    <!-- Closed Dot -->
-                    <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:layout_marginStart="8dp"
-                        android:background="@drawable/bg_dot_closed"/>
-                </LinearLayout>
-
-            </LinearLayout>
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/card_food_stall" />
 
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
 
-    <!-- Bottom Navigation remains unchanged ... -->
-    <LinearLayout
-        android:id="@+id/bottom_nav"
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:orientation="horizontal"
-        android:background="#FFFFFF"
-        android:elevation="6dp"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:menu="@menu/bottom_nav_menu"
+        android:background="#FFFFFF"
+        app:itemIconTint="@drawable/nav_selector"
+        app:itemTextColor="@drawable/nav_selector"
+        app:labelVisibilityMode="labeled" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:src="@drawable/ic_home"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#FF6B7B"
-                android:textSize="12sp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:src="@drawable/ic_orders"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#BBBBBB"
-                android:textSize="12sp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:src="@drawable/ic_wallet"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#BBBBBB"
-                android:textSize="12sp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:src="@drawable/ic_profile"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#BBBBBB"
-                android:textSize="12sp"/>
-        </LinearLayout>
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

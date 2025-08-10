@@ -134,7 +134,7 @@
                 android:layout_height="16dp"
                 android:src="@drawable/ic_receipt"
                 android:layout_marginEnd="4dp"
-                app:tint="#FF4081" />
+                app:tint="#FF6B6B" />
 
             <TextView
                 android:id="@+id/viewReceiptTextView"
@@ -142,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:text="View Receipt"
                 android:textSize="14sp"
-                android:textColor="#FF4081" />
+                android:textColor="#FF6B6B" />
         </LinearLayout>
 
     </LinearLayout>

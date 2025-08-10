@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodstall">
         <activity
-            android:name=".Uviewmenu"
+            android:name=".UviewmenuActivity"
             android:exported="false" />
         <activity
             android:name=".SettingsActivity"
@@ -21,10 +21,10 @@
             android:name=".ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".WalletActivity"
+            android:name=".UwalletActivity"
             android:exported="false" />
         <activity
-            android:name=".Uorders"
+            android:name=".UordersActivity"
             android:exported="false" />
         <activity
             android:name=".UhomeActivity"

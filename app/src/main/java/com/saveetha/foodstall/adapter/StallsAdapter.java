@@ -1,4 +1,4 @@
-package com.saveetha.foodstall.adapter; // Make sure this matches your package name
+package com.saveetha.foodstall.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,10 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.saveetha.foodstall.R;
 import com.saveetha.foodstall.model.Stall;
-
 import java.util.List;
 
 public class StallsAdapter extends RecyclerView.Adapter<StallsAdapter.StallViewHolder> {
@@ -31,16 +29,15 @@ public class StallsAdapter extends RecyclerView.Adapter<StallsAdapter.StallViewH
     @Override
     public void onBindViewHolder(@NonNull StallViewHolder holder, int position) {
         Stall stall = stalls.get(position);
-        holder.stallName.setText(stall.name);
-        holder.stallRating.setText(stall.rating + " ★");
+        holder.stallName.setText(stall.stallName);
+        holder.stallRating.setText("★ " + stall.rating);
         holder.stallTimings.setText(stall.timings);
         holder.stallImage.setImageResource(stall.imageResId);
-        holder.stallStatus.setText("● " + stall.status);
-
-        // Set color based on status
-        if ("Open".equals(stall.status)) {
+        if (stall.isOpen) {
+            holder.stallStatus.setText("● Open");
             holder.stallStatus.setTextColor(holder.itemView.getResources().getColor(android.R.color.holo_green_dark));
         } else {
+            holder.stallStatus.setText("● Closed");
             holder.stallStatus.setTextColor(holder.itemView.getResources().getColor(android.R.color.holo_red_dark));
         }
     }

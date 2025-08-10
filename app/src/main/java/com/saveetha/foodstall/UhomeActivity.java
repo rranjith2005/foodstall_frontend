@@ -1,4 +1,4 @@
-package com.saveetha.foodstall;
+package com.saveetha.foodstall; // Replace with your package name
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import com.saveetha.foodstall.adapter.StallsAdapter;
 import com.saveetha.foodstall.model.PopularDish;
 import com.saveetha.foodstall.model.SpecialDish;
 import com.saveetha.foodstall.model.Stall;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,68 +23,48 @@ public class UhomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.uhome);
 
-        // --- Setup Today's Specials RecyclerView ---
         RecyclerView specialsRecyclerView = findViewById(R.id.specials_recycler_view);
         specialsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         SpecialsAdapter specialsAdapter = new SpecialsAdapter(getSpecialDishes());
         specialsRecyclerView.setAdapter(specialsAdapter);
 
-        // --- Setup Popular Dishes RecyclerView ---
         RecyclerView popularDishesRecyclerView = findViewById(R.id.popular_dishes_recycler_view);
         popularDishesRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         PopularDishesAdapter popularDishesAdapter = new PopularDishesAdapter(getPopularDishes());
         popularDishesRecyclerView.setAdapter(popularDishesAdapter);
 
-        // --- Setup Nearby Stalls RecyclerView ---
         RecyclerView stallsRecyclerView = findViewById(R.id.stalls_recycler_view);
         stallsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        StallsAdapter stallsAdapter = new StallsAdapter(getNearbyStalls());
+        StallsAdapter stallsAdapter = new StallsAdapter(getFoodStalls());
         stallsRecyclerView.setAdapter(stallsAdapter);
-
-        // --- Setup Bottom Navigation Bar ---
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_bar);
-        bottomNavigationView.setSelectedItemId(R.id.nav_home);
-
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            int itemId = item.getItemId();
-
-            if (itemId == R.id.nav_home) {
-                return true;
-            } else if (itemId == R.id.nav_orders) {
-                // Navigate to the orders page
-                return true;
-            } else if (itemId == R.id.nav_wallet) {
-                // Navigate to the wallet page
-                return true;
-            } else if (itemId == R.id.nav_profile) {
-                // Navigate to the profile page
-                return true;
-            }
-            return false;
-        });
     }
 
+    // Corrected getSpecialDishes() method
     private List<SpecialDish> getSpecialDishes() {
         List<SpecialDish> specials = new ArrayList<>();
-        specials.add(new SpecialDish("Briyani", "rs.90", R.drawable.sd1, "Stall A"));
-        specials.add(new SpecialDish("Mandi Briyani", "rs.50", R.drawable.sd2, "Stall B"));
-        specials.add(new SpecialDish("Chaya", "rs.100", R.drawable.sd3, "Stall C"));
+        // Make sure each item has a different image and text
+        specials.add(new SpecialDish("Margherita Pizza", "Pizza Hub", "$12.99", R.drawable.sd1));
+        specials.add(new SpecialDish("Chicken Burger", "Burger House", "$8.99", R.drawable.sd2));
+        // Add other special dishes here
         return specials;
     }
 
+    // Corrected getPopularDishes() method
     private List<PopularDish> getPopularDishes() {
         List<PopularDish> populars = new ArrayList<>();
-        populars.add(new PopularDish("pasta", "rs.120", R.drawable.pd1));
-        populars.add(new PopularDish("burger", "rs.200", R.drawable.pd2));
-        populars.add(new PopularDish("givigi", "rs.250", R.drawable.pd3));
+        // Make sure each item has a different image and text
+        populars.add(new PopularDish("Pasta", "$10.99", R.drawable.pd1));
+        populars.add(new PopularDish("Burger", "$8.99", R.drawable.pd2));
+        populars.add(new PopularDish("Pizza", "$12.99", R.drawable.pd3));
+        populars.add(new PopularDish("Sushi", "$15.99", R.drawable.sd3));
         return populars;
     }
 
-    private List<Stall> getNearbyStalls() {
+    private List<Stall> getFoodStalls() {
         List<Stall> stalls = new ArrayList<>();
-        stalls.add(new Stall("Aliyas", "4.8", "Open", "10:00 AM - 10:00 PM", R.drawable.stall_sample1));
-        stalls.add(new Stall("Shortie", "4.5", "Close", "11:00 AM - 9:00 PM", R.drawable.stall_sample2));
-        stalls.add(new Stall("Sivan Unavagam", "4.9", "Open", "8:30 AM - 8:30 PM", R.drawable.stall_sample3));
+        stalls.add(new Stall("Pizza Hub", "4.8", "10:00 AM - 10:00 PM", true, R.drawable.stall_sample1));
+        stalls.add(new Stall("Burger House", "4.5", "11:00 AM - 9:00 PM", true, R.drawable.stall_sample2));
+        stalls.add(new Stall("Sushi Bar", "4.9", "11:30 AM - 8:30 PM", false, R.drawable.stall_sample3));
         return stalls;
     }
 }

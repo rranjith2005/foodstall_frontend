@@ -1,4 +1,4 @@
-package com.saveetha.foodstall;
+package com.saveetha.foodstall; // Use your package name
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import com.saveetha.foodstall.model.Review;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Uviewmenu extends AppCompatActivity {
+public class UviewmenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +48,8 @@ public class Uviewmenu extends AppCompatActivity {
 
     private List<Review> getReviews() {
         List<Review> reviews = new ArrayList<>();
-        reviews.add(new Review("Sai.G.J", "Best pizza on campus! The cheese burst is amazing.", "2 days ago", "4.8", R.drawable.sai));
-        reviews.add(new Review("Nithi", "Great food and quick service. Love the garlic bread!", "1 week ago", "4.5", R.drawable.nithi));
+        reviews.add(new Review("Sarah M.", "Best pizza on campus! The cheese burst is amazing.", "2 days ago", "4.8", R.drawable.sai));
+        reviews.add(new Review("John D.", "Great food and quick service. Love the garlic bread!", "1 week ago", "4.5", R.drawable.nithi));
         return reviews;
     }
 }

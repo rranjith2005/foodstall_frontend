@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8F8F8"
-    tools:context=".Uorders">
+    tools:context=".UordersActivity">
 
     <View
         android:id="@+id/topBarBackground"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
-        android:background="#FF4081"
+        android:background="#FF6B6B"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -27,94 +27,23 @@
         app:layout_constraintTop_toTopOf="@+id/topBarBackground"
         app:layout_constraintBottom_toBottomOf="@+id/topBarBackground"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/searchButton"
         android:layout_marginStart="16dp" />
 
     <ImageView
         android:id="@+id/searchButton"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/ic_search_white"
+        android:src="@drawable/ic_search"
         app:layout_constraintTop_toTopOf="@+id/topBarBackground"
         app:layout_constraintBottom_toBottomOf="@+id/topBarBackground"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="16dp" />
 
-    <HorizontalScrollView
-        android:id="@+id/filterScrollView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:scrollbars="none"
-        android:padding="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/topBarBackground"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/allOrdersButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="All Orders"
-                android:textSize="12sp"
-                android:textColor="#FFFFFF"
-                android:background="@drawable/button_active"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp" />
-
-            <Button
-                android:id="@+id/byStallButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="By Stall"
-                android:textSize="12sp"
-                android:textColor="#666666"
-                android:background="@drawable/button_inactive"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp" />
-
-            <Button
-                android:id="@+id/byDateButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="By Date"
-                android:textSize="12sp"
-                android:textColor="#666666"
-                android:background="@drawable/button_inactive"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp" />
-
-            <Button
-                android:id="@+id/byStatusButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="By Status"
-                android:textSize="12sp"
-                android:textColor="#666666"
-                android:background="@drawable/button_inactive"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp" />
-
-        </LinearLayout>
-    </HorizontalScrollView>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ordersRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/filterScrollView"
+        app:layout_constraintTop_toBottomOf="@+id/topBarBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
@@ -147,16 +76,16 @@
                 android:padding="8dp">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_home_inactive" />
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:src="@drawable/ic_home" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Home"
                     android:textSize="12sp"
-                    android:textColor="#FF4081" />
+                    android:textColor="#4B5563" />
             </LinearLayout>
 
             <LinearLayout
@@ -168,16 +97,16 @@
                 android:padding="8dp">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_orders_inactive" />
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:src="@drawable/ic_orders_active" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Orders"
                     android:textSize="12sp"
-                    android:textColor="#666666" />
+                    android:textColor="#FF6B6B" />
             </LinearLayout>
 
             <LinearLayout
@@ -189,8 +118,8 @@
                 android:padding="8dp">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
                     android:src="@drawable/ic_wallet" />
 
                 <TextView
@@ -198,7 +127,7 @@
                     android:layout_height="wrap_content"
                     android:text="Wallet"
                     android:textSize="12sp"
-                    android:textColor="#666666" />
+                    android:textColor="#4B5563" />
             </LinearLayout>
 
             <LinearLayout
@@ -210,8 +139,8 @@
                 android:padding="8dp">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
                     android:src="@drawable/ic_profile" />
 
                 <TextView
@@ -219,7 +148,7 @@
                     android:layout_height="wrap_content"
                     android:text="Profile"
                     android:textSize="12sp"
-                    android:textColor="#666666" />
+                    android:textColor="#4B5563" />
             </LinearLayout>
 
         </LinearLayout>
