@@ -12,9 +12,9 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/sd2"
+        android:src="@drawable/sd3"
         android:layout_marginEnd="8dp"
-        tools:src="@drawable/sd2" />
+        tools:src="@drawable/sd3" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -26,10 +26,10 @@
             android:id="@+id/loved_by_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mandi Briyani"
+            android:text="Margherita Pizza"
             android:textSize="16sp"
             android:textStyle="bold"
-            tools:text="Mandi Briyani" />
+            tools:text="Margherita Pizza" />
 
         <TextView
             android:id="@+id/loved_by_item_rating"
@@ -44,17 +44,17 @@
             android:id="@+id/loved_by_item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rs.90"
+            android:text="$10.99"
             android:textSize="14sp"
-            android:textColor="#FF6347"
-            tools:text="$Rs.90" />
+            android:textColor="#FF6B6B"
+            tools:text="$10.99" />
     </LinearLayout>
 
     <Button
         android:id="@+id/loved_by_item_add_button"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
-        android:backgroundTint="#FF6347"
+        android:backgroundTint="#FF6B6B"
         android:text="Add"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"

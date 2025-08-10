@@ -24,7 +24,7 @@
             android:name=".WalletActivity"
             android:exported="false" />
         <activity
-            android:name=".OrdersActivity"
+            android:name=".Uorders"
             android:exported="false" />
         <activity
             android:name=".UhomeActivity"

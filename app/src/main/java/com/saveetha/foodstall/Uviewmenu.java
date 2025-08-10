@@ -1,4 +1,4 @@
-package com.saveetha.foodstall; // Use your package name
+package com.saveetha.foodstall;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -6,10 +6,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.widget.TextView;
-import com.saveetha.foodstall.model.MenuItem;
-import com.saveetha.foodstall.adapter.CategoryAdapter;
 import com.saveetha.foodstall.adapter.MenuItemAdapter;
 import com.saveetha.foodstall.adapter.ReviewAdapter;
+import com.saveetha.foodstall.model.MenuItem;
 import com.saveetha.foodstall.model.Review;
 
 import java.util.ArrayList;
@@ -22,16 +21,8 @@ public class Uviewmenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.uviewmenu);
 
-        // This is how you would dynamically set the shop name title
         TextView shopNameTitle = findViewById(R.id.shop_name_title);
-        // You would get the name from an Intent or a data source
         shopNameTitle.setText("Aliyas");
-
-        // Setup Category Tabs RecyclerView
-        RecyclerView categoriesRecyclerView = findViewById(R.id.categories_recycler_view);
-        categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        CategoryAdapter categoryAdapter = new CategoryAdapter(getCategories());
-        categoriesRecyclerView.setAdapter(categoryAdapter);
 
         // Setup Menu Grid RecyclerView
         RecyclerView menuRecyclerView = findViewById(R.id.menu_recycler_view);
@@ -46,17 +37,6 @@ public class Uviewmenu extends AppCompatActivity {
         reviewsRecyclerView.setAdapter(reviewAdapter);
     }
 
-    // Dummy data generation methods
-    private List<String> getCategories() {
-        List<String> categories = new ArrayList<>();
-        categories.add("All");
-        categories.add("Pizza");
-        categories.add("Sides");
-        categories.add("Drinks");
-        categories.add("Desserts");
-        return categories;
-    }
-
     private List<MenuItem> getMenuItems() {
         List<MenuItem> items = new ArrayList<>();
         items.add(new MenuItem("Garlic Bread", "$4.99", R.drawable.sd1));
@@ -68,8 +48,8 @@ public class Uviewmenu extends AppCompatActivity {
 
     private List<Review> getReviews() {
         List<Review> reviews = new ArrayList<>();
-        reviews.add(new Review("Sarah M.", "Best briyani on campus! The piece  is amazing.", "2 days ago", "4.8", R.drawable.sai));
-        reviews.add(new Review("John D.", "Great food and quick service. Love the garlic bread!", "1 week ago", "4.5", R.drawable.nithi));
+        reviews.add(new Review("Sai.G.J", "Best pizza on campus! The cheese burst is amazing.", "2 days ago", "4.8", R.drawable.sai));
+        reviews.add(new Review("Nithi", "Great food and quick service. Love the garlic bread!", "1 week ago", "4.5", R.drawable.nithi));
         return reviews;
     }
 }

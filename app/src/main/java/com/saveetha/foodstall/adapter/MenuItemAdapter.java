@@ -22,7 +22,6 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
     @NonNull
     @Override
     public MenuItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // You need to create this layout file: res/layout/card_menu_item.xml
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_menu_item, parent, false);
         return new MenuItemViewHolder(view);
     }

@@ -20,7 +20,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // You need to create this layout file: res/layout/card_category_item.xml
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_category_item, parent, false);
         return new CategoryViewHolder(view);
     }

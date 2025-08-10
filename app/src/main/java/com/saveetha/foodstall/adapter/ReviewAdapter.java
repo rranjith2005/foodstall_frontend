@@ -23,7 +23,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     @NonNull
     @Override
     public ReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // You need to create this layout file: res/layout/card_review_item.xml
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_review_item, parent, false);
         return new ReviewViewHolder(view);
     }
