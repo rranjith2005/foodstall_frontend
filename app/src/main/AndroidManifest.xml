@@ -12,13 +12,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodstall">
         <activity
+            android:name=".UreviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Upayment_methodActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Uconfirm_orderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UeditprofileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UeditprofileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UsettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UsettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".UviewmenuActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SettingsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ProfileActivity"
             android:exported="false" />
         <activity
             android:name=".UwalletActivity"
