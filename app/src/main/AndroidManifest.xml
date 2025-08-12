@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodstall">
         <activity
+            android:name=".Uadd_money"
+            android:exported="false" />
+        <activity
             android:name=".UreviewActivity"
             android:exported="false" />
         <activity

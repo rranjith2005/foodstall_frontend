@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F8F8"
+    tools:context=".Uadd_moneyActivity">
+
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_back_arrow" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Add Money to Wallet"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#222222" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="₹ Enter Amount"
+                android:textColor="#222222"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/amountEditText"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/rounded_background_white"
+                android:hint="Enter Amount"
+                android:inputType="numberDecimal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColorHint="#999999"
+                android:textSize="24sp"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Select Payment Method"
+                android:textColor="#222222"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <LinearLayout
+                android:id="@+id/debitCardLayout"
+                style="@style/PaymentMethodRowStyle">
+                <ImageView style="@style/PaymentIconStyle" android:src="@drawable/ic_credit_card" />
+                <TextView style="@style/PaymentMethodTextStyle" android:text="Debit/Credit Card" />
+                <RadioButton style="@style/PaymentMethodRadioButtonStyle" android:id="@+id/debitCardRadioButton" />
+            </LinearLayout>
+
+            <View style="@style/DividerStyle" />
+
+            <LinearLayout
+                android:id="@+id/upiLayout"
+                style="@style/PaymentMethodRowStyle">
+                <ImageView style="@style/PaymentIconStyle" android:src="@drawable/ic_gpay" />
+                <TextView style="@style/PaymentMethodTextStyle" android:text="UPI / Google Pay" />
+                <RadioButton style="@style/PaymentMethodRadioButtonStyle" android:id="@+id/upiRadioButton" />
+            </LinearLayout>
+
+            <View style="@style/DividerStyle" />
+
+            <LinearLayout
+                android:id="@+id/netBankingLayout"
+                style="@style/PaymentMethodRowStyle">
+                <ImageView style="@style/PaymentIconStyle" android:src="@drawable/ic_bank" />
+                <TextView style="@style/PaymentMethodTextStyle" android:text="Net Banking" />
+                <RadioButton style="@style/PaymentMethodRadioButtonStyle" android:id="@+id/netBankingRadioButton" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
+
+            <Button
+                android:id="@+id/addMoneyPayButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:backgroundTint="#FF6B6B"
+                android:text="Add Money or Pay"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:cornerRadius="12dp"
+                android:layout_marginBottom="16dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_lock"
+                    android:layout_marginEnd="4dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your payment is secure with 128-bit encryption"
+                    android:textColor="#999999"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

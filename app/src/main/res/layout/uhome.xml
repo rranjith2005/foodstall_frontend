@@ -36,7 +36,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hi, Alex"
+                        android:text="Hi, User"
                         android:textColor="#FFFFFF"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -79,8 +79,8 @@
                     android:layout_height="wrap_content"
                     android:text="Open Now"
                     android:textAllCaps="false"
-                    android:background="@drawable/button_selected_background"
-                    android:textColor="#FFFFFF"
+                    android:background="@drawable/button_selector"
+                    android:textColor="@color/button_text_color_selector"
                     android:layout_marginEnd="8dp" />
 
                 <Button
@@ -92,13 +92,7 @@
                     android:textColor="#333333"
                     android:layout_marginEnd="8dp" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Western"
-                    android:textAllCaps="false"
-                    android:background="@drawable/button_unselected_background"
-                    android:textColor="#333333" />
+
             </LinearLayout>
 
             <TextView
