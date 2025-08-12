@@ -12,6 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodstall">
         <activity
+            android:name=".Ufrequent_questionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UhelpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Uprivacy_policyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UnotificationsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Ulocation_preferenceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Upayment_addedActivity"
+            android:exported="false" />
+        <activity
             android:name=".Uadd_money"
             android:exported="false" />
         <activity

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFE5E5"
+    tools:context=".Ulocation_preferenceActivity">
+
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_back_arrow_pink" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Choose Your Location"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#222222" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="To show nearby food stalls, we need your\nlocation preferences."
+                android:textColor="#666666"
+                android:textSize="18sp"
+                android:layout_marginBottom="16dp" />
+
+            <RadioGroup
+                android:id="@+id/locationRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/autoDetectCard"
+                    style="@style/LocationPreferenceCardStyle">
+                    <LinearLayout style="@style/LocationPreferenceRowStyle">
+                        <ImageView style="@style/LocationIconStyle" android:src="@drawable/ic_location_pin" />
+                        <LinearLayout style="@style/LocationTextStyle">
+                            <TextView style="@style/LocationTitleStyle" android:text="Auto Detect Location" />
+                            <TextView style="@style/LocationSubtitleStyle" android:text="Use device GPS to auto-detect current location" />
+                        </LinearLayout>
+                        <RadioButton style="@style/LocationRadioButtonStyle" android:id="@+id/autoDetectRadioButton" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/enterManuallyCard"
+                    style="@style/LocationPreferenceCardStyle">
+                    <LinearLayout style="@style/LocationPreferenceRowStyle">
+                        <ImageView style="@style/LocationIconStyle" android:src="@drawable/ic_grid" />
+                        <LinearLayout style="@style/LocationTextStyle">
+                            <TextView style="@style/LocationTitleStyle" android:text="Enter Manually" />
+                            <EditText
+                                android:id="@+id/manualLocationEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Enter your area, street or..."
+                                android:textSize="14sp"
+                                android:background="@android:color/transparent"
+                                android:layout_marginTop="4dp" />
+                        </LinearLayout>
+                        <RadioButton style="@style/LocationRadioButtonStyle" android:id="@+id/manualRadioButton" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/mapPickerCard"
+                    style="@style/LocationPreferenceCardStyle">
+                    <LinearLayout style="@style/LocationPreferenceRowStyle">
+                        <ImageView style="@style/LocationIconStyle" android:src="@drawable/ic_map" />
+                        <LinearLayout style="@style/LocationTextStyle">
+                            <TextView style="@style/LocationTitleStyle" android:text="Use Map Picker" />
+                            <Button
+                                android:id="@+id/selectOnMapButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="Select on Map"
+                                android:textAllCaps="false"
+                                android:textColor="#FF6B6B"
+                                android:backgroundTint="@android:color/transparent"
+                                app:cornerRadius="12dp"
+                                app:strokeColor="#FF6B6B"
+                                app:strokeWidth="1dp" />
+                        </LinearLayout>
+                        <RadioButton style="@style/LocationRadioButtonStyle" android:id="@+id/mapRadioButton" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </RadioGroup>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="48dp" />
+
+            <Button
+                android:id="@+id/savePreferencesButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:backgroundTint="#FF6B6B"
+                android:text="Save Preferences"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:cornerRadius="12dp" />
+
+            <TextView
+                android:id="@+id/skipForNowTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:text="Skip for Now"
+                android:textColor="#666666"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

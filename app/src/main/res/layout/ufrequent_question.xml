@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".Ufrequent_questionActivity">
+
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#FF6B6B"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_back_arrow_white" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Frequently Asked Questions"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                style="@style/FaqQuestionStyle"
+                android:text="How do I find nearby food stalls?" />
+            <TextView
+                style="@style/FaqAnswerStyle"
+                android:text="Allow location access to see nearby food stalls based on your area." />
+
+            <View style="@style/FaqDividerStyle" />
+
+            <TextView
+                style="@style/FaqQuestionStyle"
+                android:text="How do I place a pre-parcel order?" />
+            <TextView
+                style="@style/FaqAnswerStyle"
+                android:text="Select a stall with pre-parcel enabled, choose your items, and proceed to checkout." />
+
+            <View style="@style/FaqDividerStyle" />
+
+            <TextView
+                style="@style/FaqQuestionStyle"
+                android:text="How can I edit my stall details?" />
+            <TextView
+                style="@style/FaqAnswerStyle"
+                android:text="Go to Edit Profile in the owner dashboard to update your information." />
+
+            <View style="@style/FaqDividerStyle" />
+
+            <TextView
+                style="@style/FaqQuestionStyle"
+                android:text="What does open or closed status mean?" />
+            <TextView
+                style="@style/FaqAnswerStyle"
+                android:text="This shows if a stall is currently serving, updated in real time by the owner." />
+
+            <View style="@style/FaqDividerStyle" />
+
+            <TextView
+                style="@style/FaqQuestionStyle"
+                android:text="How long does admin approval take?" />
+            <TextView
+                style="@style/FaqAnswerStyle"
+                android:text="Approval typically takes 24 to 48 hours. You'll receive a notification once done." />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

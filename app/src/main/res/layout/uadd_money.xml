@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F8F8"
+    android:background="#FFE5E5"
     tools:context=".Uadd_moneyActivity">
 
     <LinearLayout
@@ -23,7 +23,7 @@
             android:id="@+id/backButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_back_arrow" />
+            android:src="@drawable/ic_back_arrow_pink" />
 
         <TextView
             android:layout_width="0dp"
@@ -33,7 +33,7 @@
             android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#222222" />
+            android:textColor="#000000" />
     </LinearLayout>
 
     <ScrollView
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="₹ Enter Amount"
-                android:textColor="#222222"
+                android:textColor="#FF6B6B"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp" />
@@ -77,38 +77,45 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Select Payment Method"
-                android:textColor="#222222"
+                android:textColor="#FF6B6B"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp" />
 
-            <LinearLayout
-                android:id="@+id/debitCardLayout"
-                style="@style/PaymentMethodRowStyle">
-                <ImageView style="@style/PaymentIconStyle" android:src="@drawable/ic_credit_card" />
-                <TextView style="@style/PaymentMethodTextStyle" android:text="Debit/Credit Card" />
-                <RadioButton style="@style/PaymentMethodRadioButtonStyle" android:id="@+id/debitCardRadioButton" />
-            </LinearLayout>
+            <RadioGroup
+                android:id="@+id/paymentRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <View style="@style/DividerStyle" />
+                <LinearLayout
+                    android:id="@+id/debitCardLayout"
+                    style="@style/PaymentMethodRowStyle">
+                    <ImageView style="@style/PaymentIconStyle" android:src="@drawable/ic_credit_card" />
+                    <TextView style="@style/PaymentMethodTextStyle" android:text="Debit/Credit Card" />
+                    <RadioButton style="@style/PaymentMethodRadioButtonStyle" android:id="@+id/debitCardRadioButton" />
+                </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/upiLayout"
-                style="@style/PaymentMethodRowStyle">
-                <ImageView style="@style/PaymentIconStyle" android:src="@drawable/ic_gpay" />
-                <TextView style="@style/PaymentMethodTextStyle" android:text="UPI / Google Pay" />
-                <RadioButton style="@style/PaymentMethodRadioButtonStyle" android:id="@+id/upiRadioButton" />
-            </LinearLayout>
+                <View style="@style/DividerStyle" />
 
-            <View style="@style/DividerStyle" />
+                <LinearLayout
+                    android:id="@+id/upiLayout"
+                    style="@style/PaymentMethodRowStyle">
+                    <ImageView style="@style/PaymentIconStyle" android:src="@drawable/ic_gpay" />
+                    <TextView style="@style/PaymentMethodTextStyle" android:text="UPI / Google Pay" />
+                    <RadioButton style="@style/PaymentMethodRadioButtonStyle" android:id="@+id/upiRadioButton" />
+                </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/netBankingLayout"
-                style="@style/PaymentMethodRowStyle">
-                <ImageView style="@style/PaymentIconStyle" android:src="@drawable/ic_bank" />
-                <TextView style="@style/PaymentMethodTextStyle" android:text="Net Banking" />
-                <RadioButton style="@style/PaymentMethodRadioButtonStyle" android:id="@+id/netBankingRadioButton" />
-            </LinearLayout>
+                <View style="@style/DividerStyle" />
+
+                <LinearLayout
+                    android:id="@+id/netBankingLayout"
+                    style="@style/PaymentMethodRowStyle">
+                    <ImageView style="@style/PaymentIconStyle" android:src="@drawable/ic_bank" />
+                    <TextView style="@style/PaymentMethodTextStyle" android:text="Net Banking" />
+                    <RadioButton style="@style/PaymentMethodRadioButtonStyle" android:id="@+id/netBankingRadioButton" />
+                </LinearLayout>
+
+            </RadioGroup>
 
             <View
                 android:layout_width="match_parent"
@@ -136,7 +143,7 @@
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:src="@drawable/ic_lock"
-                    android:layout_marginEnd="4dp" />
+                    android:layout_marginEnd="9dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
