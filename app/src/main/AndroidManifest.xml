@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodstall">
         <activity
+            android:name=".AhomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".Ufrequent_questionActivity"
             android:exported="false" />
         <activity
