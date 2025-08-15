@@ -15,12 +15,11 @@
 
         <ImageView
             android:id="@+id/metricIcon"
-            android:layout_width="48dp"
+            android:layout_width="45dp"
             android:layout_height="48dp"
             android:padding="10dp"
-            tools:src="@drawable/ic_stall_count"
-             />
-
+            android:src="@drawable/ic_stall_count"
+            tools:src="@drawable/ic_stall_count" />
         <TextView
             android:id="@+id/metricCount"
             android:layout_width="wrap_content"

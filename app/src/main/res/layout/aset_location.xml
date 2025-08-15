@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_pink_background"
+    tools:context=".Aset_locationActivity">
+
+    <!-- Top Bar -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_back_arrow" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Set Stall Location"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#222222" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Owner ID Field -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Owner ID"
+                android:textColor="#222222"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/ownerIdEditText"
+                style="@style/FormEditTextStyle"
+                android:layout_marginTop="4dp"
+                android:hint="Enter owner ID (e.g., S36500654)" />
+
+            <!-- Stall Name Field -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="Stall Name"
+                android:textColor="#222222"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/stallNameEditText"
+                style="@style/FormEditTextStyle"
+                android:layout_marginTop="4dp"
+                android:hint="Enter stall name (e.g., Campus Cafe)" />
+
+            <!-- Latitude Field -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="Latitude"
+                android:textColor="#222222"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/latitudeEditText"
+                style="@style/FormEditTextStyle"
+                android:layout_marginTop="4dp"
+                android:hint="Enter latitude (e.g., 12.9716)"
+                android:inputType="numberDecimal" />
+
+            <!-- Longitude Field -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="Longitude"
+                android:textColor="#222222"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/longitudeEditText"
+                style="@style/FormEditTextStyle"
+                android:layout_marginTop="4dp"
+                android:hint="Enter longitude (e.g., 77.5946)"
+                android:inputType="numberDecimal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="48dp" />
+
+            <!-- Set Location Button -->
+            <Button
+                android:id="@+id/setLocationButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="#FF6B6B"
+                android:text="Set Location"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:cornerRadius="12dp" />
+
+            <!-- Success Message Bar -->
+            <LinearLayout
+                android:id="@+id/successMessageLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/success_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_tick"
+                    app:tint="@android:color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location set successfully."
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

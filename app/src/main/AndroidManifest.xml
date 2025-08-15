@@ -12,6 +12,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodstall">
         <activity
+            android:name=".Apending_stallsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Arejected_stallsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Aapproved_stallsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Aall_stallsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AnotificationsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Aview_reportsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Aset_locationActivity"
+            android:exported="false" />
+        <activity
             android:name=".AhomeActivity"
             android:exported="false" />
         <activity
