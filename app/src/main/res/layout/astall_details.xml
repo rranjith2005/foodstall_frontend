@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFE5E5"
+    tools:context=".Astall_detailsActivity">
+
+    <!-- Top Bar -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#FF6B6B"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_back_arrow_white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Stall Details"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/stallDetailImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/stall_sample3"
+                        android:contentDescription="Stall Image" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/stallName"
+                            style="@style/DetailTitleStyle"
+                            android:text="Stall Name" />
+                        <TextView
+                            android:id="@+id/stallNameValue"
+                            style="@style/DetailValueStyle"
+                            android:text="Street Food Corner" />
+
+                        <View style="@style/DividerStyle1" android:layout_marginTop="16dp" android:layout_marginBottom="16dp" />
+
+                        <TextView
+                            android:id="@+id/ownerName"
+                            style="@style/DetailTitleStyle"
+                            android:text="Owner Name" />
+                        <TextView
+                            android:id="@+id/ownerNameValue"
+                            style="@style/DetailValueStyle"
+                            android:text="John Smith" />
+
+                        <View style="@style/DividerStyle" android:layout_marginTop="16dp" android:layout_marginBottom="16dp" />
+
+                        <TextView
+                            android:id="@+id/fssaiNumber"
+                            style="@style/DetailTitleStyle"
+                            android:text="FSSAI Number" />
+                        <TextView
+                            android:id="@+id/fssaiNumberValue"
+                            style="@style/DetailValueStyle"
+                            android:text="12345678901234" />
+
+                        <View style="@style/DividerStyle" android:layout_marginTop="16dp" android:layout_marginBottom="16dp" />
+
+                        <TextView
+                            android:id="@+id/phoneNumber"
+                            style="@style/DetailTitleStyle"
+                            android:text="Phone Number" />
+                        <TextView
+                            android:id="@+id/phoneNumberValue"
+                            style="@style/DetailValueStyle"
+                            android:text="+1 234-567-8900" />
+
+                        <View style="@style/DividerStyle" android:layout_marginTop="16dp" android:layout_marginBottom="16dp" />
+
+                        <TextView
+                            android:id="@+id/address"
+                            style="@style/DetailTitleStyle"
+                            android:text="Address" />
+                        <TextView
+                            android:id="@+id/addressValue"
+                            style="@style/DetailValueStyle"
+                            android:text="Block A, University Campus, Street Name, City, State, ZIP" />
+
+                        <View style="@style/DividerStyle" android:layout_marginTop="16dp" android:layout_marginBottom="16dp" />
+
+                        <TextView
+                            android:id="@+id/dateRequested"
+                            style="@style/DetailTitleStyle"
+                            android:text="Date Requested" />
+                        <TextView
+                            android:id="@+id/dateRequestedValue"
+                            style="@style/DetailValueStyle"
+                            android:text="Oct 15, 2023" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+                <Button
+                    android:id="@+id/approveButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:text="✓ Approve"
+                    android:backgroundTint="#4CAF50"
+                    android:textColor="@android:color/white"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    app:cornerRadius="12dp" />
+
+                <Button
+                    android:id="@+id/rejectButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="✕ Reject"
+                    android:backgroundTint="#F44336"
+                    android:textColor="@android:color/white"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    app:cornerRadius="12dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

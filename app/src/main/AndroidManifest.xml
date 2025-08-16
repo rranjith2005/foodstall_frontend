@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodstall">
         <activity
+            android:name=".AreasonActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Astall_detailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Anew_stallActivity"
+            android:exported="false" />
+        <activity
             android:name=".Apending_stallsActivity"
             android:exported="false" />
         <activity
