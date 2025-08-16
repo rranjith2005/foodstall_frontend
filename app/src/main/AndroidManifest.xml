@@ -12,6 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodstall">
         <activity
+            android:name=".AprofileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AureviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AoreviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AapprovalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ArejectionActivity"
+            android:exported="false" />
+        <activity
             android:name=".AreasonActivity"
             android:exported="false" />
         <activity
