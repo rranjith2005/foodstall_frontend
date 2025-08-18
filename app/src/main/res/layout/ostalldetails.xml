@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F8F8"
+    tools:context=".OstalldetailsActivity">
+
+    <!-- Top Bar -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#FF6B6B"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Submit Stall Details"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Stall Name -->
+            <TextView
+                style="@style/FormLabelStyle1"
+                android:text="Stall Name" />
+            <EditText
+                android:id="@+id/stallNameEditText"
+                style="@style/FormInputStyle"
+                android:hint="Enter your Stall Name" />
+
+            <!-- Owner Name -->
+            <TextView
+                style="@style/FormLabelStyle1"
+                android:text="Owner Name" />
+            <EditText
+                android:id="@+id/ownerNameEditText"
+                style="@style/FormInputStyle"
+                android:hint="Enter Owner Name" />
+
+            <!-- Phone Number -->
+            <TextView
+                style="@style/FormLabelStyle1"
+                android:text="Phone Number" />
+            <EditText
+                android:id="@+id/phoneNumberEditText"
+                style="@style/FormInputStyle"
+                android:hint="Enter Phone Number"
+                android:inputType="phone" />
+
+            <!-- Email Address -->
+            <TextView
+                style="@style/FormLabelStyle1"
+                android:text="Email Address" />
+            <EditText
+                android:id="@+id/emailEditText"
+                style="@style/FormInputStyle"
+                android:hint="Enter Email Address"
+                android:inputType="textEmailAddress" />
+
+            <!-- Full Address -->
+            <TextView
+                style="@style/FormLabelStyle1"
+                android:text="Full Address" />
+            <EditText
+                android:id="@+id/addressEditText"
+                style="@style/FormInputStyle"
+                android:lines="4"
+                android:gravity="top|start"
+                android:hint="Enter Full Address" />
+
+            <!-- FSSAI Number -->
+            <TextView
+                style="@style/FormLabelStyle1"
+                android:text="FSSAI Number" />
+            <EditText
+                android:id="@+id/fssaiNumberEditText"
+                style="@style/FormInputStyle"
+                android:hint="Enter 14-digit FSSAI Number"
+                android:inputType="number"
+                android:maxLength="14" />
+
+            <!-- Buttons Layout -->
+            <Button
+                android:id="@+id/submitButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="32dp"
+                android:backgroundTint="#FF6B6B"
+                android:text="Submit for Approval"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                app:cornerRadius="12dp" />
+
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#CCCCCC"
+                android:text="Cancel"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:cornerRadius="12dp" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
