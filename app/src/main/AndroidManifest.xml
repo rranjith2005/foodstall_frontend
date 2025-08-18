@@ -12,6 +12,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodstall">
         <activity
+            android:name=".Opending_ordersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OrevenueActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Oview_receiptActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Oapproved_ordersActivity"
+            android:exported="false" />
+        <activity
             android:name=".OhomeActivity"
             android:exported="false" />
         <activity
