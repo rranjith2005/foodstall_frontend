@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFE5E5"
+    tools:context=".OmenuActivity">
+
+    <!-- Top Bar -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#FF6B6B"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Menu Management"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Shop ID and Working Status -->
+            <TextView
+                style="@style/FormLabelStyle"
+                android:text="Shop ID"
+                android:layout_marginTop="0dp" />
+            <EditText
+                android:id="@+id/shopIdEditText"
+                style="@style/FormInputStyle"
+                android:hint="Enter shop ID" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Working Today?"
+                    style="@style/FormLabelStyle"
+                    android:layout_marginTop="0dp" />
+                <Switch
+                    android:id="@+id/workingTodaySwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View style="@style/DividerStyle" android:layout_marginTop="16dp" android:layout_marginBottom="16dp" />
+
+            <!-- Today's Special Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Today's Special"
+                style="@style/FormLabelStyle"
+                android:layout_marginTop="0dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical">
+                <EditText
+                    android:id="@+id/specialDishName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    style="@style/FormInputStyle"
+                    android:hint="Dish Name" />
+                <EditText
+                    android:id="@+id/specialDishPrice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    style="@style/FormInputStyle"
+                    android:hint="Price"
+                    android:inputType="numberDecimal" />
+                <EditText
+                    android:id="@+id/specialDishQuantity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    style="@style/FormInputStyle"
+                    android:hint="Quantity"
+                    android:inputType="number" />
+            </LinearLayout>
+
+            <View style="@style/DividerStyle" android:layout_marginTop="16dp" android:layout_marginBottom="16dp" />
+
+            <!-- Regular Menu Items Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Regular Menu Items"
+                style="@style/FormLabelStyle"
+                android:layout_marginTop="0dp" />
+
+            <LinearLayout
+                android:id="@+id/regularItemsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="8dp">
+
+                <include layout="@layout/card_menu_item_editable" android:id="@+id/menuItem1" />
+                <include layout="@layout/card_menu_item_editable" android:id="@+id/menuItem2" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/addMenuItemButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="+ Add Item"
+                android:textAllCaps="false"
+                android:backgroundTint="#FF6B6B"
+                app:cornerRadius="12dp"
+                android:textColor="@android:color/white" />
+
+            <View style="@style/DividerStyle" android:layout_marginTop="16dp" android:layout_marginBottom="16dp" />
+
+            <!-- Combo Deals Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Combo Deals"
+                style="@style/FormLabelStyle"
+                android:layout_marginTop="0dp" />
+
+            <LinearLayout
+                android:id="@+id/comboDealsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="8dp">
+
+                <include layout="@layout/card_combo_deal_editable" android:id="@+id/combo1" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/addComboButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="+ Add Combo"
+                android:textAllCaps="false"
+                android:backgroundTint="#FF6B6B"
+                app:cornerRadius="12dp"
+                android:textColor="@android:color/white" />
+
+            <View style="@style/DividerStyle" android:layout_marginTop="16dp" android:layout_marginBottom="16dp" />
+
+            <!-- Operating Hours Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Operating Hours"
+                style="@style/FormLabelStyle"
+                android:layout_marginTop="0dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Opening Time"
+                        android:textColor="#666666"
+                        android:textSize="14sp" />
+                    <EditText
+                        android:id="@+id/openingTimeEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        style="@style/FormInputStyle"
+                        android:hint="Opening Time" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Closing Time"
+                        android:textColor="#666666"
+                        android:textSize="14sp" />
+                    <EditText
+                        android:id="@+id/closingTimeEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        style="@style/FormInputStyle"
+                        android:hint="Closing Time" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- New: Break Hours Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Break Hours"
+                style="@style/FormLabelStyle"
+                android:layout_marginStart="0dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Break Start"
+                        android:textColor="#666666"
+                        android:textSize="14sp" />
+                    <EditText
+                        android:id="@+id/breakStartEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        style="@style/FormInputStyle"
+                        android:hint="Break Start" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Break End"
+                        android:textColor="#666666"
+                        android:textSize="14sp" />
+                    <EditText
+                        android:id="@+id/breakEndEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        style="@style/FormInputStyle"
+                        android:hint="Break End" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="48dp" />
+
+            <!-- Update Menu Button -->
+            <Button
+                android:id="@+id/updateMenuButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Update Menu"
+                android:backgroundTint="#FF6B6B"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                app:cornerRadius="12dp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom Navigation Bar -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_nav_owner_menu"
+        app:itemIconTint="@drawable/nav_selector"
+        app:itemTextColor="@drawable/nav_selector"
+        app:labelVisibilityMode="labeled"
+        tools:checkedId="@id/nav_owner_menu" />
+</androidx.constraintlayout.widget.ConstraintLayout>

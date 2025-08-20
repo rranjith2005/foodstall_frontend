@@ -13,10 +13,20 @@ import java.util.List;
 
 public class StallsAdapter extends RecyclerView.Adapter<StallsAdapter.StallViewHolder> {
 
-    private final List<Stall> stalls;
+    private List<Stall> stalls;
 
     public StallsAdapter(List<Stall> stalls) {
         this.stalls = stalls;
+    }
+
+    // This is the new method you need to add to resolve the error
+    public List<Stall> getStalls() {
+        return stalls;
+    }
+
+    public void updateList(List<Stall> newStalls) {
+        this.stalls = newStalls;
+        notifyDataSetChanged();
     }
 
     @NonNull

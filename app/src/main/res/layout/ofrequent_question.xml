@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFE5E5"
+    tools:context=".Ofrequent_questionActivity">
+
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#FF6B6B"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_back_arrow_white" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text=" Frequently Asked Question"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- FAQ Item 1 -->
+            <TextView
+                style="@style/FaqQuestionStyle"
+                android:text="How do I submit my stall for approval?" />
+            <TextView
+                style="@style/FaqAnswerStyle"
+                android:text="Fill in your stall details and submit the form for admin review. You will receive a notification when the status changes." />
+
+            <View style="@style/FaqDividerStyle" />
+
+            <!-- FAQ Item 2 -->
+            <TextView
+                style="@style/FaqQuestionStyle"
+                android:text="Why was my stall registration rejected?" />
+            <TextView
+                style="@style/FaqAnswerStyle"
+                android:text="Your stall was likely rejected due to incomplete or incorrect information. You will be notified with a reason to help you resubmit." />
+
+            <View style="@style/FaqDividerStyle" />
+
+            <!-- FAQ Item 3 -->
+            <TextView
+                style="@style/FaqQuestionStyle"
+                android:text="Can I temporarily close my stall?" />
+            <TextView
+                style="@style/FaqAnswerStyle"
+                android:text="Yes, you can. Go to your stall management page and toggle the 'Temporarily Closed' option, providing a reason for the closure." />
+
+            <View style="@style/FaqDividerStyle" />
+
+            <!-- FAQ Item 4 -->
+            <TextView
+                style="@style/FaqQuestionStyle"
+                android:text="How can I contact admin support?" />
+            <TextView
+                style="@style/FaqAnswerStyle"
+                android:text="You can reach our admin support team through the 'Help &amp; Support' section in your settings page." />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

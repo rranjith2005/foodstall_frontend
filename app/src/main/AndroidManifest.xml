@@ -12,6 +12,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodstall">
         <activity
+            android:name=".OpolicyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Ofrequent_questionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OhelpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OnotificationsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OsettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OprofileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OmenuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Otop_sellingActivity"
+            android:exported="false" />
+        <activity
             android:name=".Opending_ordersActivity"
             android:exported="false" />
         <activity
@@ -162,10 +186,10 @@
             android:name=".AccessActivity"
             android:exported="false" />
         <activity
-            android:name=".OSignupActivity"
+            android:name=".OsignupActivity"
             android:exported="false" />
         <activity
-            android:name=".USignupActivity"
+            android:name=".UsignupActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"

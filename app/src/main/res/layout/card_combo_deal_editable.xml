@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_marginTop="8dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/comboDescriptionEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Combo Description"
+            android:lines="2"
+            android:gravity="top|start"
+            style="@style/FormInputStyle"
+            android:background="@drawable/rounded_background_white"
+            android:layout_marginTop="0dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/comboPriceEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Price"
+                android:inputType="numberDecimal"
+                android:layout_marginEnd="8dp"
+                style="@style/FormInputStyle"
+                android:background="@drawable/rounded_background_white"
+                android:layout_marginTop="0dp" />
+
+            <EditText
+                android:id="@+id/comboQuantityEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Quantity"
+                android:inputType="number"
+                style="@style/FormInputStyle"
+                android:background="@drawable/rounded_background_white"
+                android:layout_marginTop="0dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/deleteComboButton"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/ic_cross"
+        android:contentDescription="Delete"
+        app:tint="#FF6B6B" />
+</LinearLayout>

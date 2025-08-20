@@ -8,7 +8,6 @@
     tools:context=".AprofileActivity">
 
     <!-- Top Background -->
-
     <View
         android:id="@+id/topBackground"
         android:layout_width="0dp"
@@ -16,10 +15,8 @@
         android:background="#FF6B6B"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -34,52 +31,47 @@
 
     <!-- User Profile Section -->
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profileImage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/nithi"
-        app:civ_border_color="#FFFFFF"
-        app:civ_border_width="2dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="27dp"
-        android:layout_height="26dp"
-        android:layout_gravity="bottom|end"
-        android:background="@drawable/ic_camera_background"
-        android:padding="8dp"
-        tools:layout_editor_absoluteX="225dp"
-        tools:layout_editor_absoluteY="90dp" />
-
     <TextView
-        android:id="@+id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="John Smith"
+        android:text="Edit Profile"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/topBackground"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profileImage" />
-
-    <TextView
-        android:id="@+id/userEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="john.smith@stallspot.com"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/userName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/topBackground"
+        app:layout_constraintVertical_bias="0.852" />
 
     <!-- Profile Details Card -->
+    <FrameLayout
+        android:id="@+id/profileImageContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/nithi"
+            app:civ_border_color="@android:color/white"
+            app:civ_border_width="2dp" />
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="bottom|end"
+            android:background="@drawable/bg_white_button"
+            android:padding="8dp"
+            android:src="@drawable/ic_camera"
+            app:tint="#4B5563" />
+    </FrameLayout>
     <androidx.cardview.widget.CardView
         android:id="@+id/profileCard"
         android:layout_width="0dp"
@@ -141,12 +133,8 @@
                 android:textSize="12sp" />
             <TextView
                 android:id="@+id/contactValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="+1 (555) 123-4567"
-                android:textColor="#222222"
-                android:textSize="16sp" />
+                style="@style/DetailValueStyle"
+                android:text="+1 (555) 123-4567" />
 
             <View style="@style/DividerStyle" android:layout_marginTop="12dp" android:layout_marginBottom="12dp" />
 
@@ -158,48 +146,26 @@
                 android:textSize="12sp" />
             <TextView
                 android:id="@+id/roleValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Administrator"
-                android:textColor="#222222"
-                android:textSize="16sp" />
+                style="@style/DetailValueStyle"
+                android:text="Administrator" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:id="@+id/editProfileButton"
+        android:id="@+id/saveChangesButton"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="#FFFFFF"
-        android:text="Save"
-        android:textColor="#FF6B6B"
-        android:textSize="18sp"
-        app:cornerRadius="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/logoutButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/logoutButton"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="4dp"
         android:backgroundTint="@android:color/white"
-        android:text="Logout"
+        android:text="Save Changes"
         android:textColor="#FF6B6B"
         android:textSize="18sp"
         app:cornerRadius="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_bar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="667dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_bar"

@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set a click listener for the "Get Started" button
         getStartedButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, USignupActivity.class);
+            Intent intent = new Intent(MainActivity.this, UsignupActivity.class);
             startActivity(intent);
             finish();
         });
