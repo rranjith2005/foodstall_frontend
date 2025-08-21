@@ -3,6 +3,7 @@ package com.saveetha.foodstall.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -14,9 +15,16 @@ import java.util.List;
 public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuItemViewHolder> {
 
     private final List<MenuItem> menuItems;
+    private OnItemAddedListener mListener;
 
-    public MenuItemAdapter(List<MenuItem> menuItems) {
+    public interface OnItemAddedListener {
+        void onItemAdded(String name, double price);
+    }
+
+    // Updated constructor to accept the listener
+    public MenuItemAdapter(List<MenuItem> menuItems, OnItemAddedListener listener) {
         this.menuItems = menuItems;
+        this.mListener = listener;
     }
 
     @NonNull
@@ -29,9 +37,15 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
     @Override
     public void onBindViewHolder(@NonNull MenuItemViewHolder holder, int position) {
         MenuItem item = menuItems.get(position);
-        holder.itemName.setText(item.name);
-        holder.itemPrice.setText(item.price);
-        holder.itemImage.setImageResource(item.imageResId);
+        holder.dishImage.setImageResource(item.imageResId);
+        holder.dishName.setText(item.name);
+        holder.dishPrice.setText(item.price);
+
+        holder.addButton.setOnClickListener(v -> {
+            // Remove the currency symbol before parsing to double
+            double price = Double.parseDouble(item.price.substring(1));
+            mListener.onItemAdded(item.name, price);
+        });
     }
 
     @Override
@@ -40,14 +54,16 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
     }
 
     public static class MenuItemViewHolder extends RecyclerView.ViewHolder {
-        ImageView itemImage;
-        TextView itemName, itemPrice;
+        ImageView dishImage;
+        TextView dishName, dishPrice;
+        Button addButton;
 
         public MenuItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemImage = itemView.findViewById(R.id.menu_item_image);
-            itemName = itemView.findViewById(R.id.menu_item_name);
-            itemPrice = itemView.findViewById(R.id.menu_item_price);
+            dishImage = itemView.findViewById(R.id.dish_image);
+            dishName = itemView.findViewById(R.id.dish_name);
+            dishPrice = itemView.findViewById(R.id.dish_price);
+            addButton = itemView.findViewById(R.id.addButton);
         }
     }
 }

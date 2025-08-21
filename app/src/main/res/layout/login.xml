@@ -35,7 +35,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoLayout"
-        app:layout_constraintVertical_bias="0.3" >
+        app:layout_constraintVertical_bias="0.3">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -95,18 +95,22 @@
         android:id="@+id/imageView"
         android:layout_width="125dp"
         android:layout_height="92dp"
+        android:layout_marginTop="72dp"
         android:src="@drawable/img"
-        tools:layout_editor_absoluteX="143dp"
-        tools:layout_editor_absoluteY="82dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:text="Stall Spot"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        tools:layout_editor_absoluteX="153dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="200dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

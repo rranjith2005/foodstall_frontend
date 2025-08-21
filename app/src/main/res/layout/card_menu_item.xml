@@ -2,67 +2,62 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_marginEnd="8dp"
     app:cardCornerRadius="12dp"
-    app:cardElevation="2dp">
+    app:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="12dp">
 
-        <!-- Preview-only image; runtime is set from adapter -->
         <ImageView
-            android:id="@+id/menu_item_image"
-            android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:id="@+id/dish_image"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
             android:scaleType="centerCrop"
+            android:src="@drawable/sd1"
             tools:src="@drawable/sd1" />
 
         <TextView
-            android:id="@+id/menu_item_name"
+            android:id="@+id/dish_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:text="Garlic Bread"
+            android:textColor="#222222"
             android:textSize="14sp"
-            android:textStyle="bold"
-            tools:text="Garlic Bread" />
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="12dp">
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/menu_item_price"
+                android:id="@+id/dish_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:text="$4.99"
+                android:textColor="#FF6347"
                 android:textSize="14sp"
-                android:textColor="#111111"
-                tools:text="$4.99" />
+                android:textStyle="bold" />
 
             <Button
-                android:id="@+id/menu_item_add_button"
+                android:id="@+id/addButton"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                android:paddingStart="14dp"
-                android:paddingEnd="14dp"
+                android:backgroundTint="#FF6B6B"
                 android:text="Add"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                android:backgroundTint="#FF6B6B" />
+                android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

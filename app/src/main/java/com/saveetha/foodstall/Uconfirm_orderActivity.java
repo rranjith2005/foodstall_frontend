@@ -1,9 +1,14 @@
 package com.saveetha.foodstall;
 
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.saveetha.foodstall.adapter.OrderItemAdapter;
@@ -26,13 +31,15 @@ public class Uconfirm_orderActivity extends AppCompatActivity {
         orderItemsRecyclerView.setAdapter(adapter);
 
         // Set up button listeners
-        findViewById(R.id.backButton).setOnClickListener(v -> onBackPressed());
-
-        // The closeButton listener has been removed to match your XML
+        findViewById(R.id.backButton).setOnClickListener(v -> {
+            Intent intent = new Intent(Uconfirm_orderActivity.this, UviewmenuActivity.class);
+            startActivity(intent);
+        });
 
         findViewById(R.id.proceedToPayButton).setOnClickListener(v -> {
             Toast.makeText(this, "Proceeding to pay...", Toast.LENGTH_SHORT).show();
-            // Add your payment logic here
+            Intent intent = new Intent(Uconfirm_orderActivity.this, Upayment_methodActivity.class);
+            startActivity(intent);
         });
     }
 

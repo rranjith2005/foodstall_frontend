@@ -6,15 +6,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.graphics.Color;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.NestedScrollView;
 
 public class OsignupActivity extends AppCompatActivity {
 
     EditText fullnameEditText, phoneEditText, passwordEditText, confirmPasswordEditText;
     Button signupBtn, userBtn, ownerBtn;
     TextView loginText;
+    NestedScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,7 @@ public class OsignupActivity extends AppCompatActivity {
         loginText = findViewById(R.id.loginText);
         userBtn = findViewById(R.id.userBtn);
         ownerBtn = findViewById(R.id.ownerBtn);
+        scrollView = findViewById(R.id.scrollView);
 
         // Set default state: "Owner" is selected
         setButtonSelected(ownerBtn, userBtn);
@@ -38,7 +42,6 @@ public class OsignupActivity extends AppCompatActivity {
 
         // Navigate to OstalldetailsActivity on 'Sign Up' button click
         signupBtn.setOnClickListener(v -> {
-            // You would add your sign-up logic here first
             Toast.makeText(this, "Signing up as Owner...", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(OsignupActivity.this, OstalldetailsActivity.class);
             startActivity(intent);

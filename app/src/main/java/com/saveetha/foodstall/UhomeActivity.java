@@ -2,7 +2,10 @@ package com.saveetha.foodstall;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,6 +39,8 @@ public class UhomeActivity extends AppCompatActivity {
     private Button openNowBtn, topRatedBtn;
     private ImageView settingsIcon;
     private EditText searchBar;
+    private View loadingOverlay;
+    private ImageView loadingIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +48,16 @@ public class UhomeActivity extends AppCompatActivity {
         setContentView(R.layout.uhome);
 
         // Find views
+        settingsIcon = findViewById(R.id.settingsIcon);
         searchBar = findViewById(R.id.search_bar);
+        loadingOverlay = findViewById(R.id.loadingOverlay);
+        loadingIcon = findViewById(R.id.loadingIcon);
+
+        // Set up click listener for the Search Bar
+        searchBar.setOnClickListener(v -> {
+            Intent intent = new Intent(UhomeActivity.this, SearchpageActivity.class);
+            startActivity(intent);
+        });
 
         // --- Setup Specials and Popular Dishes RecyclerViews ---
         specialsRecyclerView = findViewById(R.id.specials_recycler_view);
@@ -56,10 +70,11 @@ public class UhomeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 SpecialDish clickedDish = getSpecialDishes().get(position);
-                Toast.makeText(UhomeActivity.this, "Opening menu for " + clickedDish.stallName, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(UhomeActivity.this, UviewmenuActivity.class);
-                intent.putExtra("stallName", clickedDish.stallName);
-                startActivity(intent);
+                showLoadingOverlay(() -> {
+                    Intent intent = new Intent(UhomeActivity.this, UviewmenuActivity.class);
+                    intent.putExtra("stallName", clickedDish.stallName);
+                    startActivity(intent);
+                });
             }
         }));
 
@@ -73,10 +88,11 @@ public class UhomeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 PopularDish clickedDish = getPopularDishes().get(position);
-                Toast.makeText(UhomeActivity.this, "Opening menu for " + clickedDish.dishName, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(UhomeActivity.this, UviewmenuActivity.class);
-                intent.putExtra("dishName", clickedDish.dishName);
-                startActivity(intent);
+                showLoadingOverlay(() -> {
+                    Intent intent = new Intent(UhomeActivity.this, UviewmenuActivity.class);
+                    intent.putExtra("dishName", clickedDish.dishName);
+                    startActivity(intent);
+                });
             }
         }));
 
@@ -91,12 +107,12 @@ public class UhomeActivity extends AppCompatActivity {
         stallsRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, stallsRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                // Corrected line: We use the public getStalls() method to access the data
                 Stall clickedStall = stallsAdapter.getStalls().get(position);
-                Toast.makeText(UhomeActivity.this, "Opening menu for " + clickedStall.stallName, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(UhomeActivity.this, UviewmenuActivity.class);
-                intent.putExtra("stallName", clickedStall.stallName);
-                startActivity(intent);
+                showLoadingOverlay(() -> {
+                    Intent intent = new Intent(UhomeActivity.this, UviewmenuActivity.class);
+                    intent.putExtra("stallName", clickedStall.stallName);
+                    startActivity(intent);
+                });
             }
         }));
 
@@ -118,7 +134,9 @@ public class UhomeActivity extends AppCompatActivity {
 
         // Settings Icon Click Listener
         settingsIcon.setOnClickListener(v -> {
-            startActivity(new Intent(UhomeActivity.this, UsettingsActivity.class));
+            showLoadingOverlay(() -> {
+                startActivity(new Intent(UhomeActivity.this, UsettingsActivity.class));
+            });
         });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_bar);
@@ -128,14 +146,27 @@ public class UhomeActivity extends AppCompatActivity {
             if (itemId == R.id.nav_home) {
                 return true;
             } else if (itemId == R.id.nav_orders) {
-                startActivity(new Intent(UhomeActivity.this, UordersActivity.class));
+                showLoadingOverlay(() -> startActivity(new Intent(UhomeActivity.this, UordersActivity.class)));
             } else if (itemId == R.id.nav_wallet) {
-                startActivity(new Intent(UhomeActivity.this, UwalletActivity.class));
+                showLoadingOverlay(() -> startActivity(new Intent(UhomeActivity.this, UwalletActivity.class)));
             } else if (itemId == R.id.nav_profile) {
-                startActivity(new Intent(UhomeActivity.this, UeditprofileActivity.class));
+                showLoadingOverlay(() -> startActivity(new Intent(UhomeActivity.this, UeditprofileActivity.class)));
             }
             return true;
         });
+    }
+
+    private void showLoadingOverlay(Runnable onComplete) {
+        loadingOverlay.setVisibility(View.VISIBLE);
+        // Start the rotation animation on the hourglass icon
+        Animation rotation = AnimationUtils.loadAnimation(this, R.anim.hourglass_rotation);
+        loadingIcon.startAnimation(rotation);
+
+        new Handler().postDelayed(() -> {
+            loadingIcon.clearAnimation();
+            loadingOverlay.setVisibility(View.GONE);
+            onComplete.run();
+        }, 1500); // 1.5-second delay
     }
 
     private void filterStalls(String filterType) {

@@ -12,187 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodstall">
         <activity
-            android:name=".OpolicyActivity"
+            android:name=".UviewcartActivity"
             android:exported="false" />
         <activity
-            android:name=".Ofrequent_questionActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OhelpActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OnotificationsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OsettingsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OprofileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OmenuActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Otop_sellingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Opending_ordersActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OrevenueActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Oview_receiptActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Oapproved_ordersActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OhomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OapprovedActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OrejectedActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OpendingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OstalldetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Aprivacy_policyActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AhelpActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Adelete_stallActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AeditstallActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AanalysisActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AsettingsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AprofileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AureviewActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AoreviewActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AapprovalActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ArejectionActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AreasonActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Astall_detailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Anew_stallActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Apending_stallsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Arejected_stallsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Aapproved_stallsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Aall_stallsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AnotificationsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Aview_reportsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Aset_locationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AhomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Ufrequent_questionActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UhelpActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Uprivacy_policyActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UnotificationsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Ulocation_preferenceActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Upayment_addedActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Uadd_money"
-            android:exported="false" />
-        <activity
-            android:name=".UreviewActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Upayment_methodActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Uconfirm_orderActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UeditprofileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UeditprofileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UsettingsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UsettingsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UviewmenuActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UwalletActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UordersActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UhomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AccessActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OsignupActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UsignupActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginActivity"
+            android:name=".SearchpageActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -202,7 +25,160 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> <!-- User Activities -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UsignupActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UhomeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UordersActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UwalletActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UeditprofileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UsettingsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UviewmenuActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Uconfirm_orderActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Upayment_methodActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Upayment_addedActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Ufrequent_questionActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UhelpActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UnotificationsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Ulocation_preferenceActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UreceiptActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Uadd_moneyActivity"
+            android:exported="true" /> <!-- Owner Activities -->
+        <activity
+            android:name=".OsignupActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OstalldetailsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OpendingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OrejectedActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OapprovedActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OhomeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Oapproved_ordersActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Oview_receiptActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OrevenueActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Otop_sellingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OmenuActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OprofileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OsettingsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OnotificationsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OpolicyActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OhelpActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Ofrequent_questionActivity"
+            android:exported="true" /> <!-- Admin Activities -->
+        <activity
+            android:name=".AhomeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Aset_locationActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Aview_reportsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AnotificationsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Aall_stallsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Aapproved_stallsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Arejected_stallsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Apending_stallsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Anew_stallActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Astall_detailsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AreasonActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AoreviewActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AureviewActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AprofileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AsettingsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AanalysisActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AccessActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

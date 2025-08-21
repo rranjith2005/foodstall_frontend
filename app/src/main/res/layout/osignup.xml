@@ -8,7 +8,6 @@
     tools:context=".OsignupActivity">
 
     <!-- Top Background -->
-
     <View
         android:id="@+id/topBackground"
         android:layout_width="0dp"
@@ -16,10 +15,8 @@
         android:background="#FF6B6B"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -40,6 +37,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/img" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stall Spot"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <!-- Signup Card -->
@@ -57,31 +67,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline">
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFE5E5"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:padding="24dp"
+                android:background="#FFE5E5">
 
                 <!-- Input Fields -->
-                <TextView
-                    style="@style/FormLabelStyle"
-                    android:text="Full Name" />
-
+                <TextView style="@style/FormLabelStyle" android:text="Full Name" />
                 <EditText
                     android:id="@+id/fullnameEditText"
                     style="@style/FormInputStyle"
                     android:hint="Enter your full name" />
 
-                <TextView
-                    style="@style/FormLabelStyle"
-                    android:text="Contact" />
-
+                <TextView style="@style/FormLabelStyle" android:text="Contact" />
                 <EditText
                     android:id="@+id/phoneEditText"
                     style="@style/FormInputStyle"
@@ -89,20 +94,14 @@
                     android:inputType="phone"
                     android:maxLength="10" />
 
-                <TextView
-                    style="@style/FormLabelStyle"
-                    android:text="Password" />
-
+                <TextView style="@style/FormLabelStyle" android:text="Password" />
                 <EditText
                     android:id="@+id/passwordEditText"
                     style="@style/FormInputStyle"
                     android:hint="••••••••••"
                     android:inputType="textPassword" />
 
-                <TextView
-                    style="@style/FormLabelStyle"
-                    android:text="Confirm Password" />
-
+                <TextView style="@style/FormLabelStyle" android:text="Confirm Password" />
                 <EditText
                     android:id="@+id/confirmPasswordEditText"
                     style="@style/FormInputStyle"
@@ -122,31 +121,31 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
+                    android:orientation="horizontal"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:layout_marginBottom="24dp">
 
                     <Button
                         android:id="@+id/userBtn"
                         android:layout_width="0dp"
-                        android:layout_height="48dp"
-                        android:layout_marginEnd="8dp"
                         android:layout_weight="1"
-                        android:backgroundTint="#CCCCCC"
+                        android:layout_height="48dp"
                         android:text="User"
+                        android:backgroundTint="#CCCCCC"
                         android:textColor="@android:color/white"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginEnd="8dp" />
 
                     <Button
                         android:id="@+id/ownerBtn"
                         android:layout_width="0dp"
-                        android:layout_height="48dp"
-                        android:layout_marginStart="8dp"
                         android:layout_weight="1"
-                        android:backgroundTint="@android:color/white"
+                        android:layout_height="48dp"
                         android:text="Owner"
+                        android:backgroundTint="@android:color/white"
                         android:textColor="#FF6B6B"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginStart="8dp" />
                 </LinearLayout>
 
                 <!-- Signup Button -->
@@ -173,30 +172,6 @@
                     android:textStyle="italic" />
 
             </LinearLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
     </androidx.cardview.widget.CardView>
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="124dp"
-        android:layout_height="88dp"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/img"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:text="Stall Spot"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

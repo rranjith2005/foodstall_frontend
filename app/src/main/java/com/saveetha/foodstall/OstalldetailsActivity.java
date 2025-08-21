@@ -2,14 +2,17 @@ package com.saveetha.foodstall;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.ImageView;
 
 public class OstalldetailsActivity extends AppCompatActivity {
 
     private EditText stallNameEditText, ownerNameEditText, phoneNumberEditText, emailEditText, addressEditText, fssaiNumberEditText;
     private Button submitButton, cancelButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +28,9 @@ public class OstalldetailsActivity extends AppCompatActivity {
         fssaiNumberEditText = findViewById(R.id.fssaiNumberEditText);
         submitButton = findViewById(R.id.submitButton);
         cancelButton = findViewById(R.id.cancelButton);
+         // Added back button reference
 
         // Set up the back button listener
-        findViewById(R.id.backButton).setOnClickListener(v -> onBackPressed());
 
         // Set up the submit button listener
         submitButton.setOnClickListener(v -> {
@@ -42,11 +45,17 @@ public class OstalldetailsActivity extends AppCompatActivity {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Stall details submitted for approval!", Toast.LENGTH_SHORT).show();
-                // Add your logic to submit the data to a server here
+                Intent intent = new Intent(OstalldetailsActivity.this, OpendingActivity.class);
+                startActivity(intent);
+                finish(); // Close the current activity
             }
         });
 
         // Set up the cancel button listener to go back
-        cancelButton.setOnClickListener(v -> onBackPressed());
+        cancelButton.setOnClickListener(v -> {
+            Intent intent = new Intent(OstalldetailsActivity.this, OsignupActivity.class);
+            startActivity(intent);
+            finish(); // Close the current activity
+        });
     }
 }

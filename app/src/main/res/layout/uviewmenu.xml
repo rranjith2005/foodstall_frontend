@@ -20,13 +20,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/backButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_back_arrow" />
 
         <TextView
             android:id="@+id/shop_name_title"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Aliyas"
@@ -35,6 +36,7 @@
             android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/searchButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_search" />
@@ -52,18 +54,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/search_bar_background"
-                android:drawableStart="@drawable/ic_search"
-                android:drawablePadding="8dp"
-                android:hint="Search dishes or price"
-                android:padding="12dp"
-                android:layout_marginBottom="8dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -178,6 +168,7 @@
                             android:textColor="#FF6347" />
 
                         <Button
+                            android:id="@+id/addToCartButton"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:backgroundTint="#FF6B6B"
@@ -234,8 +225,7 @@
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2"
-                tools:listitem="@layout/card_menu_item"
-                tools:itemCount="4" />
+                tools:listitem="@layout/card_menu_item" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -244,7 +234,8 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginStart="16dp"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="8dp"
+                android:textColor="#000000" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/reviews_recycler_view"
@@ -270,24 +261,26 @@
         android:paddingEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone">
 
         <TextView
+            android:id="@+id/cartDetailsText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="2 items • $25.98"
+            android:text="0 items • $0.00"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/viewCartButton"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:backgroundTint="#FFFFFF"
             android:text="View Cart"
-            android:textColor="#FF6B6B"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:textColor="#FF6B6B" />
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

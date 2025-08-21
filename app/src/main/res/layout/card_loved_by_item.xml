@@ -51,7 +51,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/loved_by_item_add_button"
+        android:id="@+id/lovedByAddButton"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:backgroundTint="#FF6B6B"

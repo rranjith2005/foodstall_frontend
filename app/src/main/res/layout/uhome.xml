@@ -50,6 +50,7 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/settingsIcon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:contentDescription="Search"
@@ -165,5 +166,38 @@
         app:itemIconTint="@drawable/nav_selector"
         app:itemTextColor="@drawable/nav_selector"
         app:labelVisibilityMode="labeled" />
+    <!-- Loading Overlay -->
+    <FrameLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/loadingIcon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/loading_animation"
+                android:contentDescription="Loading" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Please wait..."
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
