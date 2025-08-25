@@ -62,10 +62,10 @@ public class UhomeActivity extends AppCompatActivity {
         // --- Setup Specials and Popular Dishes RecyclerViews ---
         specialsRecyclerView = findViewById(R.id.specials_recycler_view);
         specialsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        specialsRecyclerView.setNestedScrollingEnabled(false);
         SpecialsAdapter specialsAdapter = new SpecialsAdapter(getSpecialDishes());
         specialsRecyclerView.setAdapter(specialsAdapter);
 
-        // Add item click listener for Today's Specials
         specialsRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, specialsRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -80,10 +80,10 @@ public class UhomeActivity extends AppCompatActivity {
 
         popularDishesRecyclerView = findViewById(R.id.popular_dishes_recycler_view);
         popularDishesRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        popularDishesRecyclerView.setNestedScrollingEnabled(false);
         PopularDishesAdapter popularDishesAdapter = new PopularDishesAdapter(getPopularDishes());
         popularDishesRecyclerView.setAdapter(popularDishesAdapter);
 
-        // Add item click listener for Popular Dishes
         popularDishesRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, popularDishesRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -99,11 +99,11 @@ public class UhomeActivity extends AppCompatActivity {
         // --- Setup Food Stalls RecyclerView and Data ---
         stallsRecyclerView = findViewById(R.id.stalls_recycler_view);
         stallsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        stallsRecyclerView.setNestedScrollingEnabled(false);
         allStalls = getFoodStalls();
         stallsAdapter = new StallsAdapter(allStalls);
         stallsRecyclerView.setAdapter(stallsAdapter);
 
-        // Add item click listener for Food Stalls
         stallsRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, stallsRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -132,7 +132,6 @@ public class UhomeActivity extends AppCompatActivity {
             filterStalls("top_rated");
         });
 
-        // Settings Icon Click Listener
         settingsIcon.setOnClickListener(v -> {
             showLoadingOverlay(() -> {
                 startActivity(new Intent(UhomeActivity.this, UsettingsActivity.class));
@@ -141,24 +140,27 @@ public class UhomeActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_bar);
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
+
+        // --- THIS IS THE UPDATED PART ---
+        // The showLoadingOverlay wrapper has been removed from these navigations
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_home) {
                 return true;
             } else if (itemId == R.id.nav_orders) {
-                showLoadingOverlay(() -> startActivity(new Intent(UhomeActivity.this, UordersActivity.class)));
+                startActivity(new Intent(UhomeActivity.this, UordersActivity.class));
             } else if (itemId == R.id.nav_wallet) {
-                showLoadingOverlay(() -> startActivity(new Intent(UhomeActivity.this, UwalletActivity.class)));
+                startActivity(new Intent(UhomeActivity.this, UwalletActivity.class));
             } else if (itemId == R.id.nav_profile) {
-                showLoadingOverlay(() -> startActivity(new Intent(UhomeActivity.this, UeditprofileActivity.class)));
+                startActivity(new Intent(UhomeActivity.this, UeditprofileActivity.class));
             }
             return true;
         });
+        // --- END OF UPDATED PART ---
     }
 
     private void showLoadingOverlay(Runnable onComplete) {
         loadingOverlay.setVisibility(View.VISIBLE);
-        // Start the rotation animation on the hourglass icon
         Animation rotation = AnimationUtils.loadAnimation(this, R.anim.hourglass_rotation);
         loadingIcon.startAnimation(rotation);
 

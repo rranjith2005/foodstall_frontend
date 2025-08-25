@@ -4,105 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/screen_background"
     tools:context=".Upayment_addedActivity">
 
-    <ImageView
-        android:id="@+id/successIcon"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@drawable/green_circle_background"
-        android:contentDescription="Payment Successful"
-        android:padding="20dp"
-        android:src="@drawable/ic_tick"
-        app:layout_constraintBottom_toTopOf="@+id/paymentSuccessfulText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.459"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.765"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:tint="@android:color/white" />
-
-    <TextView
-        android:id="@+id/paymentSuccessfulText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Payment Successful!"
-        android:textColor="#222222"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.431"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="305dp" />
-
-    <TextView
-        android:id="@+id/amountAddedText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="₹500.00 has been added to your Stall Spot Wallet."
-        android:textAlignment="center"
-        android:textColor="#666666"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.542"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="354dp" />
-
     <LinearLayout
-        android:id="@+id/balanceContainer"
-        android:layout_width="347dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_background_gray"
         android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="392dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Updated Balance"
-            android:textColor="#666666"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/updatedBalanceText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="₹1,350.00"
-            android:textColor="#222222"
-            android:textSize="28sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/backToWalletButton"
-        android:layout_width="347dp"
-        android:layout_height="56dp"
-        android:backgroundTint="#FF6B6B"
-        android:text="Back to Wallet"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        app:cornerRadius="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="514dp" />
-
-    <TextView
-        android:id="@+id/thankYouText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="120dp"
-        android:text="Thank you for using Stall Spot."
-        android:textColor="#999999"
-        android:textSize="16sp"
+        android:padding="24dp"
+        android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <FrameLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/green_circle_background">
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_tick"
+                app:tint="@color/white" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Money Added Successfully"
+            android:textColor="@color/text_primary"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/amountAddedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/brand_pink"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            tools:text="₹500.00" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="has been added to your wallet."
+            android:textAlignment="center"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/doneButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="48dp"
+            android:backgroundTint="@color/brand_pink"
+            android:text="Back to Wallet"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

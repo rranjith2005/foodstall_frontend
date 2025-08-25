@@ -9,5 +9,6 @@
     <string name="Continue">Continue</string>
     <string name="app_permissions_needed">App Permissions Needed</string>
     <string name="todo">TODO</string>
-    <string name="Csontinue" />
+
+    <string name="mapbox_access_token" translatable="false">pk.eyJ1IjoicmFuaml0aGt1bWFyMDUiLCJhIjoiY21lcW03cHMzMHk3YzJqczU3bzNnczRkYyJ9.8frinY8g012rb2NQVorYqA</string>
 </resources>

@@ -1,43 +1,74 @@
 package com.saveetha.foodstall;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class UsettingsActivity extends AppCompatActivity {
+
+    private ImageView backButton;
+    private LinearLayout notificationsLayout, locationLayout, changePasswordLayout, privacyLayout, helpLayout;
+    private Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.usettings);
 
-        findViewById(R.id.backButton).setOnClickListener(v -> onBackPressed());
+        // Initialize all views
+        backButton = findViewById(R.id.backButton);
+        notificationsLayout = findViewById(R.id.notificationsLayout);
+        locationLayout = findViewById(R.id.locationLayout);
+        changePasswordLayout = findViewById(R.id.changePasswordLayout);
+        privacyLayout = findViewById(R.id.privacyLayout);
+        helpLayout = findViewById(R.id.helpLayout);
+        logoutButton = findViewById(R.id.logoutButton);
 
-        // Handle clicks for each settings option
-        findViewById(R.id.notificationsLayout).setOnClickListener(v -> {
-            Toast.makeText(this, "Notifications clicked", Toast.LENGTH_SHORT).show();
+        // Set up click listeners for navigation
+        setupNavigation();
+    }
+
+    private void setupNavigation() {
+        // Back Button -> UhomeActivity
+        backButton.setOnClickListener(v -> {
+            startActivity(new Intent(UsettingsActivity.this, UhomeActivity.class));
+            finish();
         });
 
-        findViewById(R.id.locationLayout).setOnClickListener(v -> {
-            Toast.makeText(this, "Location Preferences clicked", Toast.LENGTH_SHORT).show();
+        // Notifications -> UnotificationsActivity
+        notificationsLayout.setOnClickListener(v -> {
+            startActivity(new Intent(UsettingsActivity.this, UnotificationsActivity.class));
         });
 
-        findViewById(R.id.changePasswordLayout).setOnClickListener(v -> {
-            Toast.makeText(this, "Change Password clicked", Toast.LENGTH_SHORT).show();
+        // Location -> Ulocation_preferenceActivity
+        locationLayout.setOnClickListener(v -> {
+            startActivity(new Intent(UsettingsActivity.this, Ulocation_preferenceActivity.class));
         });
 
-        findViewById(R.id.privacyLayout).setOnClickListener(v -> {
-            Toast.makeText(this, "Privacy Policy clicked", Toast.LENGTH_SHORT).show();
+        // Change Password -> UchangepasswordActivity
+        changePasswordLayout.setOnClickListener(v -> {
+            startActivity(new Intent(UsettingsActivity.this, UchangepasswordActivity.class));
         });
 
-        findViewById(R.id.helpLayout).setOnClickListener(v -> {
-            Toast.makeText(this, "Help & Support clicked", Toast.LENGTH_SHORT).show();
+        // Privacy Policy -> Uprivacy_policyActivity
+        privacyLayout.setOnClickListener(v -> {
+            startActivity(new Intent(UsettingsActivity.this, Uprivacy_policyActivity.class));
         });
 
-        // This is the updated part, using the correct ID for the Log Out button
-        findViewById(R.id.logoutButton).setOnClickListener(v -> {
-            Toast.makeText(this, "Log Out clicked", Toast.LENGTH_SHORT).show();
+        // Help and Support -> UhelpActivity
+        helpLayout.setOnClickListener(v -> {
+            startActivity(new Intent(UsettingsActivity.this, UhelpActivity.class));
+        });
+
+        // Logout Button
+        logoutButton.setOnClickListener(v -> {
+            // TODO: Add your actual logout logic here
+            Toast.makeText(this, "Logged Out!", Toast.LENGTH_SHORT).show();
         });
     }
 }

@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="@color/screen_background"
     tools:context=".UviewmenuActivity">
 
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
+        android:background="@color/card_background"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="16dp"
@@ -18,28 +19,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
         <ImageView
             android:id="@+id/backButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_back_arrow" />
-
+            android:src="@drawable/ic_back_arrow"
+            app:tint="@color/text_primary" />
         <TextView
             android:id="@+id/shop_name_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Aliyas"
             android:textAlignment="center"
+            android:textColor="@color/text_primary"
             android:textSize="20sp"
             android:textStyle="bold" />
-
         <ImageView
             android:id="@+id/searchButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_search" />
+            android:src="@drawable/ic_search"
+            app:tint="@color/text_primary" />
     </LinearLayout>
 
     <ScrollView
@@ -49,11 +50,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topBar">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,73 +63,68 @@
                 android:orientation="horizontal"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp">
-
                 <TextView
+                    android:id="@+id/distanceTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="100 meters away"
-                    android:textColor="#999999" />
-
+                    android:textColor="@color/text_secondary"
+                    tools:text="100 meters away" />
                 <View
                     android:layout_width="1dp"
                     android:layout_height="12dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
-                    android:background="#CCCCCC" />
-
+                    android:background="@color/border_color" />
                 <ImageView
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:src="@drawable/ic_walk"
-                    android:layout_marginEnd="4dp"/>
-
+                    android:layout_marginEnd="4dp"
+                    app:tint="@color/text_secondary" />
                 <TextView
+                    android:id="@+id/walkTimeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3 min walk"
-                    android:textColor="#999999" />
+                    android:textColor="@color/text_secondary"
+                    tools:text="3 min walk" />
             </LinearLayout>
-
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/card_background"
                 app:cardCornerRadius="12dp">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/sd1" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:padding="12dp"
                         android:orientation="horizontal">
-
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="#FF6B6B"
+                            android:background="@color/brand_pink"
                             android:text="Today's Special"
-                            android:textColor="#FFFFFF"
+                            android:textColor="@color/white"
                             android:textSize="12sp"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
                             android:paddingTop="4dp"
                             android:paddingBottom="4dp"
                             android:layout_marginEnd="8dp" />
-
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -136,45 +132,41 @@
                             android:textColor="#FFC107"
                             android:textSize="14sp" />
                     </LinearLayout>
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:text="Cheese Burst Pizza"
+                        android:textColor="@color/text_primary"
                         android:textSize="20sp"
                         android:textStyle="bold" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:text="Double cheese with crispy crust"
-                        android:textColor="#666666" />
-
+                        android:textColor="@color/text_secondary" />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:padding="12dp"
                         android:orientation="horizontal">
-
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="$12.99"
+                            android:text="₹100"
                             android:textSize="18sp"
-                            android:textColor="#FF6347" />
-
+                            android:textColor="@color/brand_pink" />
                         <Button
                             android:id="@+id/addToCartButton"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
-                            android:backgroundTint="#FF6B6B"
+                            android:backgroundTint="@color/brand_pink"
                             android:text="Add to Cart"
                             android:textAllCaps="false"
-                            android:textColor="#FFFFFF" />
+                            android:textColor="@color/white" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -185,22 +177,29 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/card_background"
                 app:cardCornerRadius="12dp">
-
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="12dp">
-
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:text="❤️ Loved by 40+ students"
-                        android:textColor="#666666" />
-
-                    <include layout="@layout/card_loved_by_item" />
+                        android:textColor="@color/text_secondary" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/loved_by_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:clipToPadding="false"
+                        tools:listitem="@layout/card_loved_by_item" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -213,18 +212,16 @@
                 android:text="Today's Menu"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="#000000" />
-
+                android:textColor="@color/text_primary" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/menu_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="4dp"
+                android:clipToPadding="false"
                 android:layout_marginBottom="16dp"
-                android:nestedScrollingEnabled="false"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2"
                 tools:listitem="@layout/card_menu_item" />
 
             <TextView
@@ -235,18 +232,13 @@
                 android:textStyle="bold"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="8dp"
-                android:textColor="#000000" />
-
+                android:textColor="@color/text_primary" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/reviews_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:nestedScrollingEnabled="false"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/card_review_item" />
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"/>
         </LinearLayout>
     </ScrollView>
 
@@ -254,7 +246,7 @@
         android:id="@+id/bottomCartBar"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:background="#FF6B6B"
+        android:background="@color/brand_pink"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="16dp"
@@ -263,24 +255,57 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:visibility="gone">
-
         <TextView
             android:id="@+id/cartDetailsText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="0 items • $0.00"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
-
         <Button
             android:id="@+id/viewCartButton"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:backgroundTint="#FFFFFF"
+            android:backgroundTint="@color/white"
             android:text="View Cart"
             android:textAllCaps="false"
-            android:textColor="#FF6B6B" />
+            android:textColor="@color/brand_pink" />
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/loadingIcon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:contentDescription="Loading"
+                android:src="@drawable/ic_hourglass1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Please wait..."
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

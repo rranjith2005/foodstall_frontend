@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
+    app:cardBackgroundColor="?attr/colorSurface"
     app:cardCornerRadius="12dp"
     app:cardElevation="2dp">
 
@@ -39,6 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sai G.J."
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -57,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:text="2 days ago"
                 android:textSize="12sp"
-                android:textColor="#999999" />
+                android:textColor="@color/colorOnSurfaceSecondary" />
         </LinearLayout>
 
         <TextView
@@ -65,6 +67,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Best briyani on campus! The piece is amazing."
-            android:textColor="#333333" />
+            android:textColor="?attr/colorOnSurface" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

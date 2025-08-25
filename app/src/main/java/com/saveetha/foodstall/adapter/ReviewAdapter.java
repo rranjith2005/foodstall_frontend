@@ -3,7 +3,6 @@ package com.saveetha.foodstall.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,11 +29,12 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     @Override
     public void onBindViewHolder(@NonNull ReviewViewHolder holder, int position) {
         Review review = reviews.get(position);
-        holder.reviewerName.setText(review.name);
-        holder.reviewText.setText(review.text);
-        holder.reviewTime.setText(review.time);
-        holder.reviewRating.setText("★ " + review.rating);
-        holder.profileImage.setImageResource(review.profileImageResId);
+        // Using the new getter methods to access the data
+        holder.reviewerName.setText(review.getName());
+        holder.reviewText.setText(review.getText());
+        holder.reviewTime.setText(review.getTime());
+        holder.reviewRating.setText("★ " + review.getRating());
+        holder.profileImage.setImageResource(review.getProfileImageResId());
     }
 
     @Override

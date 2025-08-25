@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F8F8"
+    android:background="@color/screen_background"
     tools:context=".UreceiptActivity">
 
     <ScrollView
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="24dp">
 
             <FrameLayout
                 android:layout_width="100dp"
@@ -30,10 +30,10 @@
 
                 <ImageView
                     android:layout_width="60dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_tick"
-                    app:tint="#FFFFFF" />
+                    app:tint="@color/white" />
             </FrameLayout>
 
             <TextView
@@ -42,7 +42,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
                 android:text="Payment Successful"
-                android:textColor="#222222"
+                android:textColor="@color/text_primary"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -50,85 +50,45 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Thank you for your order! Your food will be\nprepared soon."
+                android:layout_marginTop="8dp"
+                android:text="Thank you for your order!"
                 android:textAlignment="center"
-                android:textColor="#666666"
-                android:textSize="14sp"
-                android:layout_marginTop="8dp" />
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="@color/card_background"
                 android:orientation="vertical"
-                android:layout_marginTop="32dp">
+                android:padding="16dp">
 
-                <LinearLayout style="@style/ReceiptRowStyle">
-                    <TextView style="@style/ReceiptLabelStyle" android:text="Order ID" />
-                    <TextView style="@style/ReceiptValueStyle" android:text="ORD928371X" />
-                </LinearLayout>
+                <include layout="@layout/receipt_row" android:id="@+id/orderIdRow"/>
+                <include layout="@layout/receipt_row" android:id="@+id/orderTimeRow"/>
+                <include layout="@layout/receipt_row" android:id="@+id/paymentMethodRow"/>
 
-                <LinearLayout style="@style/ReceiptRowStyle">
-                    <TextView style="@style/ReceiptLabelStyle" android:text="Order Time" />
-                    <TextView style="@style/ReceiptValueStyle" android:text="1:02 PM" />
-                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/border_color"
+                    android:layout_marginVertical="12dp"/>
 
-                <LinearLayout style="@style/ReceiptRowStyle">
-                    <TextView style="@style/ReceiptLabelStyle" android:text="Stall" />
-                    <TextView style="@style/ReceiptValueStyle" android:text="Pizza Hub" />
-                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/itemsContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
 
-                <LinearLayout style="@style/ReceiptRowStyle">
-                    <TextView style="@style/ReceiptLabelStyle" android:text="Pre-parcel by" />
-                    <TextView style="@style/ReceiptValueStyle" android:text="2:30 PM" />
-                </LinearLayout>
-            </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/border_color"
+                    android:layout_marginVertical="12dp"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="24dp">
-
-                <View style="@style/DividerStyle" android:layout_marginBottom="8dp" />
-
-                <LinearLayout style="@style/ReceiptRowStyle">
-                    <TextView style="@style/ReceiptLabelStyle" android:text="Margherita Pizza\n× 1" />
-                    <TextView style="@style/ReceiptValueStyle" android:text="$12.99" />
-                </LinearLayout>
-                <LinearLayout style="@style/ReceiptRowStyle">
-                    <TextView style="@style/ReceiptLabelStyle" android:text="Garlic Bread\n× 2" />
-                    <TextView style="@style/ReceiptValueStyle" android:text="$4.99" />
-                </LinearLayout>
-                <LinearLayout style="@style/ReceiptRowStyle">
-                    <TextView style="@style/ReceiptLabelStyle" android:text="Coca Cola\n× 1" />
-                    <TextView style="@style/ReceiptValueStyle" android:text="$2.99" />
-                </LinearLayout>
-
-                <View style="@style/DividerStyle" android:layout_marginTop="8dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="24dp">
-
-                <LinearLayout style="@style/ReceiptRowStyle">
-                    <TextView style="@style/ReceiptLabelStyle" android:text="Subtotal" />
-                    <TextView style="@style/ReceiptValueStyle" android:text="$25.96" />
-                </LinearLayout>
-                <LinearLayout style="@style/ReceiptRowStyle">
-                    <TextView style="@style/ReceiptLabelStyle" android:text="Delivery Fee" />
-                    <TextView style="@style/ReceiptValueStyle" android:text="$2.99" />
-                </LinearLayout>
-                <LinearLayout style="@style/ReceiptRowStyle">
-                    <TextView style="@style/ReceiptLabelStyle" android:text="Tax" />
-                    <TextView style="@style/ReceiptValueStyle" android:text="$2.89" />
-                </LinearLayout>
-                <LinearLayout style="@style/ReceiptRowStyle">
-                    <TextView style="@style/ReceiptLabelStyle" android:text="Total Paid" android:textStyle="bold" />
-                    <TextView style="@style/ReceiptValueStyle" android:text="$31.84" android:textStyle="bold" />
-                </LinearLayout>
+                <include layout="@layout/receipt_row" android:id="@+id/subtotalRow"/>
+                <include layout="@layout/receipt_row" android:id="@+id/parcelFeeRow"/>
+                <include layout="@layout/receipt_row_bold" android:id="@+id/totalPaidRow"/>
             </LinearLayout>
 
             <Button
@@ -136,29 +96,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="48dp"
-                android:backgroundTint="@color/blue"
-                android:drawableStart="@drawable/ic_orders"
-                app:drawableTint="@color/white"
-                android:drawablePadding="8dp"
-                android:text="View Receipt in Orders"
-                android:textColor="#FFFFFF"
+                android:backgroundTint="@color/brand_pink"
+                android:text="View Orders"
+                android:textColor="@color/white"
                 android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/backToHomeButton"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
-                android:background="@android:color/transparent"
-                android:drawableStart="@drawable/ic_home"
-                android:drawablePadding="8dp"
                 android:text="Back to Home"
-                android:textColor="@color/blue"
-                android:textAllCaps="false"
-                app:drawableTint="@color/blue"/>
-
+                android:textColor="@color/brand_pink"
+                android:textAllCaps="false"/>
         </LinearLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

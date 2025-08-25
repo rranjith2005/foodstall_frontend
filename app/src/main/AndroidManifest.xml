@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,9 +16,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodstall">
+
         <activity
-            android:name=".UviewcartActivity"
+            android:name=".Umap_pickerActivity"
             android:exported="false" />
+
+
         <activity
             android:name=".SearchpageActivity"
             android:exported="false" />
@@ -22,10 +30,9 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- User Activities -->
+        </activity>
         <activity
             android:name=".LoginActivity"
             android:exported="true" />
@@ -66,17 +73,21 @@
             android:name=".UhelpActivity"
             android:exported="true" />
         <activity
+            android:name=".UDetailedReceiptActivity"
+            android:exported="false" />
+        <activity
             android:name=".UnotificationsActivity"
             android:exported="true" />
         <activity
             android:name=".Ulocation_preferenceActivity"
             android:exported="true" />
+        <activity android:name=".UchangepasswordActivity" />
         <activity
             android:name=".UreceiptActivity"
             android:exported="true" />
         <activity
             android:name=".Uadd_moneyActivity"
-            android:exported="true" /> <!-- Owner Activities -->
+            android:exported="true" />
         <activity
             android:name=".OsignupActivity"
             android:exported="true" />
@@ -127,7 +138,7 @@
             android:exported="true" />
         <activity
             android:name=".Ofrequent_questionActivity"
-            android:exported="true" /> <!-- Admin Activities -->
+            android:exported="true" />
         <activity
             android:name=".AhomeActivity"
             android:exported="true" />
@@ -179,6 +190,11 @@
         <activity
             android:name=".AccessActivity"
             android:exported="true" />
+
+        <activity
+            android:name=".Ufetch_locationActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

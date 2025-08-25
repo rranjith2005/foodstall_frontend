@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF6B6B"
+    android:background="@color/brand_pink"
     tools:context=".UhomeActivity">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -37,7 +37,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Hi, User"
-                        android:textColor="#FFFFFF"
+                        android:textColor="@color/white"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -45,7 +45,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="What would you like to eat?"
-                        android:textColor="#FFFFFF"
+                        android:textColor="@color/white"
                         android:textSize="16sp" />
                 </LinearLayout>
 
@@ -54,60 +54,62 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:contentDescription="Search"
-                    android:src="@drawable/ic_settings" />
+                    android:src="@drawable/ic_settings"
+                    app:tint="@color/white" />
 
             </LinearLayout>
 
             <EditText
                 android:id="@+id/search_bar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/search_bar_background"
                 android:drawableStart="@drawable/ic_search"
                 android:drawablePadding="8dp"
                 android:hint="Search dishes or stalls..."
-                android:padding="12dp" />
+                android:padding="12dp"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_secondary"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:layout_marginBottom="16dp">
 
                 <Button
                     android:id="@+id/openNowBtn"
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Open Now"
-                    android:textAllCaps="false"
+                    android:layout_height="40dp"
                     android:background="@drawable/button_selector"
-                    android:textColor="@color/button_text_color_selector"
-                    android:layout_marginEnd="8dp" />
+                    android:text="Open Now"
+                    android:layout_marginEnd="8dp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/button_text_color_selector" />
 
                 <Button
                     android:id="@+id/topRatedBtn"
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Top Rated"
-                    android:textAllCaps="false"
+                    android:layout_height="40dp"
                     android:background="@drawable/button_unselected_background"
-                    android:textColor="#333333"
-                    android:layout_marginEnd="8dp" />
-
-
+                    android:text="Top Rated"
+                    android:layout_marginEnd="8dp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_secondary" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Today's Specials"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp"/>
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/specials_recycler_view"
                 android:layout_width="match_parent"
@@ -121,11 +123,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Popular Dishes"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp"/>
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/popular_dishes_recycler_view"
                 android:layout_width="match_parent"
@@ -139,11 +140,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Food Stalls"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp"/>
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/stalls_recycler_view"
                 android:layout_width="match_parent"
@@ -151,22 +151,20 @@
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/card_food_stall" />
-
         </LinearLayout>
-
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_nav_menu"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         app:itemIconTint="@drawable/nav_selector"
         app:itemTextColor="@drawable/nav_selector"
-        app:labelVisibilityMode="labeled" />
-    <!-- Loading Overlay -->
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
     <FrameLayout
         android:id="@+id/loadingOverlay"
         android:layout_width="match_parent"
@@ -180,16 +178,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="vertical"
-            android:gravity="center">
-
+            android:gravity="center"
+            android:orientation="vertical">
             <ImageView
                 android:id="@+id/loadingIcon"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/loading_animation"
-                android:contentDescription="Loading" />
-
+                android:contentDescription="Loading"
+                android:src="@drawable/ic_hourglass1" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -199,5 +195,4 @@
                 android:textSize="18sp" />
         </LinearLayout>
     </FrameLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

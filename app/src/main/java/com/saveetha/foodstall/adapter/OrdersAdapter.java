@@ -1,85 +1,109 @@
 package com.saveetha.foodstall.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.saveetha.foodstall.R;
 import com.saveetha.foodstall.model.Order;
-import java.util.List;
+import com.saveetha.foodstall.model.OrderItem;
 
-public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewHolder> {
+import java.util.ArrayList;
+import java.util.Locale;
 
-    private final List<Order> orders;
+public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder> {
 
-    public OrdersAdapter(List<Order> orders) {
-        this.orders = orders;
+    public interface OnOrderClickListener {
+        void onViewReceiptClick(Order order);
+    }
+
+    private final ArrayList<Order> orderList;
+    private final Context context;
+    private final OnOrderClickListener listener;
+
+    public OrdersAdapter(Context context, ArrayList<Order> orderList, OnOrderClickListener listener) {
+        this.context = context;
+        this.orderList = orderList;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
-    public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_order, parent, false);
-        return new OrderViewHolder(view);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_order, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
-        Order order = orders.get(position);
-
-        holder.stallName.setText(order.stallName);
-        holder.orderId.setText(order.orderId);
-        holder.orderTime.setText(order.orderTime);
-        holder.orderedItems.setText(order.orderedItems);
-        holder.totalAmount.setText(order.totalAmount);
-
-        // Handle order status styling
-        holder.orderStatus.setText(order.orderStatus);
-        int backgroundResId;
-        switch (order.orderStatus) {
-            case "Delivered":
-                backgroundResId = R.drawable.status_delivered_background;
-                break;
-            case "Ready":
-                backgroundResId = R.drawable.status_ready_background;
-                break;
-            case "Cancelled":
-                backgroundResId = R.drawable.status_cancelled_background;
-                break;
-            default:
-                backgroundResId = R.drawable.status_pending_background;
-                break;
-        }
-        holder.orderStatus.setBackgroundResource(backgroundResId);
-
-        // Handle pickup time visibility
-        if (order.pickupTime != null && !order.pickupTime.isEmpty()) {
-            holder.pickupTime.setText(order.pickupTime);
-            holder.pickupTime.setVisibility(View.VISIBLE);
-        } else {
-            holder.pickupTime.setVisibility(View.GONE);
-        }
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.bind(orderList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return orders.size();
+        return orderList.size();
     }
 
-    public static class OrderViewHolder extends RecyclerView.ViewHolder {
-        TextView stallName, orderId, orderTime, orderedItems, orderStatus, totalAmount, pickupTime;
+    class ViewHolder extends RecyclerView.ViewHolder {
+        TextView stallName, orderId, orderTime, status, totalPrice;
+        LinearLayout itemsContainer;
+        Button viewReceiptButton;
 
-        public OrderViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             stallName = itemView.findViewById(R.id.stallNameTextView);
             orderId = itemView.findViewById(R.id.orderIdTextView);
             orderTime = itemView.findViewById(R.id.orderTimeTextView);
-            orderedItems = itemView.findViewById(R.id.orderedItemsTextView);
-            orderStatus = itemView.findViewById(R.id.orderStatusTextView);
-            totalAmount = itemView.findViewById(R.id.totalAmountTextView);
-            pickupTime = itemView.findViewById(R.id.pickupTimeTextView);
+            status = itemView.findViewById(R.id.statusTextView);
+            totalPrice = itemView.findViewById(R.id.totalPriceTextView);
+            itemsContainer = itemView.findViewById(R.id.itemsContainer);
+            viewReceiptButton = itemView.findViewById(R.id.viewReceiptButton);
+        }
+
+        void bind(Order order) {
+            // Using getter methods to access the data
+            stallName.setText(order.getStallName());
+            orderId.setText(order.getOrderId());
+            orderTime.setText(order.getOrderTime());
+            status.setText(order.getStatus());
+            totalPrice.setText(String.format(Locale.getDefault(), "₹%.2f", order.getTotalPrice()));
+
+            // Set status background color dynamically
+            switch (order.getStatus().toLowerCase()) {
+                case "delivered":
+                    status.setBackground(ContextCompat.getDrawable(context, R.drawable.status_delivered_background));
+                    break;
+                case "pending":
+                    status.setBackground(ContextCompat.getDrawable(context, R.drawable.status_pending_background));
+                    break;
+                case "rejected":
+                    status.setBackground(ContextCompat.getDrawable(context, R.drawable.status_rejected_background));
+                    break;
+                case "cancelled":
+                    status.setBackground(ContextCompat.getDrawable(context, R.drawable.status_cancelled_background));
+                    break;
+                default: // For "Ready" or other statuses
+                    status.setBackgroundColor(ContextCompat.getColor(context, R.color.blue));
+                    break;
+            }
+
+            // Dynamically add the list of items
+            itemsContainer.removeAllViews();
+            LayoutInflater inflater = LayoutInflater.from(context);
+            for (OrderItem item : order.getOrderedItems()) {
+                TextView itemTextView = (TextView) inflater.inflate(R.layout.simple_list_item_order, itemsContainer, false);
+                itemTextView.setText(String.format(Locale.getDefault(), "%s × %d", item.getName(), item.getQuantity()));
+                itemsContainer.addView(itemTextView);
+            }
+
+            viewReceiptButton.setOnClickListener(v -> listener.onViewReceiptClick(order));
         }
     }
 }

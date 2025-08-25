@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFE5E5"
+    android:background="@color/screen_background"
     tools:context=".Uadd_moneyActivity">
 
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
+        android:background="@color/card_background"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="16dp"
@@ -23,7 +24,8 @@
             android:id="@+id/backButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_back_arrow_pink" />
+            android:src="@drawable/ic_back_arrow"
+            app:tint="@color/text_primary" />
 
         <TextView
             android:layout_width="0dp"
@@ -31,9 +33,9 @@
             android:layout_weight="1"
             android:text="Add Money to Wallet"
             android:textAlignment="center"
+            android:textColor="@color/text_primary"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#000000" />
+            android:textStyle="bold" />
     </LinearLayout>
 
     <ScrollView
@@ -53,84 +55,58 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:text="₹ Enter Amount"
-                android:textColor="#FF6B6B"
+                android:textColor="@color/brand_pink"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/amountEditText"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/rounded_background_white"
                 android:hint="Enter Amount"
                 android:inputType="numberDecimal"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textColorHint="#999999"
-                android:textSize="24sp"
-                android:layout_marginBottom="16dp" />
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_secondary"
+                android:textSize="24sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
                 android:text="Select Payment Method"
-                android:textColor="#FF6B6B"
+                android:textColor="@color/brand_pink"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
+                android:textStyle="bold" />
 
-            <RadioGroup
-                android:id="@+id/paymentRadioGroup"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/paymentMethodsRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:id="@+id/debitCardLayout"
-                    style="@style/PaymentMethodRowStyle">
-                    <ImageView style="@style/PaymentIconStyle" android:src="@drawable/ic_credit_card" />
-                    <TextView style="@style/PaymentMethodTextStyle" android:text="Debit/Credit Card" />
-                    <RadioButton style="@style/PaymentMethodRadioButtonStyle" android:id="@+id/debitCardRadioButton" />
-                </LinearLayout>
-
-                <View style="@style/DividerStyle" />
-
-                <LinearLayout
-                    android:id="@+id/upiLayout"
-                    style="@style/PaymentMethodRowStyle">
-                    <ImageView style="@style/PaymentIconStyle" android:src="@drawable/ic_gpay" />
-                    <TextView style="@style/PaymentMethodTextStyle" android:text="UPI / Google Pay" />
-                    <RadioButton style="@style/PaymentMethodRadioButtonStyle" android:id="@+id/upiRadioButton" />
-                </LinearLayout>
-
-                <View style="@style/DividerStyle" />
-
-                <LinearLayout
-                    android:id="@+id/netBankingLayout"
-                    style="@style/PaymentMethodRowStyle">
-                    <ImageView style="@style/PaymentIconStyle" android:src="@drawable/ic_bank" />
-                    <TextView style="@style/PaymentMethodTextStyle" android:text="Net Banking" />
-                    <RadioButton style="@style/PaymentMethodRadioButtonStyle" android:id="@+id/netBankingRadioButton" />
-                </LinearLayout>
-
-            </RadioGroup>
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"/>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="100dp" />
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:minHeight="50dp"/>
 
             <Button
                 android:id="@+id/addMoneyPayButton"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:backgroundTint="#FF6B6B"
-                android:text="Add Money or Pay"
-                android:textColor="#FFFFFF"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/brand_pink"
+                android:text="Add Money"
+                android:textColor="@color/white"
                 android:textSize="18sp"
-                app:cornerRadius="12dp"
-                android:layout_marginBottom="16dp" />
+                app:cornerRadius="12dp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -142,14 +118,15 @@
                 <ImageView
                     android:layout_width="16dp"
                     android:layout_height="16dp"
+                    android:layout_marginEnd="8dp"
                     android:src="@drawable/ic_lock"
-                    android:layout_marginEnd="9dp" />
+                    app:tint="@color/text_secondary" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Your payment is secure with 128-bit encryption"
-                    android:textColor="#999999"
+                    android:textColor="@color/text_secondary"
                     android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>

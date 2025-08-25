@@ -1,49 +1,79 @@
-package com.saveetha.foodstall; // Use your package name
+package com.saveetha.foodstall;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import com.saveetha.foodstall.adapter.UpiAppAdapter;
+import com.saveetha.foodstall.model.OrderItem;
+import com.saveetha.foodstall.UpiApp;
+
+import java.util.ArrayList;
 
 public class Uadd_moneyActivity extends AppCompatActivity {
 
     private EditText amountEditText;
-    private RadioGroup paymentRadioGroup;
     private Button addMoneyPayButton;
+    private RecyclerView paymentMethodsRecyclerView;
+    private UpiAppAdapter upiAppAdapter;
+    private String selectedPaymentMethodName = "";
+
+    private ArrayList<OrderItem> orderItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.uadd_money);
 
+        orderItems = getIntent().getParcelableArrayListExtra("FINAL_ORDER_ITEMS");
+
         amountEditText = findViewById(R.id.amountEditText);
-        paymentRadioGroup = findViewById(R.id.paymentRadioGroup);
         addMoneyPayButton = findViewById(R.id.addMoneyPayButton);
 
-        findViewById(R.id.backButton).setOnClickListener(v -> onBackPressed());
+        setupPaymentRecyclerView();
+
+        findViewById(R.id.backButton).setOnClickListener(v -> finish());
 
         addMoneyPayButton.setOnClickListener(v -> {
             String amount = amountEditText.getText().toString();
-            int selectedId = paymentRadioGroup.getCheckedRadioButtonId();
 
-            if (amount.isEmpty()) {
-                Toast.makeText(this, "Please enter an amount", Toast.LENGTH_SHORT).show();
-            } else if (selectedId == -1) {
-                Toast.makeText(this, "Please select a payment method", Toast.LENGTH_SHORT).show();
-            } else {
-                String paymentMethod = "";
-                if (selectedId == R.id.debitCardRadioButton) {
-                    paymentMethod = "Debit/Credit Card";
-                } else if (selectedId == R.id.upiRadioButton) {
-                    paymentMethod = "UPI / Google Pay";
-                } else if (selectedId == R.id.netBankingRadioButton) {
-                    paymentMethod = "Net Banking";
-                }
-
-                Toast.makeText(this, "Adding ₹" + amount + " via " + paymentMethod, Toast.LENGTH_SHORT).show();
+            if (amount.isEmpty() || Double.parseDouble(amount) <= 0) {
+                Toast.makeText(this, "Please enter a valid amount", Toast.LENGTH_SHORT).show();
+                return;
             }
+            if (selectedPaymentMethodName.isEmpty()) {
+                Toast.makeText(this, "Please select a payment method", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            WalletManager.addMoney(Double.parseDouble(amount));
+
+            Intent intent = new Intent(this, Upayment_addedActivity.class);
+            intent.putExtra("ADDED_AMOUNT", amount);
+            intent.putExtra("PAYMENT_METHOD", selectedPaymentMethodName);
+            intent.putParcelableArrayListExtra("FINAL_ORDER_ITEMS", orderItems);
+            startActivity(intent);
         });
+    }
+
+    private void setupPaymentRecyclerView() {
+        paymentMethodsRecyclerView = findViewById(R.id.paymentMethodsRecyclerView);
+        paymentMethodsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        ArrayList<UpiApp> paymentMethods = new ArrayList<>();
+        paymentMethods.add(new UpiApp("Google Pay", R.drawable.ic_gpay));
+        paymentMethods.add(new UpiApp("PhonePe", R.drawable.ic_phonepe));
+        paymentMethods.add(new UpiApp("Paytm", R.drawable.ic_paytm));
+
+        upiAppAdapter = new UpiAppAdapter(this, paymentMethods, upiApp -> {
+            selectedPaymentMethodName = upiApp.getName();
+        });
+        paymentMethodsRecyclerView.setAdapter(upiAppAdapter);
     }
 }
