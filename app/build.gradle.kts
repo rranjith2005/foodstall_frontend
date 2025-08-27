@@ -43,6 +43,7 @@ dependencies {
 
     // Google Play Services Location for getting the user's location
     implementation("com.google.android.gms:play-services-location:21.0.1")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
     // Testing libraries
     testImplementation(libs.junit)

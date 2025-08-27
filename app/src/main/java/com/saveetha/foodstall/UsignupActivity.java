@@ -36,22 +36,23 @@ public class UsignupActivity extends AppCompatActivity {
         ownerBtn = findViewById(R.id.ownerBtn);
         scrollView = findViewById(R.id.scrollView);
 
-        // Set default state: "User" is selected
         setButtonSelected(userBtn, ownerBtn);
 
         // --- Navigation and Button Logic ---
 
-        // Navigate to UhomeActivity on 'Sign Up' button click
+        // UPDATED: Navigate to UhomeActivity on 'Sign Up' button click
         signupBtn.setOnClickListener(v -> {
             Toast.makeText(this, "Signing up...", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(UsignupActivity.this, UhomeActivity.class);
             startActivity(intent);
+            overridePendingTransition(0, 0); // Added for smooth transition
         });
 
-        // Navigate to LoginActivity on 'Login' TextView click
+        // UPDATED: Navigate to LoginActivity on 'Login' TextView click
         loginText.setOnClickListener(v -> {
             Intent intent = new Intent(UsignupActivity.this, LoginActivity.class);
             startActivity(intent);
+            overridePendingTransition(0, 0); // Added for smooth transition
         });
 
         // Handle 'User' button click
@@ -65,12 +66,10 @@ public class UsignupActivity extends AppCompatActivity {
             setButtonSelected(ownerBtn, userBtn);
             Intent intent = new Intent(UsignupActivity.this, OsignupActivity.class);
             startActivity(intent);
+            overridePendingTransition(0, 0);
         });
     }
 
-    /**
-     * Helper method to manage the visual state of the 'User' and 'Owner' buttons.
-     */
     private void setButtonSelected(Button selectedButton, Button unselectedButton) {
         selectedButton.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.white));
         selectedButton.setTextColor(ContextCompat.getColor(this, R.color.pink));

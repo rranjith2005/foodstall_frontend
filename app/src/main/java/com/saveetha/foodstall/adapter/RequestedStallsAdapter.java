@@ -3,10 +3,12 @@ package com.saveetha.foodstall.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.saveetha.foodstall.R;
 import com.saveetha.foodstall.model.RequestedStall;
 import java.util.List;
@@ -14,9 +16,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RequestedStallsAdapter extends RecyclerView.Adapter<RequestedStallsAdapter.StallViewHolder> {
     private final List<RequestedStall> stallsList;
+    private final OnItemClickListener listener;
 
-    public RequestedStallsAdapter(List<RequestedStall> stallsList) {
+    // Interface to send click events back to the Activity
+    public interface OnItemClickListener {
+        void onViewClick(RequestedStall stall);
+    }
+
+    public RequestedStallsAdapter(List<RequestedStall> stallsList, OnItemClickListener listener) {
         this.stallsList = stallsList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -30,10 +39,15 @@ public class RequestedStallsAdapter extends RecyclerView.Adapter<RequestedStalls
     @Override
     public void onBindViewHolder(@NonNull StallViewHolder holder, int position) {
         RequestedStall stall = stallsList.get(position);
-        holder.stallImage.setImageResource(stall.stallImageResId);
-        holder.stallName.setText(stall.stallName);
-        holder.ownerName.setText(stall.ownerName);
-        holder.requestedDate.setText("Requested: " + stall.requestedDate);
+
+        // Use getters to populate the views
+        holder.stallImage.setImageResource(stall.getStallImageResId());
+        holder.stallName.setText(stall.getStallName());
+        holder.ownerName.setText(stall.getOwnerName());
+        holder.requestedDate.setText("Requested: " + stall.getRequestedDate());
+
+        // Set the click listener for the view button
+        holder.viewButton.setOnClickListener(v -> listener.onViewClick(stall));
     }
 
     @Override
@@ -44,6 +58,7 @@ public class RequestedStallsAdapter extends RecyclerView.Adapter<RequestedStalls
     public static class StallViewHolder extends RecyclerView.ViewHolder {
         CircleImageView stallImage;
         TextView stallName, ownerName, requestedDate;
+        Button viewButton; // Added the button here
 
         public StallViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -51,6 +66,7 @@ public class RequestedStallsAdapter extends RecyclerView.Adapter<RequestedStalls
             stallName = itemView.findViewById(R.id.stallNameTextView);
             ownerName = itemView.findViewById(R.id.ownerNameTextView);
             requestedDate = itemView.findViewById(R.id.requestedDateTextView);
+            viewButton = itemView.findViewById(R.id.viewButton); // Find the button by its ID
         }
     }
 }

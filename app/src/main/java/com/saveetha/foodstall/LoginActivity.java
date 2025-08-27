@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(this, "Logging in as Admin...", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, AhomeActivity.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     finish();
                 }
                 // Owner login check
@@ -46,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(this, "Logging in as Owner...", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, OhomeActivity.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     finish();
                 }
                 // User login check (default)
@@ -53,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(this, "Logging in as User...", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, UhomeActivity.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     finish();
                 }
             }
@@ -62,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
         signupText.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, UsignupActivity.class);
             startActivity(intent);
+            overridePendingTransition(0, 0);
         });
     }
 }

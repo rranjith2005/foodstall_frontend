@@ -142,19 +142,28 @@ public class UhomeActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
 
         // --- THIS IS THE UPDATED PART ---
-        // The showLoadingOverlay wrapper has been removed from these navigations
+        // Added the correct navigation logic with smooth transitions
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_home) {
-                return true;
+                return true; // Already on this screen
             } else if (itemId == R.id.nav_orders) {
-                startActivity(new Intent(UhomeActivity.this, UordersActivity.class));
+                startActivity(new Intent(getApplicationContext(), UordersActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
             } else if (itemId == R.id.nav_wallet) {
-                startActivity(new Intent(UhomeActivity.this, UwalletActivity.class));
+                startActivity(new Intent(getApplicationContext(), UwalletActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
             } else if (itemId == R.id.nav_profile) {
-                startActivity(new Intent(UhomeActivity.this, UeditprofileActivity.class));
+                startActivity(new Intent(getApplicationContext(), UeditprofileActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
             }
-            return true;
+            return false;
         });
         // --- END OF UPDATED PART ---
     }

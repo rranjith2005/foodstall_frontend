@@ -51,6 +51,7 @@
                 android:textColor="#666666" />
 
             <TextView
+                android:id="@+id/walletBalanceTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="$245.50"
@@ -58,7 +59,6 @@
                 android:textStyle="bold"
                 android:textColor="#222222"
                 android:layout_marginTop="8dp" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

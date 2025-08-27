@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +43,17 @@ public class Upayment_methodActivity extends AppCompatActivity {
     private String selectedPaymentMethodName = "";
     private Button addMoneyButton;
 
+    // --- NEW: ActivityResultLauncher to handle the result from adding money ---
+    private final ActivityResultLauncher<Intent> addMoneyLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                // When we return from the "Add Money" flow, this code runs.
+                // We just need to refresh the wallet display to show the new balance.
+                if (result.getResultCode() == RESULT_OK) {
+                    updateWalletDisplay();
+                }
+            });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +72,6 @@ public class Upayment_methodActivity extends AppCompatActivity {
 
         setupUpiRecyclerView();
 
-        // Receive order data
         orderItems = getIntent().getParcelableArrayListExtra("FINAL_ORDER_ITEMS");
         if (orderItems != null && !orderItems.isEmpty()) {
             calculateTotalAmount();
@@ -69,15 +81,14 @@ public class Upayment_methodActivity extends AppCompatActivity {
             return;
         }
 
-        // Setup Listeners
         findViewById(R.id.backButton).setOnClickListener(v -> finish());
         walletLayout.setOnClickListener(v -> handleWalletSelection());
 
+        // --- UPDATED: The "Add Money" button now uses the launcher ---
         addMoneyButton.setOnClickListener(v -> {
             Intent intent = new Intent(this, Uadd_moneyActivity.class);
-            // Pass the order items to the add money screen
             intent.putParcelableArrayListExtra("FINAL_ORDER_ITEMS", orderItems);
-            startActivity(intent);
+            addMoneyLauncher.launch(intent);
         });
 
         payButton.setOnClickListener(v -> {

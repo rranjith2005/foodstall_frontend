@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFE5E5"
+    android:background="#FFFFFF"
     tools:context=".AapprovalActivity">
 
-    <!-- Top Bar -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="0dp"
@@ -25,7 +24,9 @@
             android:id="@+id/backButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_back_arrow_white" />
+            android:src="@drawable/ic_back_arrow"
+            app:tint="@android:color/white"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
 
         <TextView
             android:layout_width="0dp"
@@ -68,10 +69,11 @@
             </FrameLayout>
 
             <TextView
+                android:id="@+id/approvalMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Stall Approved Successfully!"
+                tools:text="Stall 'Juice Corner' Approved!"
                 android:textColor="#222222"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -99,9 +101,10 @@
                     android:padding="16dp">
 
                     <TextView
+                        android:id="@+id/ownerIdTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Owner ID: S12345678"
+                        tools:text="Owner ID: S12345678"
                         android:textColor="#222222"
                         android:textSize="16sp"
                         android:textStyle="bold"

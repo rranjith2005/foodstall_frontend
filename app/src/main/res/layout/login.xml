@@ -7,7 +7,6 @@
     android:background="#FF6B6B"
     tools:context=".LoginActivity">
 
-    <!-- App Logo and Name -->
     <LinearLayout
         android:id="@+id/logoLayout"
         android:layout_width="wrap_content"
@@ -22,7 +21,6 @@
 
     </LinearLayout>
 
-    <!-- Login Card -->
     <androidx.cardview.widget.CardView
         android:id="@+id/loginCard"
         android:layout_width="0dp"
@@ -44,7 +42,6 @@
             android:orientation="vertical"
             android:padding="24dp">
 
-            <!-- Input Fields -->
             <TextView
                 style="@style/FormLabelStyle"
                 android:text="User ID / Stall ID" />
@@ -58,13 +55,28 @@
                 style="@style/FormLabelStyle"
                 android:text="Password" />
 
-            <EditText
-                android:id="@+id/passwordEditText"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordLayout"
                 style="@style/FormInputStyle"
-                android:hint="••••••••••"
-                android:inputType="textPassword" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter your password"
+                app:boxBackgroundColor="@color/white"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:passwordToggleEnabled="true">
 
-            <!-- Login Button -->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <Button
                 android:id="@+id/loginBtn"
                 android:layout_width="match_parent"
@@ -76,7 +88,6 @@
                 android:textSize="18sp"
                 app:cornerRadius="12dp" />
 
-            <!-- Already have an account? Login -->
             <TextView
                 android:id="@+id/signupText"
                 android:layout_width="wrap_content"
@@ -95,22 +106,22 @@
         android:id="@+id/imageView"
         android:layout_width="125dp"
         android:layout_height="92dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginBottom="104dp"
         android:src="@drawable/img"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@+id/logoLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
         android:text="Stall Spot"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/loginCard"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="200dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

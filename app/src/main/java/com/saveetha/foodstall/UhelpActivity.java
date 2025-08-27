@@ -1,8 +1,10 @@
-package com.saveetha.foodstall; // Use your app's package name
+package com.saveetha.foodstall;
 
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,7 +19,6 @@ public class UhelpActivity extends AppCompatActivity {
         // Set up the back button to navigate back
         findViewById(R.id.backButton).setOnClickListener(v -> onBackPressed());
 
-        // Get the EditText and Button from the layout
         EditText feedbackEditText = findViewById(R.id.feedbackEditText);
         Button sendMessageButton = findViewById(R.id.sendMessageButton);
 
@@ -27,27 +28,36 @@ public class UhelpActivity extends AppCompatActivity {
             if (feedback.isEmpty()) {
                 Toast.makeText(this, "Please enter your issue or feedback.", Toast.LENGTH_SHORT).show();
             } else {
-                // Here, you would implement the logic to send the feedback
-                // For example, sending it to a server or an email service.
                 Toast.makeText(this, "Feedback sent successfully!", Toast.LENGTH_SHORT).show();
-                feedbackEditText.setText(""); // Clear the text box after sending
+                feedbackEditText.setText("");
             }
         });
 
-        // Set up click listeners for the support cards (optional)
+        // Set up click listeners for the support cards
         findViewById(R.id.faqCard).setOnClickListener(v -> {
-            Toast.makeText(this, "Navigating to FAQ page...", Toast.LENGTH_SHORT).show();
-            // Implement your navigation to the FAQ page here
+            startActivity(new Intent(this, Ufrequent_questionActivity.class));
         });
 
+        // UPDATED: This now opens the phone dialer
         findViewById(R.id.callSupportCard).setOnClickListener(v -> {
-            Toast.makeText(this, "Opening dialer to call support...", Toast.LENGTH_SHORT).show();
-            // Implement your logic to open the phone dialer here
+            Intent dialIntent = new Intent(Intent.ACTION_DIAL);
+            // Replace with your actual support phone number
+            dialIntent.setData(Uri.parse("tel:+911234567890"));
+            startActivity(dialIntent);
         });
 
+        // UPDATED: This now opens an email client
         findViewById(R.id.emailSupportCard).setOnClickListener(v -> {
-            Toast.makeText(this, "Opening email client...", Toast.LENGTH_SHORT).show();
-            // Implement your logic to send an email here
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+            // Replace with your actual support email
+            emailIntent.setData(Uri.parse("mailto:support@stallspot.com"));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Food Stall App Support Request");
+
+            try {
+                startActivity(emailIntent);
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(this, "No email app found.", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }

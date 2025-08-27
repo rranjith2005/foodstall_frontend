@@ -24,8 +24,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.25" />
 
-
-
     <FrameLayout
         android:id="@+id/profileImageContainer"
         android:layout_width="wrap_content"
@@ -36,7 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profileImage"
+            android:id="@+id/profileImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/sai"
@@ -88,91 +86,63 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <LinearLayout style="@style/SettingsItemStyle">
-                    <ImageView style="@style/SettingsIconStyle" android:src="@drawable/ic_lock" app:tint="#FF6B6B" />
-                    <TextView style="@style/SettingsTextStyle" android:text="Student ID" />
-                    <EditText
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="12345678"
-                        android:textColor="#222222"
-                        android:background="@android:color/transparent"
-                        android:textSize="16sp"
-                        android:gravity="end" />
-                </LinearLayout>
+                <!-- THIS IS THE UPDATED PART -->
+                <TextView style="@style/FormLabelStyle" android:text="Full Name" />
+                <EditText
+                    android:id="@+id/nameEditText"
+                    style="@style/FormInputStyle"
+                    android:text="Sai G.J"
+                    android:inputType="textPersonName"/>
 
-                <LinearLayout style="@style/SettingsItemStyle">
-                    <ImageView style="@style/SettingsIconStyle" android:src="@drawable/ic_edit" app:tint="#FF6B6B" />
-                    <TextView style="@style/SettingsTextStyle" android:text="Full Name" />
-                    <EditText
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Sarah Johnson"
-                        android:textColor="#222222"
-                        android:background="@android:color/transparent"
-                        android:textSize="16sp"
-                        android:gravity="end" />
-                </LinearLayout>
+                <TextView style="@style/FormLabelStyle" android:text="Email" />
+                <EditText
+                    android:id="@+id/emailEditText"
+                    style="@style/FormInputStyle"
+                    android:text="sai.gj@example.com"
+                    android:inputType="textEmailAddress"/>
 
-                <LinearLayout style="@style/SettingsItemStyle">
-                    <ImageView style="@style/SettingsIconStyle" android:src="@drawable/ic_email" app:tint="#FF6B6B" />
-                    <TextView style="@style/SettingsTextStyle" android:text="Email" />
-                    <EditText
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="sarah.j@email.com"
-                        android:textColor="#222222"
-                        android:background="@android:color/transparent"
-                        android:textSize="16sp"
-                        android:gravity="end" />
-                </LinearLayout>
+                <TextView style="@style/FormLabelStyle" android:text="Phone Number" />
+                <EditText
+                    android:id="@+id/phoneEditText"
+                    style="@style/FormInputStyle"
+                    android:text="9876543210"
+                    android:inputType="phone"/>
 
-                <LinearLayout style="@style/SettingsItemStyle">
-                    <ImageView style="@style/SettingsIconStyle" android:src="@drawable/ic_phone" app:tint="#FF6B6B" />
-                    <TextView style="@style/SettingsTextStyle" android:text="Phone Number" />
-                    <EditText
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="+1 (555) 123-4567"
-                        android:textColor="#222222"
-                        android:background="@android:color/transparent"
-                        android:textSize="16sp"
-                        android:gravity="end" />
-                </LinearLayout>
+                <TextView style="@style/FormLabelStyle" android:text="Student ID (Not Editable)" />
+                <EditText
+                    android:id="@+id/studentIdEditText"
+                    style="@style/FormInputStyle"
+                    android:text="S36500654"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:background="#E0E0E0"/>
 
-                <LinearLayout style="@style/SettingsItemStyle">
+                <LinearLayout
+                    android:id="@+id/favoriteStallsLayout"
+                    style="@style/SettingsItemStyle"
+                    android:background="@drawable/rounded_background_white"
+                    android:layout_marginTop="16dp">
                     <ImageView style="@style/SettingsIconStyle" android:src="@drawable/ic_heart" app:tint="#FF6B6B" />
-                    <TextView style="@style/SettingsTextStyle" android:text="Favorite Stalls" />
-                    <EditText
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Pizza Hub, Burger House"
-                        android:textColor="#222222"
-                        android:background="@android:color/transparent"
-                        android:textSize="16sp"
-                        android:gravity="end" />
+                    <TextView style="@style/SettingsTextStyle" android:layout_weight="1" android:text="Favorite Stalls" />
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_arrow_right"/>
                 </LinearLayout>
 
                 <Space android:layout_width="match_parent" android:layout_height="32dp" />
 
                 <Button
                     android:id="@+id/saveButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
                     android:text="Save Changes"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:backgroundTint="#FF6B6B"
-                    app:cornerRadius="12dp"
-                    android:drawableStart="@drawable/ic_edit"
-                    android:drawableTint="#FFFFFF"
-                    android:drawablePadding="8dp" />
+                    app:cornerRadius="12dp" />
+                <!-- END OF UPDATED PART -->
+
             </LinearLayout>
         </ScrollView>
     </androidx.cardview.widget.CardView>
@@ -186,7 +156,6 @@
         android:background="#FFFFFF"
         app:itemIconTint="@drawable/nav_selector"
         app:itemTextColor="@drawable/nav_selector"
-        app:labelVisibilityMode="labeled"
-        tools:checkedId="@id/nav_profile" />
+        app:labelVisibilityMode="labeled" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

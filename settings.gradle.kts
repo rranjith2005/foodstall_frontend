@@ -17,6 +17,9 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
 
+        // --- ADD THIS LINE FOR MPANDROIDCHART ---
+        maven { url = uri("https://jitpack.io") }
+
         // --- THIS IS THE CORRECTED BLOCK FOR MAPBOX ---
         maven {
             url = uri("https://api.mapbox.com/downloads/v2/private/maven")

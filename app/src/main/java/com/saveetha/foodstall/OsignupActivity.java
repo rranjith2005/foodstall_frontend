@@ -45,21 +45,26 @@ public class OsignupActivity extends AppCompatActivity {
             Toast.makeText(this, "Signing up as Owner...", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(OsignupActivity.this, OstalldetailsActivity.class);
             startActivity(intent);
+            overridePendingTransition(0, 0);
         });
 
         // Navigate to LoginActivity on 'Login' TextView click
         loginText.setOnClickListener(v -> {
             Intent intent = new Intent(OsignupActivity.this, LoginActivity.class);
             startActivity(intent);
+            overridePendingTransition(0, 0);
         });
 
+        // --- THIS IS THE UPDATED PART ---
         // Handle 'User' button click
         userBtn.setOnClickListener(v -> {
-            // Highlight the 'User' button and navigate to USignupActivity
             setButtonSelected(userBtn, ownerBtn);
             Intent intent = new Intent(OsignupActivity.this, UsignupActivity.class);
             startActivity(intent);
+            // Add this line to remove the transition animation
+            overridePendingTransition(0, 0);
         });
+        // --- END OF UPDATED PART ---
 
         // Handle 'Owner' button click
         ownerBtn.setOnClickListener(v -> {

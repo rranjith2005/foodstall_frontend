@@ -13,49 +13,49 @@ import java.util.List;
 
 public class NotificationAdminAdapter extends RecyclerView.Adapter<NotificationAdminAdapter.NotificationViewHolder> {
 
-    private final List<NotificationAdmin> notificationsList;
+    private final List<NotificationAdmin> notifications;
 
-    public NotificationAdminAdapter(List<NotificationAdmin> notificationsList) {
-        this.notificationsList = notificationsList;
+    public NotificationAdminAdapter(List<NotificationAdmin> notifications) {
+        this.notifications = notifications;
     }
 
     @NonNull
     @Override
     public NotificationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_notification_admin, parent, false);
-        return new NotificationViewHolder(itemView);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.anotifications_item, parent, false);
+        return new NotificationViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull NotificationViewHolder holder, int position) {
-        NotificationAdmin notification = notificationsList.get(position);
-        holder.notificationTitle.setText(notification.title);
-        holder.notificationMessage.setText(notification.message);
-        holder.notificationTime.setText(notification.time);
+        NotificationAdmin notification = notifications.get(position);
+        holder.title.setText(notification.getTitle());
+        holder.message.setText(notification.getMessage());
+        holder.time.setText(notification.getTime());
 
-        if (notification.hasNewStatus) {
-            holder.statusIndicator.setVisibility(View.VISIBLE);
+        // This logic now works because newNotificationIndicator is found correctly
+        if (notification.isNew()) {
+            holder.newNotificationIndicator.setVisibility(View.VISIBLE);
         } else {
-            holder.statusIndicator.setVisibility(View.GONE);
+            holder.newNotificationIndicator.setVisibility(View.GONE);
         }
     }
 
     @Override
     public int getItemCount() {
-        return notificationsList.size();
+        return notifications.size();
     }
 
     public static class NotificationViewHolder extends RecyclerView.ViewHolder {
-        public TextView notificationTitle, notificationMessage, notificationTime;
-        public ImageView statusIndicator;
+        TextView title, message, time;
+        ImageView newNotificationIndicator; // This view is now correctly declared
 
         public NotificationViewHolder(@NonNull View itemView) {
             super(itemView);
-            notificationTitle = itemView.findViewById(R.id.notificationTitle);
-            notificationMessage = itemView.findViewById(R.id.notificationMessage);
-            notificationTime = itemView.findViewById(R.id.notificationTime);
-
+            title = itemView.findViewById(R.id.notificationTitle);
+            message = itemView.findViewById(R.id.notificationMessage);
+            time = itemView.findViewById(R.id.notificationTime);
+            newNotificationIndicator = itemView.findViewById(R.id.newNotificationIndicator); // And found here
         }
     }
 }

@@ -1,8 +1,11 @@
-package com.saveetha.foodstall; // Use your package name
+package com.saveetha.foodstall;
 
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class AapprovalActivity extends AppCompatActivity {
 
@@ -11,14 +14,23 @@ public class AapprovalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.aapproval);
 
-        // Set up the back button
-        findViewById(R.id.backButton).setOnClickListener(v -> onBackPressed());
+        // Find all the views from the layout
+        ImageView backButton = findViewById(R.id.backButton);
+        TextView approvalMessage = findViewById(R.id.approvalMessage);
+        TextView ownerIdTextView = findViewById(R.id.ownerIdTextView);
+        Button backToListButton = findViewById(R.id.backToListButton);
 
-        // Set up the "Back to New Stall List" button
-        findViewById(R.id.backToListButton).setOnClickListener(v -> {
-            Toast.makeText(this, "Navigating to new stall list...", Toast.LENGTH_SHORT).show();
-            // Add your navigation logic here to go back to the list of stalls
-            onBackPressed();
-        });
+        // Get the data that was passed from Astall_detailsActivity
+        Intent intent = getIntent();
+        String stallName = intent.getStringExtra("STALL_NAME");
+        String ownerId = intent.getStringExtra("OWNER_ID");
+
+        // Use the data to set the text on the screen
+        approvalMessage.setText("Stall '" + stallName + "' Approved Successfully!");
+        ownerIdTextView.setText("Owner ID: " + ownerId);
+
+        // Set click listeners for the buttons
+        backButton.setOnClickListener(v -> finish());
+        backToListButton.setOnClickListener(v -> finish());
     }
 }

@@ -12,7 +12,6 @@ public class OpendingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.opending);
 
-        findViewById(R.id.backButton).setOnClickListener(v -> onBackPressed());
 
         Button logoutButton = findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(v -> {

@@ -57,8 +57,18 @@ public class Uadd_moneyActivity extends AppCompatActivity {
             Intent intent = new Intent(this, Upayment_addedActivity.class);
             intent.putExtra("ADDED_AMOUNT", amount);
             intent.putExtra("PAYMENT_METHOD", selectedPaymentMethodName);
-            intent.putParcelableArrayListExtra("FINAL_ORDER_ITEMS", orderItems);
+
+            if (orderItems != null && !orderItems.isEmpty()) {
+                intent.putParcelableArrayListExtra("FINAL_ORDER_ITEMS", orderItems);
+            }
+
+            intent.putExtra("came_from_wallet", getIntent().getBooleanExtra("came_from_wallet", false));
+
             startActivity(intent);
+
+            // --- THIS IS THE UPDATED PART ---
+            // Close this screen so the user doesn't return to it
+            finish();
         });
     }
 

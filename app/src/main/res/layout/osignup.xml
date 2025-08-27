@@ -94,19 +94,53 @@
                     android:inputType="phone"
                     android:maxLength="10" />
 
+                <!-- THIS IS THE UPDATED PART -->
                 <TextView style="@style/FormLabelStyle" android:text="Password" />
-                <EditText
-                    android:id="@+id/passwordEditText"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/passwordLayout"
                     style="@style/FormInputStyle"
-                    android:hint="••••••••••"
-                    android:inputType="textPassword" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxCornerRadiusBottomEnd="8dp"
+                    app:boxCornerRadiusBottomStart="8dp"
+                    app:boxCornerRadiusTopEnd="8dp"
+                    app:boxCornerRadiusTopStart="8dp"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    android:hint="Enter your password"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/passwordEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView style="@style/FormLabelStyle" android:text="Confirm Password" />
-                <EditText
-                    android:id="@+id/confirmPasswordEditText"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/confirmPasswordLayout"
                     style="@style/FormInputStyle"
-                    android:hint="••••••••••"
-                    android:inputType="textPassword" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxCornerRadiusBottomEnd="8dp"
+                    app:boxCornerRadiusBottomStart="8dp"
+                    app:boxCornerRadiusTopEnd="8dp"
+                    app:boxCornerRadiusTopStart="8dp"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    android:hint="Confirm your password"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/confirmPasswordEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <!-- END OF UPDATED PART -->
 
                 <!-- Register As Buttons -->
                 <TextView

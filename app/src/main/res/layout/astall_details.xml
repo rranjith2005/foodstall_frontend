@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFE5E5"
+    android:background="#FFF0F0"
     tools:context=".Astall_detailsActivity">
 
-    <!-- Top Bar -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="0dp"
@@ -25,158 +24,130 @@
             android:id="@+id/backButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_back_arrow_white" />
+            android:src="@drawable/ic_back_arrow"
+            app:tint="@android:color/white"
+            android:background="?attr/selectableItemBackgroundBorderless" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Stall Details"
-            android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textAlignment="center"/>
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintBottom_toTopOf="@+id/actionButtonsLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBar">
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                android:layout_marginBottom="16dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/stallDetailImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/stall_sample3"
-                        android:contentDescription="Stall Image" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-
-                        <TextView
-                            android:id="@+id/stallName"
-                            style="@style/DetailTitleStyle"
-                            android:text="Stall Name" />
-                        <TextView
-                            android:id="@+id/stallNameValue"
-                            style="@style/DetailValueStyle"
-                            android:text="Street Food Corner" />
-
-                        <View style="@style/DividerStyle1" android:layout_marginTop="16dp" android:layout_marginBottom="16dp" />
-
-                        <TextView
-                            android:id="@+id/ownerName"
-                            style="@style/DetailTitleStyle"
-                            android:text="Owner Name" />
-                        <TextView
-                            android:id="@+id/ownerNameValue"
-                            style="@style/DetailValueStyle"
-                            android:text="John Smith" />
-
-                        <View style="@style/DividerStyle" android:layout_marginTop="16dp" android:layout_marginBottom="16dp" />
-
-                        <TextView
-                            android:id="@+id/fssaiNumber"
-                            style="@style/DetailTitleStyle"
-                            android:text="FSSAI Number" />
-                        <TextView
-                            android:id="@+id/fssaiNumberValue"
-                            style="@style/DetailValueStyle"
-                            android:text="12345678901234" />
-
-                        <View style="@style/DividerStyle" android:layout_marginTop="16dp" android:layout_marginBottom="16dp" />
-
-                        <TextView
-                            android:id="@+id/phoneNumber"
-                            style="@style/DetailTitleStyle"
-                            android:text="Phone Number" />
-                        <TextView
-                            android:id="@+id/phoneNumberValue"
-                            style="@style/DetailValueStyle"
-                            android:text="+1 234-567-8900" />
-
-                        <View style="@style/DividerStyle" android:layout_marginTop="16dp" android:layout_marginBottom="16dp" />
-
-                        <TextView
-                            android:id="@+id/address"
-                            style="@style/DetailTitleStyle"
-                            android:text="Address" />
-                        <TextView
-                            android:id="@+id/addressValue"
-                            style="@style/DetailValueStyle"
-                            android:text="Block A, University Campus, Street Name, City, State, ZIP" />
-
-                        <View style="@style/DividerStyle" android:layout_marginTop="16dp" android:layout_marginBottom="16dp" />
-
-                        <TextView
-                            android:id="@+id/dateRequested"
-                            style="@style/DetailTitleStyle"
-                            android:text="Date Requested" />
-                        <TextView
-                            android:id="@+id/dateRequestedValue"
-                            style="@style/DetailValueStyle"
-                            android:text="Oct 15, 2023" />
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            android:layout_margin="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
+                android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/approveButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:text="✓ Approve"
-                    android:backgroundTint="#4CAF50"
-                    android:textColor="@android:color/white"
-                    android:textAllCaps="false"
-                    android:textSize="16sp"
-                    app:cornerRadius="12dp" />
+                <ImageView
+                    android:id="@+id/stallDetailImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    tools:src="@drawable/stall_sample1"/>
 
-                <Button
-                    android:id="@+id/rejectButton"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="✕ Reject"
-                    android:backgroundTint="#F44336"
-                    android:textColor="@android:color/white"
-                    android:textAllCaps="false"
-                    android:textSize="16sp"
-                    app:cornerRadius="12dp" />
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView android:text="Stall Name" style="@style/DetailLabel"/>
+                    <TextView android:id="@+id/stallNameValue" style="@style/DetailValue" tools:text="Street Food Corner"/>
+
+                    <TextView android:text="Owner Name" style="@style/DetailLabel" android:layout_marginTop="16dp"/>
+                    <TextView android:id="@+id/ownerNameValue" style="@style/DetailValue" tools:text="John Smith"/>
+
+                    <TextView android:text="Email Address" style="@style/DetailLabel" android:layout_marginTop="16dp"/>
+                    <TextView android:id="@+id/emailAddressValue" style="@style/DetailValue" tools:text="john.smith@example.com"/>
+
+                    <TextView android:text="FSSAI Number" style="@style/DetailLabel" android:layout_marginTop="16dp"/>
+                    <TextView android:id="@+id/fssaiNumberValue" style="@style/DetailValue" tools:text="12345678901234"/>
+
+                    <TextView android:text="Phone Number" style="@style/DetailLabel" android:layout_marginTop="16dp"/>
+                    <TextView android:id="@+id/phoneNumberValue" style="@style/DetailValue" tools:text="+1 234-567-8900"/>
+
+                    <TextView android:text="Address" style="@style/DetailLabel" android:layout_marginTop="16dp"/>
+                    <TextView android:id="@+id/addressValue" style="@style/DetailValue" tools:text="Block A, University Campus, Street Name, City, State, ZIP"/>
+
+                    <TextView android:text="Date Requested" style="@style/DetailLabel" android:layout_marginTop="16dp"/>
+                    <TextView android:id="@+id/dateRequestedValue" style="@style/DetailValue" tools:text="Oct 15, 2025"/>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/actionButtonsLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/approveButton"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Approve"
+            android:textColor="@android:color/white"
+            app:backgroundTint="#4CAF50"
+            app:cornerRadius="12dp"
+            app:icon="@drawable/ic_tick"
+            app:iconGravity="textStart"
+            app:iconTint="@android:color/white"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/rejectButton"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="8dp"
+            android:text="Reject"
+            android:textColor="@android:color/white"
+            app:backgroundTint="#F44336"
+            app:cornerRadius="12dp"
+            app:icon="@drawable/ic_close"
+            app:iconGravity="textStart"
+            app:iconTint="@android:color/white"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#B3000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible">
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

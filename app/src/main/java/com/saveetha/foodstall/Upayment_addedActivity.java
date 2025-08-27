@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.saveetha.foodstall.model.OrderItem;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -34,12 +32,25 @@ public class Upayment_addedActivity extends AppCompatActivity {
             amountAddedTextView.setText(String.format(Locale.getDefault(), "₹%.2f", amountValue));
         }
 
+        // --- THIS IS THE UPDATED PART ---
+        boolean cameFromWallet = getIntent().getBooleanExtra("came_from_wallet", false);
+
         doneButton.setOnClickListener(v -> {
-            Intent paymentIntent = new Intent(Upayment_addedActivity.this, Upayment_methodActivity.class);
-            paymentIntent.putParcelableArrayListExtra("FINAL_ORDER_ITEMS", orderItems);
-            paymentIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(paymentIntent);
-            finish();
+            if (cameFromWallet) {
+                // This logic is for when you add money directly from the wallet.
+                Intent walletIntent = new Intent(Upayment_addedActivity.this, UwalletActivity.class);
+                walletIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(walletIntent);
+                finish();
+            } else {
+                // THIS IS THE FIX for when you add money during an order.
+                // It sends the order data back to Upayment_methodActivity.
+                Intent resultIntent = new Intent();
+                resultIntent.putParcelableArrayListExtra("FINAL_ORDER_ITEMS", orderItems);
+                setResult(RESULT_OK, resultIntent);
+                finish();
+            }
         });
+        // --- END OF UPDATED PART ---
     }
 }
