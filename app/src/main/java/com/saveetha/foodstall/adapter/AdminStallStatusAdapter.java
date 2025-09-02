@@ -15,9 +15,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AdminStallStatusAdapter extends RecyclerView.Adapter<AdminStallStatusAdapter.StallViewHolder> {
     private final List<StallStatus> stallsList;
+    private OnStallClickListener listener;
 
-    public AdminStallStatusAdapter(List<StallStatus> stallsList) {
+    // Interface to handle clicks
+    public interface OnStallClickListener {
+        void onViewClick(StallStatus stall);
+    }
+
+    public AdminStallStatusAdapter(List<StallStatus> stallsList, OnStallClickListener listener) {
         this.stallsList = stallsList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -36,7 +43,6 @@ public class AdminStallStatusAdapter extends RecyclerView.Adapter<AdminStallStat
         holder.ownerName.setText(stall.ownerName);
         holder.status.setText(stall.status);
 
-        // Logic to show/hide the reason TextView based on status
         if ("Rejected".equals(stall.status)) {
             holder.reason.setText(stall.reason);
             holder.reason.setVisibility(View.VISIBLE);
@@ -44,14 +50,17 @@ public class AdminStallStatusAdapter extends RecyclerView.Adapter<AdminStallStat
             holder.reason.setVisibility(View.GONE);
         }
 
-        // Logic to show/hide the View button based on status
         if ("Pending".equals(stall.status)) {
             holder.viewButton.setVisibility(View.VISIBLE);
+            holder.viewButton.setOnClickListener(v -> {
+                if (listener != null) {
+                    listener.onViewClick(stall);
+                }
+            });
         } else {
             holder.viewButton.setVisibility(View.GONE);
         }
 
-        // Dynamic status background and text color
         switch (stall.status) {
             case "Approved":
                 holder.status.setBackgroundResource(R.drawable.status_approved_background);

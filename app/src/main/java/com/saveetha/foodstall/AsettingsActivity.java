@@ -1,7 +1,10 @@
-package com.saveetha.foodstall; // Replace with your package name
+package com.saveetha.foodstall;
 
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class AsettingsActivity extends AppCompatActivity {
@@ -11,27 +14,43 @@ public class AsettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.asettings);
 
+        // --- THIS IS THE UPDATED PART ---
+        // Find views
+        LinearLayout analysisLayout = findViewById(R.id.analysisLayout);
+        LinearLayout editStallLayout = findViewById(R.id.editStallLayout);
+        LinearLayout helpSupportLayout = findViewById(R.id.helpSupportLayout);
+        LinearLayout privacyLayout = findViewById(R.id.privacyLayout);
+        Button logoutButton = findViewById(R.id.logoutButton);
+
+        // Set up click listeners with correct navigation
         findViewById(R.id.backButton).setOnClickListener(v -> onBackPressed());
 
-        // Handle clicks for each settings option
-        findViewById(R.id.analysisLayout).setOnClickListener(v -> {
-            Toast.makeText(this, "Analysis clicked", Toast.LENGTH_SHORT).show();
+        analysisLayout.setOnClickListener(v -> {
+            startActivity(new Intent(this, AanalysisActivity.class));
         });
 
-        findViewById(R.id.editStallLayout).setOnClickListener(v -> {
-            Toast.makeText(this, "Edit Stall clicked", Toast.LENGTH_SHORT).show();
+        editStallLayout.setOnClickListener(v -> {
+            // TODO: Create AeditStallActivity and uncomment the line below
+            // startActivity(new Intent(this, AeditStallActivity.class));
+            startActivity(new Intent(this, AeditstallActivity.class));
         });
 
-        findViewById(R.id.helpSupportLayout).setOnClickListener(v -> {
-            Toast.makeText(this, "Help & Support clicked", Toast.LENGTH_SHORT).show();
+        helpSupportLayout.setOnClickListener(v -> {
+            startActivity(new Intent(this, AhelpActivity.class));
         });
 
-        findViewById(R.id.privacyLayout).setOnClickListener(v -> {
-            Toast.makeText(this, "Privacy Policy clicked", Toast.LENGTH_SHORT).show();
+        privacyLayout.setOnClickListener(v -> {
+            startActivity(new Intent(this, Aprivacy_policyActivity.class));
         });
 
-        findViewById(R.id.logoutButton).setOnClickListener(v -> {
+        logoutButton.setOnClickListener(v -> {
             Toast.makeText(this, "Logging out...", Toast.LENGTH_SHORT).show();
+            // Navigate to Login screen and clear all previous activities
+            Intent intent = new Intent(AsettingsActivity.this, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
         });
+        // --- END OF UPDATED PART ---
     }
 }

@@ -7,7 +7,6 @@
     android:background="#FF6B6B"
     tools:context=".AprofileActivity">
 
-    <!-- Top Background -->
     <View
         android:id="@+id/topBackground"
         android:layout_width="0dp"
@@ -25,27 +24,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.25" />
 
-    <!-- Back Button -->
-
-    <!-- Page Title -->
-
-    <!-- User Profile Section -->
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit Profile"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/topBackground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.478"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/topBackground"
-        app:layout_constraintVertical_bias="0.852" />
-
-    <!-- Profile Details Card -->
     <FrameLayout
         android:id="@+id/profileImageContainer"
         android:layout_width="wrap_content"
@@ -56,7 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profileImage"
+            android:id="@+id/profileImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/nithi"
@@ -72,100 +50,87 @@
             android:src="@drawable/ic_camera"
             app:tint="#4B5563" />
     </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Profile"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/topBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/topBackground"
+        app:layout_constraintVertical_bias="0.852" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/profileCard"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:cardCornerRadius="24dp"
         app:cardElevation="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintTop_toBottomOf="@id/guideline"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp">
-
-            <TextView
-                android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Name"
-                android:textColor="#666666"
-                android:textSize="12sp" />
-            <TextView
-                android:id="@+id/nameValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="John Smith"
-                android:textColor="#222222"
-                android:textSize="16sp" />
+                android:orientation="vertical"
+                android:padding="24dp">
 
-            <View style="@style/DividerStyle" android:layout_marginTop="12dp" android:layout_marginBottom="12dp" />
+                <TextView style="@style/FormLabelStyle" android:text="Name" />
+                <EditText
+                    android:id="@+id/adminNameEditText"
+                    style="@style/FormInputStyle"
+                    android:text="John Smith"
+                    android:inputType="textPersonName"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Email"
-                android:textColor="#666666"
-                android:textSize="12sp" />
-            <TextView
-                android:id="@+id/emailValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="john.smith@stallspot.com"
-                android:textColor="#222222"
-                android:textSize="16sp" />
+                <TextView style="@style/FormLabelStyle" android:text="Email" />
+                <EditText
+                    android:id="@+id/adminEmailEditText"
+                    style="@style/FormInputStyle"
+                    android:text="john.smith@stallspot.com"
+                    android:inputType="textEmailAddress"/>
 
-            <View style="@style/DividerStyle" android:layout_marginTop="12dp" android:layout_marginBottom="12dp" />
+                <TextView style="@style/FormLabelStyle" android:text="Contact" />
+                <EditText
+                    android:id="@+id/adminContactEditText"
+                    style="@style/FormInputStyle"
+                    android:text="+1 (555) 123-4567"
+                    android:inputType="phone"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Contact"
-                android:textColor="#666666"
-                android:textSize="12sp" />
-            <TextView
-                android:id="@+id/contactValue"
-                style="@style/DetailValueStyle"
-                android:text="+1 (555) 123-4567" />
+                <TextView style="@style/FormLabelStyle" android:text="Role (Not Editable)" />
+                <EditText
+                    android:id="@+id/adminRoleEditText"
+                    style="@style/FormInputStyle"
+                    android:text="Administrator"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:background="#E0E0E0"/>
 
-            <View style="@style/DividerStyle" android:layout_marginTop="12dp" android:layout_marginBottom="12dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Role"
-                android:textColor="#666666"
-                android:textSize="12sp" />
-            <TextView
-                android:id="@+id/roleValue"
-                style="@style/DetailValueStyle"
-                android:text="Administrator" />
-
-        </LinearLayout>
+                <Button
+                    android:id="@+id/saveChangesButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="32dp"
+                    android:backgroundTint="#FF6B6B"
+                    android:text="Save Changes"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    app:cornerRadius="12dp"/>
+            </LinearLayout>
+        </ScrollView>
     </androidx.cardview.widget.CardView>
-
-    <Button
-        android:id="@+id/saveChangesButton"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@android:color/white"
-        android:text="Save Changes"
-        android:textColor="#FF6B6B"
-        android:textSize="18sp"
-        app:cornerRadius="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="667dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_bar"
@@ -176,6 +141,37 @@
         app:menu="@menu/bottom_nav_admin_menu"
         app:itemIconTint="@drawable/nav_selector"
         app:itemTextColor="@drawable/nav_selector"
-        app:labelVisibilityMode="labeled"
-        tools:checkedId="@id/nav_admin_profile" />
+        app:labelVisibilityMode="labeled" />
+
+    <FrameLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/loadingIcon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:contentDescription="Loading"
+                android:src="@drawable/ic_hourglass1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Please wait..."
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

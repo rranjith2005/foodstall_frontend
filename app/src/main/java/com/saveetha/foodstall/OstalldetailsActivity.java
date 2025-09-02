@@ -19,7 +19,6 @@ public class OstalldetailsActivity extends AppCompatActivity {
     private EditText stallNameEditText, ownerNameEditText, phoneNumberEditText, emailEditText, addressEditText, fssaiNumberEditText;
     private Button submitButton, cancelButton;
 
-    // --- NEW: Add variables for the loading overlay ---
     private FrameLayout loadingOverlay;
     private ImageView loadingIcon;
 
@@ -28,7 +27,7 @@ public class OstalldetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ostalldetails);
 
-        // Find all views
+        // Find all views (Unchanged)
         stallNameEditText = findViewById(R.id.stallNameEditText);
         ownerNameEditText = findViewById(R.id.ownerNameEditText);
         phoneNumberEditText = findViewById(R.id.phoneNumberEditText);
@@ -37,12 +36,19 @@ public class OstalldetailsActivity extends AppCompatActivity {
         fssaiNumberEditText = findViewById(R.id.fssaiNumberEditText);
         submitButton = findViewById(R.id.submitButton);
         cancelButton = findViewById(R.id.cancelButton);
-
-        // --- NEW: Find the loading overlay views ---
         loadingOverlay = findViewById(R.id.loadingOverlay);
         loadingIcon = findViewById(R.id.loadingIcon);
 
-        // --- UPDATED: The submit button now calls the animation method ---
+        // --- ADDED THIS SECTION TO PRE-FILL THE OWNER'S NAME ---
+        Intent intent = getIntent();
+        String userName = intent.getStringExtra("USER_NAME");
+
+        if (userName != null && !userName.isEmpty()) {
+            ownerNameEditText.setText(userName);
+        }
+        // --- END OF ADDED SECTION ---
+
+        // Submit button logic (Unchanged)
         submitButton.setOnClickListener(v -> {
             String stallName = stallNameEditText.getText().toString().trim();
             // ... get other text fields ...
@@ -52,28 +58,28 @@ public class OstalldetailsActivity extends AppCompatActivity {
             } else {
                 showLoadingOverlay(() -> {
                     Toast.makeText(this, "Stall details submitted for approval!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(OstalldetailsActivity.this, OpendingActivity.class);
-                    startActivity(intent);
+                    Intent approvalIntent = new Intent(OstalldetailsActivity.this, OpendingActivity.class);
+                    startActivity(approvalIntent);
                     finish();
                 });
             }
         });
 
+        // Cancel button logic (Unchanged)
         cancelButton.setOnClickListener(v -> {
-            Intent intent = new Intent(OstalldetailsActivity.this, OsignupActivity.class);
-            startActivity(intent);
+            Intent cancelIntent = new Intent(OstalldetailsActivity.this, OsignupActivity.class);
+            startActivity(cancelIntent);
             overridePendingTransition(0, 0);
             finish();
         });
     }
 
-    // --- NEW: This method handles the animation and navigation ---
+    // Animation method (Unchanged)
     private void showLoadingOverlay(Runnable onComplete) {
         loadingOverlay.setVisibility(View.VISIBLE);
         Animation rotation = AnimationUtils.loadAnimation(this, R.anim.hourglass_rotation);
         loadingIcon.startAnimation(rotation);
 
-        // Wait for 1.5 seconds before navigating
         new Handler(Looper.getMainLooper()).postDelayed(onComplete, 1500);
     }
 }

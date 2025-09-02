@@ -3,36 +3,44 @@ package com.saveetha.foodstall;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class AreasonActivity extends AppCompatActivity {
 
+    private FrameLayout loadingOverlay;
+    private ImageView loadingIcon;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.areason);
 
-        // This button now correctly returns to Astall_detailsActivity
-        findViewById(R.id.backButton).setOnClickListener(v -> onBackPressed());
-
-        // Find views using the IDs from your XML
+        // Find views
         TextView stallNameTextView = findViewById(R.id.stallNameTextView);
         TextView ownerNameTextView = findViewById(R.id.ownerNameTextView);
         EditText reasonEditText = findViewById(R.id.reasonEditText);
         Button sendToOwnerButton = findViewById(R.id.sendToOwnerButton);
+        loadingOverlay = findViewById(R.id.loadingOverlay);
+        loadingIcon = findViewById(R.id.loadingIcon);
 
-        // Get data from the previous activity
+        findViewById(R.id.backButton).setOnClickListener(v -> onBackPressed());
+
+        // Get and set data from the previous activity
         Intent intent = getIntent();
         String stallName = intent.getStringExtra("STALL_NAME");
         String ownerName = intent.getStringExtra("OWNER_NAME");
-
-        // Set the text for the stall and owner
         stallNameTextView.setText(stallName);
-        ownerNameTextView.setText(ownerName); // Owner name will now appear
+        ownerNameTextView.setText(ownerName);
 
         // Set listener for the "Send to Owner" button
         sendToOwnerButton.setOnClickListener(v -> {
@@ -40,11 +48,30 @@ public class AreasonActivity extends AppCompatActivity {
             if (reason.isEmpty()) {
                 Toast.makeText(this, "Please provide a reason for rejection", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "Rejection reason sent to owner", Toast.LENGTH_SHORT).show();
+                // Show animation, then navigate
+                showLoadingOverlay(() -> {
+                    Toast.makeText(this, "Rejection reason sent to owner", Toast.LENGTH_SHORT).show();
 
-                // UPDATED NAVIGATION: This finishes the current screen and returns to Astall_detailsActivity
-                finish();
+                    // Navigate to ArejectedActivity
+                    Intent rejectIntent = new Intent(AreasonActivity.this, ArejectionActivity.class);
+                    // Pass any necessary data to the next screen if needed
+                    // rejectIntent.putExtra("REASON", reason);
+                    startActivity(rejectIntent);
+
+                    // Finish the current and previous activity
+                    finishAffinity();
+                });
             }
         });
+    }
+
+    // Helper method to show animation and then run an action
+    private void showLoadingOverlay(Runnable onComplete) {
+        loadingOverlay.setVisibility(View.VISIBLE);
+        Animation rotation = AnimationUtils.loadAnimation(this, R.anim.hourglass_rotation);
+        loadingIcon.startAnimation(rotation);
+
+        // Wait for 1.5 seconds before completing the action
+        new Handler(Looper.getMainLooper()).postDelayed(onComplete, 1500);
     }
 }

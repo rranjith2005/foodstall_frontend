@@ -24,25 +24,26 @@ public class Aapproved_stallsActivity extends AppCompatActivity {
         approvedStallsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         List<StallStatus> approvedStalls = getDummyApprovedStallData();
-        AdminStallStatusAdapter adapter = new AdminStallStatusAdapter(approvedStalls);
+
+        // --- THIS IS THE UPDATED PART ---
+        // Pass 'null' as the second argument because this screen doesn't need a click listener
+        AdminStallStatusAdapter adapter = new AdminStallStatusAdapter(approvedStalls, null);
+        // --- END OF UPDATED PART ---
+
         approvedStallsRecyclerView.setAdapter(adapter);
     }
 
     private List<StallStatus> getDummyApprovedStallData() {
         List<StallStatus> stalls = new ArrayList<>();
-
-        // Array of drawable resource IDs to cycle through
         int[] stallImages = {R.drawable.stall_sample1, R.drawable.stall_sample2, R.drawable.stall_sample3};
-
         for (int i = 0; i < 10; i++) {
-            // Use the modulo operator (%) to cycle through the images
             int imageIndex = i % stallImages.length;
             stalls.add(new StallStatus(
                     stallImages[imageIndex],
                     "Stall Name " + (i + 1),
                     "Owner " + (i + 1),
                     "Approved",
-                    "" // Reason is empty for approved stalls
+                    ""
             ));
         }
         return stalls;

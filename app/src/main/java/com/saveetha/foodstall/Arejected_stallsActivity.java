@@ -24,15 +24,18 @@ public class Arejected_stallsActivity extends AppCompatActivity {
         rejectedStallsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         List<StallStatus> rejectedStalls = getDummyRejectedStallData();
-        AdminStallStatusAdapter adapter = new AdminStallStatusAdapter(rejectedStalls);
+
+        // --- THIS IS THE UPDATED PART ---
+        // Pass 'null' as the second argument because this screen doesn't need a click listener
+        AdminStallStatusAdapter adapter = new AdminStallStatusAdapter(rejectedStalls, null);
+        // --- END OF UPDATED PART ---
+
         rejectedStallsRecyclerView.setAdapter(adapter);
     }
 
     private List<StallStatus> getDummyRejectedStallData() {
         List<StallStatus> stalls = new ArrayList<>();
-        // Use a loop to create 10 items with a rejected status
         int[] stallImages = {R.drawable.stall_sample3, R.drawable.stall_sample2, R.drawable.stall_sample1};
-
         for (int i = 0; i < 10; i++) {
             int imageIndex = i % stallImages.length;
             stalls.add(new StallStatus(

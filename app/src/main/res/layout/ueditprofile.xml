@@ -86,7 +86,6 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <!-- THIS IS THE UPDATED PART -->
                 <TextView style="@style/FormLabelStyle" android:text="Full Name" />
                 <EditText
                     android:id="@+id/nameEditText"
@@ -141,8 +140,6 @@
                     android:textColor="#FFFFFF"
                     android:backgroundTint="#FF6B6B"
                     app:cornerRadius="12dp" />
-                <!-- END OF UPDATED PART -->
-
             </LinearLayout>
         </ScrollView>
     </androidx.cardview.widget.CardView>

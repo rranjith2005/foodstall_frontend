@@ -47,6 +47,20 @@ public class UhomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.uhome);
 
+        // --- ADDED THIS SECTION TO DISPLAY THE USER'S NAME ---
+        TextView welcomeTextView = findViewById(R.id.welcomeTextView);
+        Intent intent = getIntent();
+        String userName = intent.getStringExtra("USER_NAME");
+
+        if (userName != null && !userName.isEmpty()) {
+            welcomeTextView.setText("Hi, " + userName);
+        } else {
+            welcomeTextView.setText("Hi, User"); // Fallback text
+        }
+        // --- END OF ADDED SECTION ---
+
+
+        // --- YOUR EXISTING CODE (UNCHANGED) ---
         // Find views
         settingsIcon = findViewById(R.id.settingsIcon);
         searchBar = findViewById(R.id.search_bar);
@@ -55,8 +69,8 @@ public class UhomeActivity extends AppCompatActivity {
 
         // Set up click listener for the Search Bar
         searchBar.setOnClickListener(v -> {
-            Intent intent = new Intent(UhomeActivity.this, SearchpageActivity.class);
-            startActivity(intent);
+            Intent searchIntent = new Intent(UhomeActivity.this, SearchpageActivity.class);
+            startActivity(searchIntent);
         });
 
         // --- Setup Specials and Popular Dishes RecyclerViews ---
@@ -71,9 +85,9 @@ public class UhomeActivity extends AppCompatActivity {
             public void onItemClick(View view, int position) {
                 SpecialDish clickedDish = getSpecialDishes().get(position);
                 showLoadingOverlay(() -> {
-                    Intent intent = new Intent(UhomeActivity.this, UviewmenuActivity.class);
-                    intent.putExtra("stallName", clickedDish.stallName);
-                    startActivity(intent);
+                    Intent viewMenuIntent = new Intent(UhomeActivity.this, UviewmenuActivity.class);
+                    viewMenuIntent.putExtra("stallName", clickedDish.stallName);
+                    startActivity(viewMenuIntent);
                 });
             }
         }));
@@ -89,9 +103,9 @@ public class UhomeActivity extends AppCompatActivity {
             public void onItemClick(View view, int position) {
                 PopularDish clickedDish = getPopularDishes().get(position);
                 showLoadingOverlay(() -> {
-                    Intent intent = new Intent(UhomeActivity.this, UviewmenuActivity.class);
-                    intent.putExtra("dishName", clickedDish.dishName);
-                    startActivity(intent);
+                    Intent viewMenuIntent = new Intent(UhomeActivity.this, UviewmenuActivity.class);
+                    viewMenuIntent.putExtra("dishName", clickedDish.dishName);
+                    startActivity(viewMenuIntent);
                 });
             }
         }));
@@ -109,9 +123,9 @@ public class UhomeActivity extends AppCompatActivity {
             public void onItemClick(View view, int position) {
                 Stall clickedStall = stallsAdapter.getStalls().get(position);
                 showLoadingOverlay(() -> {
-                    Intent intent = new Intent(UhomeActivity.this, UviewmenuActivity.class);
-                    intent.putExtra("stallName", clickedStall.stallName);
-                    startActivity(intent);
+                    Intent viewMenuIntent = new Intent(UhomeActivity.this, UviewmenuActivity.class);
+                    viewMenuIntent.putExtra("stallName", clickedStall.stallName);
+                    startActivity(viewMenuIntent);
                 });
             }
         }));
@@ -141,8 +155,6 @@ public class UhomeActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_bar);
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
 
-        // --- THIS IS THE UPDATED PART ---
-        // Added the correct navigation logic with smooth transitions
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_home) {
@@ -165,7 +177,6 @@ public class UhomeActivity extends AppCompatActivity {
             }
             return false;
         });
-        // --- END OF UPDATED PART ---
     }
 
     private void showLoadingOverlay(Runnable onComplete) {

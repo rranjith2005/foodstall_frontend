@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "509454588471",
+    "project_id": "food-stall-3f08c",
+    "storage_bucket": "food-stall-3f08c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:509454588471:android:52a0dabadaad6b6e37fdb2",
+        "android_client_info": {
+          "package_name": "com.saveetha.foodstall"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "509454588471-u9op25cl4k78cr83rlp1vtqklouhkq50.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.saveetha.foodstall",
+            "certificate_hash": "fa8a3060ba34bcdb8ed4d290b1220ec476f0d329"
+          }
+        },
+        {
+          "client_id": "509454588471-pkbqseduu5j8bdh6ionk455pafhbii6t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAt3Eu6_vFGMdpbJVmL9cHQBXnjT_tv66M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "509454588471-pkbqseduu5j8bdh6ionk455pafhbii6t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -18,6 +23,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodstall">
+        <activity
+            android:name=".AupdatestallActivity"
+            android:exported="false" />
         <activity
             android:name=".AreviewsActivity"
             android:exported="false" />
@@ -113,6 +121,9 @@
             android:name=".OhomeActivity"
             android:exported="true" />
         <activity
+            android:name=".AeditstallActivity"
+            android:exported="false" />
+        <activity
             android:name=".Oapproved_ordersActivity"
             android:exported="true" />
         <activity
@@ -179,6 +190,12 @@
             android:name=".AreasonActivity"
             android:exported="true" />
         <activity
+            android:name=".Aprivacy_policyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AhelpActivity"
+            android:exported="false" />
+        <activity
             android:name=".AoreviewActivity"
             android:exported="true" />
         <activity
@@ -202,6 +219,12 @@
         <activity
             android:name=".Uprivacy_policyActivity"
             android:exported="false" />
+        <activity
+            android:name=".AapprovalActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ArejectionActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
