@@ -24,6 +24,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodstall">
         <activity
+            android:name=".Otoday_ordersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OordersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Opending_ordersActivity"
+            android:exported="false" />
+        <activity
             android:name=".AupdatestallActivity"
             android:exported="false" />
         <activity

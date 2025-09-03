@@ -58,7 +58,7 @@ public class OstalldetailsActivity extends AppCompatActivity {
             } else {
                 showLoadingOverlay(() -> {
                     Toast.makeText(this, "Stall details submitted for approval!", Toast.LENGTH_SHORT).show();
-                    Intent approvalIntent = new Intent(OstalldetailsActivity.this, OpendingActivity.class);
+                    Intent approvalIntent = new Intent(OstalldetailsActivity.this, OhomeActivity.class);
                     startActivity(approvalIntent);
                     finish();
                 });

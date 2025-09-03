@@ -57,6 +57,10 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.android.gms:play-services-auth:21.2.0")
     implementation("com.google.android.gms:play-services-location:21.2.0")
+    // Retrofit for networking
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+// Gson converter to handle JSON data
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     // Testing libraries
     testImplementation(libs.junit)

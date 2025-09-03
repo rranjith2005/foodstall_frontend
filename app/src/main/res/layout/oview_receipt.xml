@@ -4,197 +4,97 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F8F8"
+    android:background="@color/screen_background"
     tools:context=".Oview_receiptActivity">
 
-    <!-- Top Bar -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
-        android:background="#FF6B6B"
+        android:background="@color/card_background"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
-            android:id="@+id/backButton"
+            android:id="@+id/backArrowButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_back_arrow_white" />
+            android:src="@drawable/ic_back_arrow"
+            android:contentDescription="Back"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="View Receipt"
+            android:text="Receipt"
             android:textAlignment="center"
-            android:textColor="@android:color/white"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="@color/text_primary" />
     </LinearLayout>
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBar">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/backButton"
+        android:paddingBottom="16dp">
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
 
-            <!-- Order Details -->
-            <androidx.cardview.widget.CardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                android:orientation="vertical"
+                android:padding="24dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                <LinearLayout style="@style/ReceiptRowStyle"><TextView style="@style/ReceiptLabelStyle" android:text="Order ID" /><TextView style="@style/ReceiptValueStyle" android:id="@+id/orderIdTextView" tools:text="ORD104780" /></LinearLayout>
+                <LinearLayout style="@style/ReceiptRowStyle"><TextView style="@style/ReceiptLabelStyle" android:text="Student ID" /><TextView style="@style/ReceiptValueStyle" android:id="@+id/studentIdTextView" tools:text="S36500654" /></LinearLayout>
+                <LinearLayout style="@style/ReceiptRowStyle"><TextView style="@style/ReceiptLabelStyle" android:text="Stall" /><TextView style="@style/ReceiptValueStyle" android:id="@+id/stallNameTextView" tools:text="Sivan Unavagam" /></LinearLayout>
+                <LinearLayout style="@style/ReceiptRowStyle"><TextView style="@style/ReceiptLabelStyle" android:text="Paid Time" /><TextView style="@style/ReceiptValueStyle" android:id="@+id/orderTimeTextView" tools:text="10 Jun, 9:00 AM" /></LinearLayout>
+                <LinearLayout style="@style/ReceiptRowStyle"><TextView style="@style/ReceiptLabelStyle" android:text="Paid Via" /><TextView style="@style/ReceiptValueStyle" android:id="@+id/paymentMethodTextView" tools:text="GPay" /></LinearLayout>
+                <LinearLayout style="@style/ReceiptRowStyle" android:id="@+id/parcelEndTimeLayout" android:visibility="gone" tools:visibility="visible"><TextView style="@style/ReceiptLabelStyle" android:text="Pickup Before" /><TextView style="@style/ReceiptValueStyle" android:id="@+id/parcelEndTimeTextView" tools:text="10 Jun, 10:00 AM" /></LinearLayout>
 
-                    <TextView
-                        android:id="@+id/orderIdTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Order ID: ORD7902"
-                        android:textColor="#222222"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                <View style="@style/DividerStyle" android:layout_marginTop="16dp" android:layout_marginBottom="16dp"/>
 
-                    <TextView
-                        android:id="@+id/studentIdTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Student ID: 192210687"
-                        android:textColor="#666666"
-                        android:textSize="14sp" />
+                <LinearLayout android:id="@+id/itemsContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
 
-                    <View
-                        style="@style/DividerStyle"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp" />
+                <View style="@style/DividerStyle" android:layout_marginTop="16dp" android:layout_marginBottom="16dp"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Items"
-                        android:textColor="#222222"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:id="@+id/itemsLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:orientation="vertical">
-
-                        <!-- Item 1 -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingTop="4dp"
-                            android:paddingBottom="4dp">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Margherita Pizza x 2"
-                                android:textColor="#666666"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="₹15.99"
-                                android:textColor="#222222"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                        <!-- Item 2 -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingTop="4dp"
-                            android:paddingBottom="4dp">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Garlic Bread x 1"
-                                android:textColor="#666666"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="₹4.99"
-                                android:textColor="#222222"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <View
-                        style="@style/DividerStyle"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp" />
-
-                    <!-- Summary -->
-                    <LinearLayout style="@style/ReceiptRowStyle">
-                        <TextView style="@style/ReceiptLabelStyle" android:text="Subtotal" />
-                        <TextView style="@style/ReceiptValueStyle" android:text="₹25.96" />
-                    </LinearLayout>
-
-                    <LinearLayout style="@style/ReceiptRowStyle">
-                        <TextView style="@style/ReceiptLabelStyle" android:text="Delivery Fee" />
-                        <TextView style="@style/ReceiptValueStyle" android:text="₹2.99" />
-                    </LinearLayout>
-
-                    <LinearLayout style="@style/ReceiptRowStyle">
-                        <TextView style="@style/ReceiptLabelStyle" android:text="Tax" />
-                        <TextView style="@style/ReceiptValueStyle" android:text="₹2.89" />
-                    </LinearLayout>
-
-                    <View
-                        style="@style/DividerStyle"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp" />
-
-                    <LinearLayout style="@style/ReceiptRowStyle">
-                        <TextView style="@style/ReceiptLabelStyle" android:text="Total Paid" android:textStyle="bold" />
-                        <TextView style="@style/ReceiptValueStyle" android:text="₹31.84" android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout style="@style/ReceiptRowStyle">
-                        <TextView style="@style/ReceiptLabelStyle" android:text="Paid On" />
-                        <TextView style="@style/ReceiptValueStyle" android:text="2023-10-15" />
-                    </LinearLayout>
-
-                    <LinearLayout style="@style/ReceiptRowStyle">
-                        <TextView style="@style/ReceiptLabelStyle" android:text="Paid At" />
-                        <TextView style="@style/ReceiptValueStyle" android:text="1:02 PM" />
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
+                <LinearLayout style="@style/ReceiptRowStyle"><TextView style="@style/ReceiptLabelStyle" android:text="Subtotal" /><TextView style="@style/ReceiptValueStyle" android:id="@+id/subtotalTextView" tools:text="₹85.00" /></LinearLayout>
+                <LinearLayout style="@style/ReceiptRowStyle" android:id="@+id/parcelFeeLayout" android:visibility="gone" tools:visibility="visible"><TextView style="@style/ReceiptLabelStyle" android:text="Parcel Fee" /><TextView style="@style/ReceiptValueStyle" android:id="@+id/parcelFeeTextView" tools:text="₹10.00" /></LinearLayout>
+                <LinearLayout style="@style/ReceiptRowStyle"><TextView style="@style/ReceiptLabelStyle" android:textStyle="bold" android:text="Total Paid" /><TextView style="@style/ReceiptValueStyle" android:textStyle="bold" android:id="@+id/totalPaidTextView" tools:text="₹95.00" /></LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
     </ScrollView>
+
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/brand_pink"
+        android:text="Back"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
