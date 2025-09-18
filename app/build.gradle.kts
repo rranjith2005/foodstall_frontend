@@ -61,6 +61,15 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
 // Gson converter to handle JSON data
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    // OSMdroid (Map Library) - You should already have this
+    implementation("org.osmdroid:osmdroid-android:6.1.16")
+// --- ADD THIS LINE TO FIX THE ERROR ---
+// This adds the "Bonus Pack" for searching and other features
+    implementation("com.github.MKergall:osmbonuspack:6.9.0")
+    implementation("com.razorpay:checkout:1.6.36")
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
+
 
     // Testing libraries
     testImplementation(libs.junit)

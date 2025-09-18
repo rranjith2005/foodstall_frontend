@@ -1,14 +1,29 @@
 package com.saveetha.foodstall.model;
 
-public class FavoriteStall {
+import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
+
+/**
+ * Represents a single favorite stall fetched from the server.
+ */
+public class FavoriteStall implements Serializable {
+
+    @SerializedName("stall_id")
+    private String stallId;
+
+    @SerializedName("stallname")
     private String name;
-    private int imageResId;
 
-    public FavoriteStall(String name, int imageResId) {
-        this.name = name;
-        this.imageResId = imageResId;
-    }
 
+    @SerializedName("profile_photo")
+    private String imageUrl;
+
+    @SerializedName("rating")
+    private double rating;
+
+    // Getters for all fields
+    public String getStallId() { return stallId; }
     public String getName() { return name; }
-    public int getImageResId() { return imageResId; }
+    public String getImageUrl() { return imageUrl; }
+    public double getRating() { return rating; }
 }

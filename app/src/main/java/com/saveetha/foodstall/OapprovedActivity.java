@@ -1,9 +1,10 @@
-package com.saveetha.foodstall; // Use your package name
+package com.saveetha.foodstall;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class OapprovedActivity extends AppCompatActivity {
 
@@ -12,12 +13,24 @@ public class OapprovedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.oapproved);
 
+        TextView ownerIdTextView = findViewById(R.id.ownerIdTextView);
         Button loginButton = findViewById(R.id.loginButton);
+
+        Intent intent = getIntent();
+        String stallId = intent.getStringExtra("STALL_ID");
+
+        if (stallId != null) {
+            ownerIdTextView.setText(stallId);
+        } else {
+            ownerIdTextView.setText("ID Not Found");
+        }
+
+        // --- THIS IS THE FIX ---
+        // This button now correctly navigates back to the Login screen.
         loginButton.setOnClickListener(v -> {
-            Toast.makeText(this, "Navigating to login...", Toast.LENGTH_SHORT).show();
-            // Add your navigation logic to the login screen here
-            // Intent intent = new Intent(this, LoginActivity.class);
-            // startActivity(intent);
+            Intent loginIntent = new Intent(OapprovedActivity.this, LoginActivity.class);
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(loginIntent);
             finish();
         });
     }

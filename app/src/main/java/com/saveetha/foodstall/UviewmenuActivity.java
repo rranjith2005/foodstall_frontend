@@ -1,233 +1,367 @@
 package com.saveetha.foodstall;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.saveetha.foodstall.adapter.LovedByAdapter;
 import com.saveetha.foodstall.adapter.MenuItemAdapter;
 import com.saveetha.foodstall.adapter.ReviewAdapter;
 import com.saveetha.foodstall.model.MenuItem;
 import com.saveetha.foodstall.model.OrderItem;
 import com.saveetha.foodstall.model.Review;
-import com.saveetha.foodstall.model.StallLocation;
+import com.saveetha.foodstall.model.StallMenuResponse;
+import com.saveetha.foodstall.model.StatusResponse;
 
-import org.osmdroid.util.GeoPoint;
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
-public class UviewmenuActivity extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class UviewmenuActivity extends AppCompatActivity implements ReviewAdapter.OnReviewInteractionListener {
 
     private static final int CONFIRM_ORDER_REQUEST_CODE = 1;
     private ArrayList<OrderItem> cartItems = new ArrayList<>();
-
     private FrameLayout loadingOverlay;
-    private ImageView loadingIcon;
-
     private Button viewCartButton;
     private LinearLayout bottomCartBar;
     private TextView cartDetailsText;
-    private Button addToCartButton;
-
-    private RecyclerView menuRecyclerView;
-    private RecyclerView lovedByRecyclerView;
-    private RecyclerView reviewsRecyclerView;
-
-    // --- NEW: Variables for distance calculation ---
-    private TextView distanceTextView, walkTimeTextView;
-    private GeoPoint stallLocation;
+    private TextView stallNameTitle;
+    private EditText searchBarEditText;
+    private RecyclerView menuRecyclerView, lovedByRecyclerView, reviewsRecyclerView;
+    private CardView todaysSpecialCard, popularDishCard;
+    private MenuItemAdapter menuAdapter;
+    private LovedByAdapter lovedByAdapter;
+    private ReviewAdapter reviewAdapter;
+    private List<MenuItem> allMenuItems = new ArrayList<>();
+    private List<Review> allReviews = new ArrayList<>();
+    private String stallId, studentId, studentName;
+    private ImageView favoriteButton;
+    private boolean isFavorite = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.uviewmenu);
 
-        // Find existing views
+        SharedPreferences sharedPreferences = getSharedPreferences("StallSpotPrefs", MODE_PRIVATE);
+        studentId = sharedPreferences.getString("STUDENT_ID", null);
+        studentName = sharedPreferences.getString("USER_NAME", "You");
+        stallId = getIntent().getStringExtra("STALL_ID");
+
+        bindViews();
+
+        if (stallId == null || studentId == null) {
+            Toast.makeText(this, "Error: Missing data. Please try again.", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
+
+        setupClickListeners();
+        setupRecyclerViews();
+        fetchStallData();
+    }
+
+    private void bindViews() {
         loadingOverlay = findViewById(R.id.loadingOverlay);
-        loadingIcon = findViewById(R.id.loadingIcon);
         viewCartButton = findViewById(R.id.viewCartButton);
         bottomCartBar = findViewById(R.id.bottomCartBar);
         cartDetailsText = findViewById(R.id.cartDetailsText);
-        addToCartButton = findViewById(R.id.addToCartButton);
         menuRecyclerView = findViewById(R.id.menu_recycler_view);
         lovedByRecyclerView = findViewById(R.id.loved_by_recycler_view);
         reviewsRecyclerView = findViewById(R.id.reviews_recycler_view);
+        stallNameTitle = findViewById(R.id.shop_name_title);
+        searchBarEditText = findViewById(R.id.searchBarEditText);
+        todaysSpecialCard = findViewById(R.id.todaysSpecialCard);
+        popularDishCard = findViewById(R.id.popularDishCard);
+        favoriteButton = findViewById(R.id.favoriteButton);
+    }
 
-        // --- NEW: Find views for distance ---
-        distanceTextView = findViewById(R.id.distanceTextView);
-        walkTimeTextView = findViewById(R.id.walkTimeTextView);
+    private void setupRecyclerViews() {
+        lovedByRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        lovedByAdapter = new LovedByAdapter(this::addItemToCart);
+        lovedByRecyclerView.setAdapter(lovedByAdapter);
 
-        // --- NEW: Get the stall's location ---
-        String stallName = getIntent().getStringExtra("stallName");
-        if (stallName != null) {
-            ((TextView) findViewById(R.id.shop_name_title)).setText(stallName);
-            // Find this stall's location from the StallLocationManager
-            for (StallLocation loc : StallLocationManager.getStallLocations()) {
-                if (loc.getStallName().equalsIgnoreCase(stallName)) {
-                    stallLocation = loc.getGeoPoint();
-                    break;
-                }
-            }
-        }
+        menuRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        menuAdapter = new MenuItemAdapter(this::addItemToCart);
+        menuRecyclerView.setAdapter(menuAdapter);
 
-        // Your existing navigation logic (untouched)
-        ImageView backButton = findViewById(R.id.backButton);
-        backButton.setOnClickListener(v -> {
-            Intent intent = new Intent(UviewmenuActivity.this, UhomeActivity.class);
-            startActivity(intent);
+        reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // --- THIS IS THE CORRECTED LINE ---
+        // The constructor now correctly receives an initial (empty) list of reviews.
+        reviewAdapter = new ReviewAdapter(new ArrayList<>(), studentId, this);
+        reviewsRecyclerView.setAdapter(reviewAdapter);
+
+        menuRecyclerView.setNestedScrollingEnabled(false);
+        lovedByRecyclerView.setNestedScrollingEnabled(false);
+        reviewsRecyclerView.setNestedScrollingEnabled(false);
+    }
+
+    private void setupClickListeners() {
+        findViewById(R.id.backButton).setOnClickListener(v -> onBackPressed());
+        findViewById(R.id.searchButton).setOnClickListener(v -> toggleSearchBar());
+        findViewById(R.id.addReviewButton).setOnClickListener(v -> showAddReviewDialog());
+        favoriteButton.setOnClickListener(v -> toggleFavoriteStatusOnServer());
+
+        searchBarEditText.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { filterMenu(s.toString()); }
+            @Override public void afterTextChanged(Editable s) {}
         });
-
-        ImageView searchButton = findViewById(R.id.searchButton);
-        searchButton.setOnClickListener(v -> {
-            Intent intent = new Intent(UviewmenuActivity.this, SearchpageActivity.class);
-            startActivity(intent);
-        });
-
-        setupLovedByRecyclerView();
-        setupMenuRecyclerView();
-        setupReviewsRecyclerView();
-
-        // --- NEW: Call the method to display the distance ---
-        updateDistanceInfo();
-
-        if (getIntent().hasExtra("CART_ITEMS")) {
-            cartItems = getIntent().getParcelableArrayListExtra("CART_ITEMS");
-        }
-
-        addToCartButton.setOnClickListener(v -> addItemToCart(new MenuItem("Cheese Burst Pizza", 100.00, R.drawable.sd2)));
 
         viewCartButton.setOnClickListener(v -> {
             if (cartItems.isEmpty()) {
                 Toast.makeText(this, "Your cart is empty!", Toast.LENGTH_SHORT).show();
                 return;
             }
-            showLoadingOverlay(() -> {
-                Intent intent = new Intent(UviewmenuActivity.this, Uconfirm_orderActivity.class);
-                intent.putParcelableArrayListExtra("CART_ITEMS", cartItems);
-                startActivityForResult(intent, CONFIRM_ORDER_REQUEST_CODE);
-            });
+            Intent intent = new Intent(UviewmenuActivity.this, Uconfirm_orderActivity.class);
+            intent.putParcelableArrayListExtra("CART_ITEMS", cartItems);
+            intent.putExtra("STALL_ID", stallId);
+            startActivityForResult(intent, CONFIRM_ORDER_REQUEST_CODE);
         });
-        updateCartBar();
     }
 
-    // --- NEW: Method to calculate and display distance ---
-    private void updateDistanceInfo() {
-        // Get the user's last saved location
-        GeoPoint userLocation = LocationManager.getUserLocation(this);
-
-        if (userLocation != null && stallLocation != null) {
-            // Calculate distance in meters
-            double distance = userLocation.distanceToAsDouble(stallLocation);
-
-            // Estimate walk time (average walking speed is ~80 meters per minute)
-            int walkTimeMinutes = (int) Math.round(distance / 80.0);
-            if (walkTimeMinutes < 1) {
-                walkTimeMinutes = 1; // Show at least 1 min
-            }
-
-            // Update the UI
-            if (distance < 1000) {
-                distanceTextView.setText(String.format(Locale.getDefault(), "%.0f meters away", distance));
-            } else {
-                distanceTextView.setText(String.format(Locale.getDefault(), "%.2f km away", distance / 1000.0));
-            }
-            walkTimeTextView.setText(String.format(Locale.getDefault(), "%d min walk", walkTimeMinutes));
-        } else {
-            // If user or stall location isn't available
-            distanceTextView.setText("Location not set");
-            walkTimeTextView.setText("");
-        }
-    }
-
-    // Your other methods are below (untouched)
-    private void showLoadingOverlay(Runnable onComplete) {
-        loadingOverlay.setVisibility(View.VISIBLE);
-        Animation rotation = AnimationUtils.loadAnimation(this, R.anim.hourglass_rotation);
-        loadingIcon.startAnimation(rotation);
-
-        new Handler(Looper.getMainLooper()).postDelayed(onComplete, 800);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (loadingOverlay != null) {
-            loadingIcon.clearAnimation();
-            loadingOverlay.setVisibility(View.GONE);
-        }
-        updateCartBar();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CONFIRM_ORDER_REQUEST_CODE && resultCode == RESULT_OK) {
-            if (data != null && data.hasExtra("UPDATED_CART_ITEMS")) {
-                ArrayList<OrderItem> updatedCart = data.getParcelableArrayListExtra("UPDATED_CART_ITEMS");
-                if (updatedCart != null) {
-                    cartItems = updatedCart;
-                    updateCartBar();
+    private void fetchStallData() {
+        showLoadingOverlay();
+        ApiClient.getClient().create(ApiService.class).getStallMenu(stallId, studentId).enqueue(new Callback<StallMenuResponse>() {
+            @Override
+            public void onResponse(Call<StallMenuResponse> call, Response<StallMenuResponse> response) {
+                hideLoadingOverlay();
+                if (response.isSuccessful() && response.body() != null && "success".equals(response.body().getStatus())) {
+                    updateUiWithData(response.body().getData());
+                } else {
+                    Toast.makeText(UviewmenuActivity.this, "Failed to load menu.", Toast.LENGTH_SHORT).show();
                 }
             }
+            @Override
+            public void onFailure(Call<StallMenuResponse> call, Throwable t) {
+                hideLoadingOverlay();
+                Log.e("ViewMenu", "API Failure: " + t.getMessage());
+                Toast.makeText(UviewmenuActivity.this, "Network Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateUiWithData(StallMenuResponse.StallMenuData data) {
+        stallNameTitle.setText(data.getStallDetails().getStallName());
+        isFavorite = data.isFavorite();
+        updateFavoriteIcon();
+
+        MenuItem special = data.getTodaysSpecial();
+        if (special != null) {
+            todaysSpecialCard.setVisibility(View.VISIBLE);
+            ImageView specialImage = todaysSpecialCard.findViewById(R.id.todaysSpecialImage);
+            TextView specialName = todaysSpecialCard.findViewById(R.id.todaysSpecialName);
+            TextView specialPrice = todaysSpecialCard.findViewById(R.id.todaysSpecialPrice);
+            Button specialAddButton = todaysSpecialCard.findViewById(R.id.specialAddToCartButton);
+            specialName.setText(special.getName());
+            specialPrice.setText(String.format(Locale.getDefault(), "₹%.2f", special.getPrice()));
+
+            if (special.getImageUrl() != null && !special.getImageUrl().isEmpty()) {
+                Glide.with(this)
+                        .load(ApiClient.BASE_URL + "uploads/" + special.getImageUrl())
+                        .placeholder(TextDrawableUtil.getInitialDrawable(special.getName()))
+                        .into(specialImage);
+            } else {
+                specialImage.setImageDrawable(TextDrawableUtil.getInitialDrawable(special.getName()));
+            }
+            specialAddButton.setOnClickListener(v -> addItemToCart(special));
+        } else {
+            todaysSpecialCard.setVisibility(View.GONE);
+        }
+
+        MenuItem popularDish = data.getPopularDish();
+        if (popularDish != null) {
+            popularDishCard.setVisibility(View.VISIBLE);
+            TextView lovedByTextView = popularDishCard.findViewById(R.id.lovedByTextView);
+            lovedByTextView.setText(String.format(Locale.getDefault(), "❤️ Loved by %d+ students", popularDish.getSoldCount()));
+            List<MenuItem> popularList = new ArrayList<>();
+            popularList.add(popularDish);
+            lovedByAdapter.submitList(popularList);
+        } else {
+            popularDishCard.setVisibility(View.GONE);
+        }
+
+        allMenuItems.clear();
+        allMenuItems.addAll(data.getFullMenu());
+        menuAdapter.submitList(allMenuItems);
+
+        allReviews.clear();
+        allReviews.addAll(data.getReviews());
+        reviewAdapter.updateList(allReviews);
+    }
+
+    private void filterMenu(String query) {
+        String lowerCaseQuery = query.toLowerCase(Locale.ROOT);
+        if (allMenuItems == null) return;
+        List<MenuItem> filteredList = allMenuItems.stream()
+                .filter(item -> item.getName().toLowerCase().contains(lowerCaseQuery) ||
+                        String.valueOf(item.getPrice()).contains(lowerCaseQuery))
+                .collect(Collectors.toList());
+        menuAdapter.submitList(filteredList);
+    }
+
+    private void updateFavoriteIcon() {
+        if (isFavorite) {
+            favoriteButton.setImageResource(R.drawable.ic_heart_filled);
+        } else {
+            favoriteButton.setImageResource(R.drawable.ic_heart_outline);
         }
     }
 
-    private void setupLovedByRecyclerView() {
-        lovedByRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        ArrayList<MenuItem> lovedByItems = new ArrayList<>();
-        lovedByItems.add(new MenuItem("Mandi biriyani", 210.00, R.drawable.sd1));
-
-        LovedByAdapter adapter = new LovedByAdapter(lovedByItems, this::addItemToCart);
-        lovedByRecyclerView.setAdapter(adapter);
+    private void toggleFavoriteStatusOnServer() {
+        isFavorite = !isFavorite;
+        updateFavoriteIcon();
+        ApiClient.getClient().create(ApiService.class).toggleFavorite(studentId, stallId).enqueue(new Callback<StatusResponse>() {
+            @Override
+            public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+                if (response.isSuccessful() && response.body() != null && "success".equals(response.body().getStatus())) {
+                    Toast.makeText(UviewmenuActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                } else {
+                    isFavorite = !isFavorite;
+                    updateFavoriteIcon();
+                    Toast.makeText(UviewmenuActivity.this, "Could not update favorite status.", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<StatusResponse> call, Throwable t) {
+                isFavorite = !isFavorite;
+                updateFavoriteIcon();
+                Toast.makeText(UviewmenuActivity.this, "Network error. Could not update favorite.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    private void setupMenuRecyclerView() {
-        menuRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        ArrayList<MenuItem> menuItems = new ArrayList<>();
-        menuItems.add(new MenuItem("Veg Biryani", 150.00, R.drawable.sd3));
-        menuItems.add(new MenuItem("Paneer Butter Masala", 220.00, R.drawable.pd1));
-        menuItems.add(new MenuItem("Gobi Manchurian", 180.00, R.drawable.pd2));
-        MenuItemAdapter adapter = new MenuItemAdapter(menuItems, this::addItemToCart);
-        menuRecyclerView.setAdapter(adapter);
+    private void toggleSearchBar() {
+        View searchBarContainer = findViewById(R.id.searchBarContainer);
+        if (searchBarContainer.getVisibility() == View.GONE) {
+            stallNameTitle.setVisibility(View.GONE);
+            searchBarContainer.setVisibility(View.VISIBLE);
+            searchBarEditText.requestFocus();
+        } else {
+            stallNameTitle.setVisibility(View.VISIBLE);
+            searchBarContainer.setVisibility(View.GONE);
+            searchBarEditText.setText("");
+        }
     }
 
-    private void setupReviewsRecyclerView() {
-        reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        List<Review> reviewList = new ArrayList<>();
-        reviewList.add(new Review("Sai G.J.", "Best briyani on campus! The piece is amazing.", "2 days ago", "4.8", R.drawable.sai));
-        reviewList.add(new Review("Nithi R.", "Quick service and delicious food. Will order again for sure.", "4 days ago", "4.5", R.drawable.nithi));
-        ReviewAdapter adapter = new ReviewAdapter(reviewList);
-        reviewsRecyclerView.setAdapter(adapter);
+    private void showAddReviewDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_review, null);
+        builder.setView(dialogView);
+        final RatingBar ratingBar = dialogView.findViewById(R.id.reviewRatingBar);
+        final EditText reviewEditText = dialogView.findViewById(R.id.reviewEditText);
+        builder.setTitle("Add Your Review")
+                .setPositiveButton("Submit", (dialog, id) -> {
+                    float rating = ratingBar.getRating();
+                    String reviewText = reviewEditText.getText().toString().trim();
+                    if (rating == 0) {
+                        Toast.makeText(this, "Please provide a rating.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    submitReviewToServer(rating, reviewText);
+                })
+                .setNegativeButton("Cancel", (dialog, id) -> dialog.cancel());
+        builder.create().show();
+    }
+
+    private void submitReviewToServer(float rating, String reviewText) {
+        showLoadingOverlay();
+        ApiClient.getClient().create(ApiService.class).submitReview(stallId, studentId, rating, reviewText)
+                .enqueue(new Callback<StatusResponse>() {
+                    @Override
+                    public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+                        hideLoadingOverlay();
+                        if (response.isSuccessful() && response.body() != null && "success".equals(response.body().getStatus())) {
+                            Toast.makeText(UviewmenuActivity.this, "Review submitted!", Toast.LENGTH_SHORT).show();
+                            fetchStallData();
+                        } else {
+                            Toast.makeText(UviewmenuActivity.this, "Failed to submit review.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<StatusResponse> call, Throwable t) {
+                        hideLoadingOverlay();
+                        Toast.makeText(UviewmenuActivity.this, "Network Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    @Override
+    public void onDeleteClick(Review review, int position) {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete Review")
+                .setMessage("Are you sure you want to delete your review?")
+                .setPositiveButton("Delete", (dialog, which) -> deleteReviewFromServer(review, position))
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    private void deleteReviewFromServer(Review review, int position) {
+        showLoadingOverlay();
+        ApiClient.getClient().create(ApiService.class).deleteReview(stallId, review.getStudentId())
+                .enqueue(new Callback<StatusResponse>() {
+                    @Override
+                    public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+                        hideLoadingOverlay();
+                        if (response.isSuccessful() && response.body() != null && "success".equals(response.body().getStatus())) {
+                            Toast.makeText(UviewmenuActivity.this, "Review deleted.", Toast.LENGTH_SHORT).show();
+                            allReviews.remove(position);
+                            reviewAdapter.updateList(allReviews);
+                        } else {
+                            Toast.makeText(UviewmenuActivity.this, "Failed to delete review.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<StatusResponse> call, Throwable t) {
+                        hideLoadingOverlay();
+                        Toast.makeText(UviewmenuActivity.this, "Network error.", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void addItemToCart(MenuItem item) {
         for (OrderItem orderItem : cartItems) {
-            if (orderItem.getName().equals(item.getName())) {
+            if (Objects.equals(orderItem.getName(), item.getName())) {
                 orderItem.incrementQuantity();
-                Toast.makeText(this, "Quantity of " + item.getName() + " increased.", Toast.LENGTH_SHORT).show();
                 updateCartBar();
                 return;
             }
         }
-        cartItems.add(new OrderItem(item.getName(), 1, item.getPrice(), false, null));
-        Toast.makeText(this, item.getName() + " added to cart!", Toast.LENGTH_SHORT).show();
+        cartItems.add(new OrderItem(item.getName(), 1, item.getPrice()));
         updateCartBar();
     }
 
@@ -243,6 +377,36 @@ public class UviewmenuActivity extends AppCompatActivity {
                 totalPrice += orderItem.getQuantity() * orderItem.getPrice();
             }
             cartDetailsText.setText(String.format(Locale.getDefault(), "%d items • ₹%.2f", totalItems, totalPrice));
+        }
+    }
+
+    private void showLoadingOverlay() {
+        if (loadingOverlay != null) {
+            loadingOverlay.setVisibility(View.VISIBLE);
+            ImageView loadingIcon = loadingOverlay.findViewById(R.id.loadingIcon);
+            if (loadingIcon != null) {
+                Animation rotation = AnimationUtils.loadAnimation(this, R.anim.hourglass_rotation);
+                loadingIcon.startAnimation(rotation);
+            }
+        }
+    }
+
+    private void hideLoadingOverlay() {
+        if (loadingOverlay != null && loadingOverlay.getVisibility() == View.VISIBLE) {
+            ImageView loadingIcon = loadingOverlay.findViewById(R.id.loadingIcon);
+            if (loadingIcon != null) loadingIcon.clearAnimation();
+            loadingOverlay.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CONFIRM_ORDER_REQUEST_CODE && resultCode == RESULT_OK) {
+            if (data != null && data.hasExtra("UPDATED_CART_ITEMS")) {
+                cartItems = data.getParcelableArrayListExtra("UPDATED_CART_ITEMS");
+                updateCartBar();
+            }
         }
     }
 }

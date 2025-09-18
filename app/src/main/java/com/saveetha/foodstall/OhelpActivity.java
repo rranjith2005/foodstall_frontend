@@ -1,53 +1,98 @@
-package com.saveetha.foodstall; // Use your app's package name
+package com.saveetha.foodstall;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class OhelpActivity extends AppCompatActivity {
 
+    // --- UPDATED PART START ---
+    private FrameLayout loadingOverlay;
+    private ImageView loadingIcon;
+    private TextView loadingText;
+    // --- UPDATED PART END ---
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.uhelp);
+        setContentView(R.layout.ohelp);
 
-        // Set up the back button to navigate back
         findViewById(R.id.backButton).setOnClickListener(v -> onBackPressed());
 
-        // Get the EditText and Button from the layout
         EditText feedbackEditText = findViewById(R.id.feedbackEditText);
         Button sendMessageButton = findViewById(R.id.sendMessageButton);
 
-        // Set up the "Send Message" button listener
+        // --- UPDATED PART START ---
+        // Find views for the animation
+        loadingOverlay = findViewById(R.id.loadingOverlay);
+        loadingIcon = findViewById(R.id.loadingIcon);
+        loadingText = findViewById(R.id.loadingText);
+
+        // Update "Send Message" button to use the animation
         sendMessageButton.setOnClickListener(v -> {
             String feedback = feedbackEditText.getText().toString().trim();
             if (feedback.isEmpty()) {
                 Toast.makeText(this, "Please enter your issue or feedback.", Toast.LENGTH_SHORT).show();
             } else {
-                // Here, you would implement the logic to send the feedback
-                // For example, sending it to a server or an email service.
-                Toast.makeText(this, "Feedback sent successfully!", Toast.LENGTH_SHORT).show();
-                feedbackEditText.setText(""); // Clear the text box after sending
+                // Show animation before showing the success message
+                showLoadingOverlay("Sending...", () -> {
+                    Toast.makeText(this, "Your request was sent successfully!", Toast.LENGTH_SHORT).show();
+                    feedbackEditText.setText(""); // Clear the text box after sending
+                });
             }
         });
 
-        // Set up click listeners for the support cards (optional)
+        // Update card click listeners with correct navigation
         findViewById(R.id.faqCard).setOnClickListener(v -> {
-            Toast.makeText(this, "Navigating to FAQ page...", Toast.LENGTH_SHORT).show();
-            // Implement your navigation to the FAQ page here
+            startActivity(new Intent(this, Ofrequent_questionActivity.class));
         });
 
         findViewById(R.id.callSupportCard).setOnClickListener(v -> {
-            Toast.makeText(this, "Opening dialer to call support...", Toast.LENGTH_SHORT).show();
-            // Implement your logic to open the phone dialer here
+            // Create an Intent to open the phone dialer with the support number
+            Intent dialIntent = new Intent(Intent.ACTION_DIAL);
+            dialIntent.setData(Uri.parse("tel:+911234567890")); // Replace with your actual support number
+            startActivity(dialIntent);
         });
 
         findViewById(R.id.emailSupportCard).setOnClickListener(v -> {
-            Toast.makeText(this, "Opening email client...", Toast.LENGTH_SHORT).show();
-            // Implement your logic to send an email here
+            // Create an Intent to open an email client with pre-filled details
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                    "mailto","support@stallspot.com", null));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Support Request - Stall Spot Owner");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "Hello Stall Spot Support,\n\nI have an issue:\n\n");
+            startActivity(Intent.createChooser(emailIntent, "Send Email..."));
         });
+        // --- UPDATED PART END ---
     }
+
+    // --- UPDATED PART START ---
+    // Added the showLoadingOverlay method to enable the animation
+    private void showLoadingOverlay(String message, Runnable onComplete) {
+        loadingText.setText(message);
+        loadingOverlay.setVisibility(View.VISIBLE);
+        Animation rotation = AnimationUtils.loadAnimation(this, R.anim.hourglass_rotation);
+        loadingIcon.startAnimation(rotation);
+
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            loadingIcon.clearAnimation();
+            loadingOverlay.setVisibility(View.GONE);
+            if (onComplete != null) {
+                onComplete.run();
+            }
+        }, 1500); // 1.5-second delay to simulate network/sending activity
+    }
+    // --- UPDATED PART END ---
 }

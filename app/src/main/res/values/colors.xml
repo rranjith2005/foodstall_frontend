@@ -27,5 +27,5 @@
     <color name="colorBorder">#EAEAEA</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFF</color>
-
+    <color name="unread_background">#FFF5F5</color>
 </resources>

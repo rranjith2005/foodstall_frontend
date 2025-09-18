@@ -57,7 +57,6 @@ public class UordersActivity extends AppCompatActivity implements OrdersAdapter.
                 finish();
                 return true;
             } else if (itemId == R.id.nav_profile) {
-                // THIS IS THE NEW NAVIGATION PART
                 startActivity(new Intent(getApplicationContext(), UeditprofileActivity.class));
                 overridePendingTransition(0, 0);
                 finish();
@@ -72,29 +71,36 @@ public class UordersActivity extends AppCompatActivity implements OrdersAdapter.
 
         ArrayList<Order> orderList = new ArrayList<>();
 
+        // --- UPDATED PART START ---
+        // The constructors for OrderItem and Order have been corrected to match your final model classes.
+
         // Order 1
         ArrayList<OrderItem> items1 = new ArrayList<>();
-        items1.add(new OrderItem("Chicken Roll", 1, 60, false, null));
-        items1.add(new OrderItem("Puffs", 2, 30, false, null));
-        orderList.add(new Order("Pizza Hub", "ORD104783", "10 Jun, 11:45 AM", "Delivered", 120.00, items1));
+        // Correct Constructor: OrderItem(name, quantity, price, isParcel, isPreParcel, preParcelTime)
+        items1.add(new OrderItem("Chicken Roll", 1, 60.00, true, false, null));
+        items1.add(new OrderItem("Puffs", 2, 30.00, true, false, null));
+        // Correct Constructor: Order(stallName, orderId, orderTime, status, totalPrice, paymentMethod, cancellationReason, orderedItems)
+        orderList.add(new Order("Pizza Hub", "ORD104783", "10 Jun, 11:45 AM", "Delivered", 120.00, "GPay", "", items1));
 
         // Order 2
         ArrayList<OrderItem> items2 = new ArrayList<>();
-        items2.add(new OrderItem("Pani Puri", 3, 15, false, null));
-        items2.add(new OrderItem("Masala Dosa", 1, 40, false, null));
-        orderList.add(new Order("Chaat Corner", "ORD104782", "10 Jun, 10:30 AM", "Pending", 85.00, items2));
+        items2.add(new OrderItem("Pani Puri", 3, 15.00, false, false, null));
+        items2.add(new OrderItem("Masala Dosa", 1, 40.00, false, false, null));
+        orderList.add(new Order("Chaat Corner", "ORD104782", "10 Jun, 10:30 AM", "Pending", 85.00, "Cash", "", items2));
 
         // Order 3
         ArrayList<OrderItem> items3 = new ArrayList<>();
-        items3.add(new OrderItem("Tea", 3, 15, false, null));
-        items3.add(new OrderItem("Chicken Roll", 1, 40, false, null));
-        orderList.add(new Order("Sivan Unavagam", "ORD104780", "10 Jun, 9:00 AM", "Cancelled", 85.00, items3));
+        items3.add(new OrderItem("Tea", 3, 15.00, false, false, null));
+        items3.add(new OrderItem("Chicken Roll", 1, 40.00, true, false, null));
+        orderList.add(new Order("Sivan Unavagam", "ORD104780", "10 Jun, 9:00 AM", "Cancelled", 85.00, "Card", "Store Closed", items3));
 
         // Order 4
         ArrayList<OrderItem> items4 = new ArrayList<>();
-        items4.add(new OrderItem("Coffee", 3, 15, false, null));
-        items4.add(new OrderItem("Egg Puffs", 1, 40, false, null));
-        orderList.add(new Order("Aliyas", "ORD104779", "09 Jun, 5:30 PM", "Rejected", 85.00, items4));
+        items4.add(new OrderItem("Coffee", 3, 15.00, false, false, null));
+        items4.add(new OrderItem("Egg Puffs", 1, 40.00, true, false, null));
+        orderList.add(new Order("Aliyas", "ORD104779", "09 Jun, 5:30 PM", "Rejected", 85.00, "GPay", "Payment Failed", items4));
+
+        // --- UPDATED PART END ---
 
         OrdersAdapter adapter = new OrdersAdapter(this, orderList, this);
         ordersRecyclerView.setAdapter(adapter);

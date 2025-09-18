@@ -3,72 +3,66 @@ package com.saveetha.foodstall;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class UsettingsActivity extends AppCompatActivity {
-
-    private ImageView backButton;
-    private LinearLayout notificationsLayout, locationLayout, changePasswordLayout, privacyLayout, helpLayout;
-    private Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.usettings);
 
-        // Initialize all views
-        backButton = findViewById(R.id.backButton);
-        notificationsLayout = findViewById(R.id.notificationsLayout);
-        locationLayout = findViewById(R.id.locationLayout);
-        changePasswordLayout = findViewById(R.id.changePasswordLayout);
-        privacyLayout = findViewById(R.id.privacyLayout);
-        helpLayout = findViewById(R.id.helpLayout);
-        logoutButton = findViewById(R.id.logoutButton);
+        // --- UPDATED PART START ---
+        // Setup click listeners for the reorganized layout
+        findViewById(R.id.backButton).setOnClickListener(v -> onBackPressed());
 
-        // Set up click listeners for navigation
-        setupNavigation();
-    }
-
-    private void setupNavigation() {
-        // Back Button -> UhomeActivity
-        backButton.setOnClickListener(v -> {
-            startActivity(new Intent(UsettingsActivity.this, UhomeActivity.class));
-            finish();
+        findViewById(R.id.editProfileLayout).setOnClickListener(v -> {
+            startActivity(new Intent(UsettingsActivity.this, UeditprofileActivity.class));
         });
 
-        // Notifications -> UnotificationsActivity
-        notificationsLayout.setOnClickListener(v -> {
+        findViewById(R.id.notificationsLayout).setOnClickListener(v -> {
             startActivity(new Intent(UsettingsActivity.this, UnotificationsActivity.class));
         });
 
-        // Location -> Ulocation_preferenceActivity
-        locationLayout.setOnClickListener(v -> {
+        findViewById(R.id.locationLayout).setOnClickListener(v -> {
             startActivity(new Intent(UsettingsActivity.this, Ulocation_preferenceActivity.class));
         });
 
-        // Change Password -> UchangepasswordActivity
-        changePasswordLayout.setOnClickListener(v -> {
-            startActivity(new Intent(UsettingsActivity.this, UchangepasswordActivity.class));
+        findViewById(R.id.changePasswordLayout).setOnClickListener(v -> {
+            Intent intent = new Intent(UsettingsActivity.this, UchangepasswordActivity.class);
+            intent.putExtra("USER_ROLE", "USER");
+            startActivity(intent);
         });
 
-        // Privacy Policy -> Uprivacy_policyActivity
-        privacyLayout.setOnClickListener(v -> {
+        findViewById(R.id.privacyLayout).setOnClickListener(v -> {
             startActivity(new Intent(UsettingsActivity.this, Uprivacy_policyActivity.class));
         });
 
-        // Help and Support -> UhelpActivity
-        helpLayout.setOnClickListener(v -> {
+        findViewById(R.id.helpLayout).setOnClickListener(v -> {
             startActivity(new Intent(UsettingsActivity.this, UhelpActivity.class));
         });
 
-        // Logout Button
-        logoutButton.setOnClickListener(v -> {
-            // TODO: Add your actual logout logic here
-            Toast.makeText(this, "Logged Out!", Toast.LENGTH_SHORT).show();
+        findViewById(R.id.logoutButton).setOnClickListener(v -> {
+            showLogoutConfirmationDialog();
         });
+
+        // The setupBottomNavigation() call has been removed.
+        // --- UPDATED PART END ---
+    }
+
+    private void showLogoutConfirmationDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Logout")
+                .setMessage("Are you sure you want to logout?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(UsettingsActivity.this, LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 }

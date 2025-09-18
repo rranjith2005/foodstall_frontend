@@ -57,10 +57,11 @@
                 app:tint="@android:color/white" />
 
             <TextView
+                android:id="@+id/stallNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Stall has been successfully rejected."
+                tools:text="Stall 'Juice Corner' Has Been Rejected"
                 android:textColor="#222222"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -80,6 +81,7 @@
                     android:padding="16dp">
 
                     <TextView
+                        android:id="@+id/reasonTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Reason: Incomplete stall registration details"

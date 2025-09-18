@@ -7,40 +7,55 @@ public class OrderItem implements Parcelable {
     private String name;
     private int quantity;
     private double price;
-    private boolean isPreParcel;
-    private String preParcelTime;
-    private boolean isParcel; // NEW FIELD for the simple parcel switch
+    private boolean isParcel;       // For the simple ₹10 parcel fee
+    private boolean isPreParcel;    // For identifying pre-parcel orders
+    private String preParcelTime;   // The end-time for pre-parcels
 
-    public OrderItem(String name, int quantity, double price, boolean isPreParcel, String preParcelTime) {
+    /**
+     * Full constructor for creating an item with all possible options.
+     */
+    public OrderItem(String name, int quantity, double price, boolean isParcel, boolean isPreParcel, String preParcelTime) {
         this.name = name;
         this.quantity = quantity;
         this.price = price;
+        this.isParcel = isParcel;
         this.isPreParcel = isPreParcel;
         this.preParcelTime = preParcelTime;
-        this.isParcel = false; // Default to false
     }
+
+    /**
+     * A simpler constructor for creating a basic item.
+     * Defaults to not being a parcel or pre-parcel.
+     */
+    public OrderItem(String name, int quantity, double price) {
+        this(name, quantity, price, false, false, null);
+    }
+
 
     // --- Getters and Setters ---
     public String getName() { return name; }
     public int getQuantity() { return quantity; }
     public void incrementQuantity() { this.quantity++; }
     public double getPrice() { return price; }
+
+    public boolean isParcel() { return isParcel; }
+    public void setParcel(boolean parcel) { isParcel = parcel; }
+
     public boolean isPreParcel() { return isPreParcel; }
     public void setPreParcel(boolean preParcel) { isPreParcel = preParcel; }
+
     public String getPreParcelTime() { return preParcelTime; }
     public void setPreParcelTime(String preParcelTime) { this.preParcelTime = preParcelTime; }
-    public boolean isParcel() { return isParcel; } // NEW GETTER
-    public void setParcel(boolean parcel) { isParcel = parcel; } // NEW SETTER
 
 
-    // --- Parcelable Implementation (Updated) ---
+    // --- Parcelable Implementation (Updated for all fields) ---
     protected OrderItem(Parcel in) {
         name = in.readString();
         quantity = in.readInt();
         price = in.readDouble();
+        isParcel = in.readByte() != 0;
         isPreParcel = in.readByte() != 0;
         preParcelTime = in.readString();
-        isParcel = in.readByte() != 0; // UPDATED
     }
 
     @Override
@@ -48,9 +63,9 @@ public class OrderItem implements Parcelable {
         dest.writeString(name);
         dest.writeInt(quantity);
         dest.writeDouble(price);
+        dest.writeByte((byte) (isParcel ? 1 : 0));
         dest.writeByte((byte) (isPreParcel ? 1 : 0));
         dest.writeString(preParcelTime);
-        dest.writeByte((byte) (isParcel ? 1 : 0)); // UPDATED
     }
 
     @Override

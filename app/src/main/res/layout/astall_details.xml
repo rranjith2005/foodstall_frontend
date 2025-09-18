@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF0F0"
+    android:background="#FFFFFF"
     tools:context=".Astall_detailsActivity">
 
     <LinearLayout
@@ -71,7 +71,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="20dp"
+                    android:background="#FFFFFF">
 
                     <TextView android:text="Stall Name" style="@style/DetailLabel"/>
                     <TextView android:id="@+id/stallNameValue" style="@style/DetailValue" tools:text="Street Food Corner"/>
@@ -86,7 +87,7 @@
                     <TextView android:id="@+id/fssaiNumberValue" style="@style/DetailValue" tools:text="12345678901234"/>
 
                     <TextView android:text="Phone Number" style="@style/DetailLabel" android:layout_marginTop="16dp"/>
-                    <TextView android:id="@+id/phoneNumberValue" style="@style/DetailValue" tools:text="+1 234-567-8900"/>
+                    <TextView android:id="@+id/phoneTextView" style="@style/DetailValue" tools:text="+1 234-567-8900"/>
 
                     <TextView android:text="Address" style="@style/DetailLabel" android:layout_marginTop="16dp"/>
                     <TextView android:id="@+id/addressValue" style="@style/DetailValue" tools:text="Block A, University Campus, Street Name, City, State, ZIP"/>

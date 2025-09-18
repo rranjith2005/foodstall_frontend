@@ -1,7 +1,6 @@
 package com.saveetha.foodstall;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,59 +14,62 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class AhelpActivity extends AppCompatActivity {
 
     private FrameLayout loadingOverlay;
     private ImageView loadingIcon;
+    private TextView loadingText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ahelp);
 
-        // Find views
+        findViewById(R.id.backButton).setOnClickListener(v -> onBackPressed());
         EditText feedbackEditText = findViewById(R.id.feedbackEditText);
         Button sendMessageButton = findViewById(R.id.sendMessageButton);
-        CardView callSupportCard = findViewById(R.id.callSupportCard);
-        CardView emailSupportCard = findViewById(R.id.emailSupportCard);
         loadingOverlay = findViewById(R.id.loadingOverlay);
         loadingIcon = findViewById(R.id.loadingIcon);
+        loadingText = findViewById(R.id.loadingText);
 
-        // Set up the back button
-        findViewById(R.id.backButton).setOnClickListener(v -> onBackPressed());
-
-        // "Send Message" button listener with animation
         sendMessageButton.setOnClickListener(v -> {
             String feedback = feedbackEditText.getText().toString().trim();
             if (feedback.isEmpty()) {
-                Toast.makeText(this, "Please enter your issue or feedback.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please describe the issue before submitting.", Toast.LENGTH_SHORT).show();
             } else {
-                showLoadingOverlay(() -> {
-                    Toast.makeText(this, "Feedback sent successfully!", Toast.LENGTH_SHORT).show();
-                    feedbackEditText.setText(""); // Clear the text box
+                showLoadingOverlay("Submitting...", () -> {
+                    Toast.makeText(this, "Report sent successfully!", Toast.LENGTH_SHORT).show();
+                    feedbackEditText.setText("");
                 });
             }
         });
 
-        // "Talk to Support" card listener
-        callSupportCard.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_DIAL);
-            intent.setData(Uri.parse("tel:+919876543210"));
-            startActivity(intent);
+        // --- UPDATED PART START ---
+        // Navigation is now specific to Admin activities
+        findViewById(R.id.faqCard).setOnClickListener(v -> {
+            startActivity(new Intent(this, AfaqActivity.class));
         });
 
-        // "Email Support" card listener
-        emailSupportCard.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_SENDTO);
-            intent.setData(Uri.parse("mailto:support@stallspot.com"));
-            intent.putExtra(Intent.EXTRA_SUBJECT, "Support Request from Admin App");
-            startActivity(intent);
+        findViewById(R.id.callSupportCard).setOnClickListener(v -> {
+            Intent dialIntent = new Intent(Intent.ACTION_DIAL);
+            dialIntent.setData(Uri.parse("tel:+911234567890")); // Admin support number
+            startActivity(dialIntent);
         });
+
+        findViewById(R.id.emailSupportCard).setOnClickListener(v -> {
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                    "mailto","admin.support@stallspot.com", null));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Admin Support Request - Stall Spot");
+            startActivity(Intent.createChooser(emailIntent, "Send Email..."));
+        });
+        // --- UPDATED PART END ---
     }
 
-    private void showLoadingOverlay(Runnable onComplete) {
+    private void showLoadingOverlay(String message, Runnable onComplete) {
+        loadingText.setText(message);
         loadingOverlay.setVisibility(View.VISIBLE);
         Animation rotation = AnimationUtils.loadAnimation(this, R.anim.hourglass_rotation);
         loadingIcon.startAnimation(rotation);
@@ -75,7 +77,9 @@ public class AhelpActivity extends AppCompatActivity {
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             loadingIcon.clearAnimation();
             loadingOverlay.setVisibility(View.GONE);
-            onComplete.run();
-        }, 1500); // 1.5 second delay
+            if (onComplete != null) {
+                onComplete.run();
+            }
+        }, 1500);
     }
 }

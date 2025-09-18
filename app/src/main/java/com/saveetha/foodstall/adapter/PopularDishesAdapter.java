@@ -1,23 +1,53 @@
 package com.saveetha.foodstall.adapter;
 
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide;
+import com.saveetha.foodstall.ApiClient;
 import com.saveetha.foodstall.R;
+import com.saveetha.foodstall.TextDrawableUtil;
 import com.saveetha.foodstall.model.PopularDish;
-import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class PopularDishesAdapter extends RecyclerView.Adapter<PopularDishesAdapter.PopularViewHolder> {
+public class PopularDishesAdapter extends ListAdapter<PopularDish, PopularDishesAdapter.PopularViewHolder> {
 
-    private final List<PopularDish> popularDishes;
+    private OnItemClickListener listener;
 
-    public PopularDishesAdapter(List<PopularDish> popularDishes) {
-        this.popularDishes = popularDishes;
+    public interface OnItemClickListener {
+        void onItemClick(PopularDish dish);
     }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public PopularDishesAdapter() {
+        super(DIFF_CALLBACK);
+    }
+
+    private static final DiffUtil.ItemCallback<PopularDish> DIFF_CALLBACK = new DiffUtil.ItemCallback<PopularDish>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull PopularDish oldItem, @NonNull PopularDish newItem) {
+            return Objects.equals(oldItem.getStallId(), newItem.getStallId()) &&
+                    Objects.equals(oldItem.getDishName(), newItem.getDishName());
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull PopularDish oldItem, @NonNull PopularDish newItem) {
+            // Assumes PopularDish has a proper .equals() method
+            return oldItem.equals(newItem);
+        }
+    };
 
     @NonNull
     @Override
@@ -28,26 +58,48 @@ public class PopularDishesAdapter extends RecyclerView.Adapter<PopularDishesAdap
 
     @Override
     public void onBindViewHolder(@NonNull PopularViewHolder holder, int position) {
-        PopularDish dish = popularDishes.get(position);
-        holder.dishName.setText(dish.dishName);
-        holder.dishPrice.setText(dish.price);
-        holder.dishImage.setImageResource(dish.imageResId);
+        holder.bind(getItem(position), listener);
     }
 
-    @Override
-    public int getItemCount() {
-        return popularDishes.size();
-    }
-
-    public static class PopularViewHolder extends RecyclerView.ViewHolder {
+    class PopularViewHolder extends RecyclerView.ViewHolder {
+        TextView dishName, stallName, price, initials;
         CircleImageView dishImage;
-        TextView dishName, dishPrice;
 
         public PopularViewHolder(@NonNull View itemView) {
             super(itemView);
-            dishImage = itemView.findViewById(R.id.popular_dish_image);
-            dishName = itemView.findViewById(R.id.popular_dish_name);
-            dishPrice = itemView.findViewById(R.id.popular_dish_price);
+            dishName = itemView.findViewById(R.id.popularDishName);
+            stallName = itemView.findViewById(R.id.popularStallName);
+            price = itemView.findViewById(R.id.popularDishPrice);
+            initials = itemView.findViewById(R.id.popularDishInitials);
+            dishImage = itemView.findViewById(R.id.popularDishImage);
+        }
+
+        public void bind(final PopularDish dish, final OnItemClickListener listener) {
+            dishName.setText(dish.getDishName());
+            stallName.setText(dish.getStallName());
+            price.setText(String.format(Locale.getDefault(), "₹%.2f", dish.getPrice()));
+
+            String imageUrl = dish.getImageUrl();
+            if (imageUrl != null && !imageUrl.isEmpty()) {
+                initials.setVisibility(View.GONE);
+                dishImage.setVisibility(View.VISIBLE);
+                String fullUrl = ApiClient.BASE_URL + "uploads/" + imageUrl;
+                Glide.with(itemView.getContext()).load(fullUrl).into(dishImage);
+            } else {
+                // --- START OF UPDATED SECTION ---
+                dishImage.setVisibility(View.GONE);
+                initials.setVisibility(View.VISIBLE);
+                initials.setText(TextDrawableUtil.getInitials(dish.getDishName()));
+
+                // Get the circular background and set its color dynamically
+                GradientDrawable background = (GradientDrawable) initials.getBackground().mutate();
+                background.setColor(TextDrawableUtil.getColor(dish.getDishName()));
+                // --- END OF UPDATED SECTION ---
+            }
+
+            itemView.setOnClickListener(v -> {
+                if(listener != null) listener.onItemClick(dish);
+            });
         }
     }
 }

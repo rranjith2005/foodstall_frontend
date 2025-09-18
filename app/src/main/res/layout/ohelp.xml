@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF6F6"
+    android:background="#F8F9FA"
     tools:context=".OhelpActivity">
 
+    <!-- Top Bar -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="0dp"
@@ -35,7 +36,6 @@
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
-
     </LinearLayout>
 
     <ScrollView
@@ -52,182 +52,90 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <!-- Quick Assistance Section -->
+            <TextView style="@style/FormLabelStyle" android:text="Quick Assistance" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:layout_marginTop="8dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/faqCard"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="2dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-
-                        <ImageView
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_question"
-                            app:tint="#FF6B6B" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:gravity="center_horizontal"
-                            android:text="Frequently\nAsked Questions"
-                            android:textColor="#222222"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:gravity="center_horizontal"
-                            android:text="Quick answers to common queries"
-                            android:textColor="#666666"
-                            android:textSize="12sp" />
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginTop="9dp"
-                            android:src="@drawable/ic_next_arrow" />
-
+                    <LinearLayout style="@style/HelpCardStyle">
+                        <ImageView style="@style/HelpIconStyle" android:src="@drawable/ic_help_faq"/>
+                        <TextView style="@style/HelpTitleStyle" android:text="FAQs"/>
+                        <TextView style="@style/HelpSubtitleStyle" android:text="Find quick answers"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/callSupportCard"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:layout_marginStart="8dp"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="2dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-
-                        <ImageView
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_phone"
-                            app:tint="#FF6B6B" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:gravity="center_horizontal"
-                            android:text="Talk to Support"
-                            android:textColor="#222222"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:gravity="center_horizontal"
-                            android:text="+91-xxxxxxxxxx (24/7 helpline)"
-                            android:textColor="#666666"
-                            android:textSize="12sp" />
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginTop="9dp"
-                            android:src="@drawable/ic_next_arrow" />
-
+                    <LinearLayout style="@style/HelpCardStyle">
+                        <ImageView style="@style/HelpIconStyle" android:src="@drawable/ic_help_call"/>
+                        <TextView style="@style/HelpTitleStyle" android:text="Call Us"/>
+                        <TextView style="@style/HelpSubtitleStyle" android:text="24/7 Helpline"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-
             </LinearLayout>
 
+            <!-- Contact Us Card -->
+            <TextView style="@style/FormLabelStyle" android:text="Contact Us" android:layout_marginTop="24dp"/>
             <androidx.cardview.widget.CardView
                 android:id="@+id/emailSupportCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="2dp">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
+                    android:padding="16dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    <ImageView style="@style/HelpIconStyle" android:src="@drawable/ic_help_email"/>
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_email"
-                            app:tint="#FF6B6B" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_weight="1"
-                            android:text="Email Support"
-                            android:textColor="#222222"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginTop="9dp"
-                            android:src="@drawable/ic_next_arrow" />
-
+                        android:layout_weight="1"
+                        android:layout_marginStart="16dp"
+                        android:orientation="vertical">
+                        <TextView style="@style/HelpTitleStyle" android:text="Email Support"/>
+                        <TextView style="@style/HelpSubtitleStyle" android:text="support@stallspot.com"/>
                     </LinearLayout>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="52dp"
-                        android:layout_marginTop="4dp"
-                        android:text="support@stallspot.com"
-                        android:textColor="#666666"
-                        android:textSize="14sp" />
-
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_arrow_right" app:tint="#CCCCCC" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <EditText
-                android:id="@+id/feedbackEditText"
+            <!-- Feedback Section -->
+            <TextView style="@style/FormLabelStyle" android:text="Send us a Message" android:layout_marginTop="24dp"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/feedbackInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/rounded_background_white"
-                android:gravity="top|start"
-                android:hint="Describe your issue or feedback..."
-                android:padding="16dp"
-                android:textColor="#444444"
-                android:textColorHint="#999999"
-                android:textSize="16sp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Describe your issue or feedback...">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/feedbackEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:gravity="top|start"
+                    android:inputType="textMultiLine"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/sendMessageButton"
@@ -239,16 +147,41 @@
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
                 app:cornerRadius="12dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp"
-                android:gravity="center_horizontal"
-                android:text="We're here to help you enjoy the best food experiences."
-                android:textColor="#666666"
-                android:textSize="12sp" />
         </LinearLayout>
     </ScrollView>
+
+
+    <!-- Added the hourglass loading overlay -->
+    <FrameLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B3000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="10dp"
+        android:visibility="gone"
+        tools:visibility="gone">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/loadingIcon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_hourglass1" />
+            <TextView
+                android:id="@+id/loadingText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Sending..."
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

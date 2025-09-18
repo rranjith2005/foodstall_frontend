@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFE5E5"
+    android:background="#F8F9FA"
     tools:context=".Ufrequent_questionActivity">
 
+    <!-- Top Bar -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="0dp"
@@ -22,8 +23,8 @@
 
         <ImageView
             android:id="@+id/backButton"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/ic_back_arrow_white" />
 
         <TextView
@@ -35,66 +36,36 @@
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
-
     </LinearLayout>
 
-    <ScrollView
+    <!-- Search Bar -->
+    <EditText
+        android:id="@+id/searchEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/search_background"
+        android:drawableStart="@drawable/ic_search_gray"
+        android:drawablePadding="12dp"
+        android:elevation="2dp"
+        android:hint="Search questions..."
+        android:padding="12dp"
+        android:inputType="text"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/faqRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:padding="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBar">
+        app:layout_constraintTop_toBottomOf="@+id/searchEditText"
+        tools:listitem="@layout/list_item_faq" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                style="@style/FaqQuestionStyle"
-                android:text="How do I find nearby food stalls?" />
-            <TextView
-                style="@style/FaqAnswerStyle"
-                android:text="Allow location access to see nearby food stalls based on your area." />
-
-            <View style="@style/FaqDividerStyle" />
-
-            <TextView
-                style="@style/FaqQuestionStyle"
-                android:text="How do I place a pre-parcel order?" />
-            <TextView
-                style="@style/FaqAnswerStyle"
-                android:text="Select a stall with pre-parcel enabled, choose your items, and proceed to checkout." />
-
-            <View style="@style/FaqDividerStyle" />
-
-            <TextView
-                style="@style/FaqQuestionStyle"
-                android:text="How can I edit my stall details?" />
-            <TextView
-                style="@style/FaqAnswerStyle"
-                android:text="Go to Edit Profile in the owner dashboard to update your information." />
-
-            <View style="@style/FaqDividerStyle" />
-
-            <TextView
-                style="@style/FaqQuestionStyle"
-                android:text="What does open or closed status mean?" />
-            <TextView
-                style="@style/FaqAnswerStyle"
-                android:text="This shows if a stall is currently serving, updated in real time by the owner." />
-
-            <View style="@style/FaqDividerStyle" />
-
-            <TextView
-                style="@style/FaqQuestionStyle"
-                android:text="How long does admin approval take?" />
-            <TextView
-                style="@style/FaqAnswerStyle"
-                android:text="Approval typically takes 24 to 48 hours. You'll receive a notification once done." />
-
-        </LinearLayout>
-    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

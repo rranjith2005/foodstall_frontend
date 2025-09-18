@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFE5E5"
+    android:background="@color/screen_background"
     tools:context=".OstalldetailsActivity">
 
-    <!-- Top Bar -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="0dp"
@@ -20,7 +19,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -44,69 +42,116 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="24dp">
 
-            <!-- Stall Name -->
-            <TextView
-                style="@style/FormLabelStyle1"
-                android:text="Stall Name" />
-            <EditText
-                android:id="@+id/stallNameEditText"
-                style="@style/FormInputStyle"
-                android:hint="Enter your Stall Name" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Stall Name"
+                app:startIconDrawable="@drawable/ic_profile_store"
+                app:startIconTint="@null">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/stallNameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Owner Name -->
-            <TextView
-                style="@style/FormLabelStyle1"
-                android:text="Owner Name" />
-            <EditText
-                android:id="@+id/ownerNameEditText"
-                style="@style/FormInputStyle"
-                android:hint="Enter Owner Name" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Owner Name"
+                app:startIconDrawable="@drawable/ic_profile_person"
+                app:startIconTint="@null">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ownerNameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Phone Number -->
-            <TextView
-                style="@style/FormLabelStyle1"
-                android:text="Phone Number" />
-            <EditText
-                android:id="@+id/phoneNumberEditText"
-                style="@style/FormInputStyle"
-                android:hint="Enter Phone Number"
-                android:inputType="phone" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Phone Number"
+                app:startIconDrawable="@drawable/ic_profile_phone"
+                app:startIconTint="@null">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phoneNumberEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Email Address -->
-            <TextView
-                style="@style/FormLabelStyle1"
-                android:text="Email Address" />
-            <EditText
-                android:id="@+id/emailEditText"
-                style="@style/FormInputStyle"
-                android:hint="Enter Email Address"
-                android:inputType="textEmailAddress" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Email Address"
+                app:startIconDrawable="@drawable/ic_profile_email"
+                app:startIconTint="@null">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Full Address -->
-            <TextView
-                style="@style/FormLabelStyle1"
-                android:text="Full Address" />
-            <EditText
-                android:id="@+id/addressEditText"
-                style="@style/FormInputStyle"
-                android:lines="4"
-                android:gravity="top|start"
-                android:hint="Enter Full Address" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Full Address"
+                app:startIconDrawable="@drawable/ic_profile_location"
+                app:startIconTint="@null">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addressEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="3"
+                    android:gravity="top|start" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- FSSAI Number -->
-            <TextView
-                style="@style/FormLabelStyle1"
-                android:text="FSSAI Number" />
-            <EditText
-                android:id="@+id/fssaiNumberEditText"
-                style="@style/FormInputStyle"
-                android:hint="Enter 14-digit FSSAI Number"
-                android:inputType="number"
-                android:maxLength="14" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="14-digit FSSAI Number"
+                app:counterEnabled="true"
+                app:counterMaxLength="14"
+                app:startIconDrawable="@drawable/ic_fssai"
+                app:startIconTint="@null">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fssaiNumberEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="14" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Buttons Layout -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Confirm Your Password"
+                app:helperText="Enter the password you used during signup to confirm."
+                app:passwordToggleEnabled="true"
+                app:startIconDrawable="@drawable/ic_profile_lock"
+                app:startIconTint="@null">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
             <Button
                 android:id="@+id/submitButton"
                 android:layout_width="match_parent"
@@ -120,27 +165,27 @@
 
             <Button
                 android:id="@+id/cancelButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:layout_marginTop="16dp"
-                android:backgroundTint="#CCCCCC"
+                android:layout_marginTop="12dp"
                 android:text="Cancel"
-                android:textColor="#FFFFFF"
+                android:textColor="#FF6B6B"
+                app:strokeColor="#FF6B6B"
                 android:textSize="18sp"
                 app:cornerRadius="12dp" />
-
         </LinearLayout>
     </ScrollView>
+
     <FrameLayout
         android:id="@+id/loadingOverlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#80000000"
+        android:background="#B3000000"
         android:clickable="true"
         android:focusable="true"
-        android:visibility="gone"
-        tools:visibility="visible">
-
+        android:elevation="10dp"
+        android:visibility="gone">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

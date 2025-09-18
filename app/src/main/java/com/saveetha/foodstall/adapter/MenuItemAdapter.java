@@ -1,5 +1,6 @@
 package com.saveetha.foodstall.adapter;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,26 +8,41 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide;
+import com.saveetha.foodstall.ApiClient;
 import com.saveetha.foodstall.R;
+import com.saveetha.foodstall.TextDrawableUtil;
 import com.saveetha.foodstall.model.MenuItem;
-import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
 
-public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuItemViewHolder> {
+public class MenuItemAdapter extends ListAdapter<MenuItem, MenuItemAdapter.MenuItemViewHolder> {
 
-    // The listener interface now passes the whole MenuItem object
+    private final OnAddItemClickListener listener;
+
     public interface OnAddItemClickListener {
         void onAddItemClick(MenuItem item);
     }
 
-    private final ArrayList<MenuItem> menuItems;
-    private final OnAddItemClickListener listener;
-
-    public MenuItemAdapter(ArrayList<MenuItem> menuItems, OnAddItemClickListener listener) {
-        this.menuItems = menuItems;
+    public MenuItemAdapter(OnAddItemClickListener listener) {
+        super(DIFF_CALLBACK);
         this.listener = listener;
     }
+
+    private static final DiffUtil.ItemCallback<MenuItem> DIFF_CALLBACK = new DiffUtil.ItemCallback<MenuItem>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull MenuItem oldItem, @NonNull MenuItem newItem) {
+            return Objects.equals(oldItem.getName(), newItem.getName());
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull MenuItem oldItem, @NonNull MenuItem newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
 
     @NonNull
     @Override
@@ -37,37 +53,46 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
 
     @Override
     public void onBindViewHolder(@NonNull MenuItemViewHolder holder, int position) {
-        MenuItem item = menuItems.get(position);
-        holder.bind(item);
+        MenuItem item = getItem(position);
+        if (item != null) {
+            holder.bind(item);
+        }
     }
 
-    @Override
-    public int getItemCount() {
-        return menuItems.size();
-    }
-
-    // Renamed this inner class for clarity
     class MenuItemViewHolder extends RecyclerView.ViewHolder {
         ImageView itemImage;
-        TextView itemName, itemPrice;
+        TextView itemInitials, itemName, itemPrice;
         Button addButton;
 
         public MenuItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            // Using the correct IDs from your card_menu_item.xml
-            itemImage = itemView.findViewById(R.id.menuItemImageView);
-            itemName = itemView.findViewById(R.id.menuItemNameTextView);
-            itemPrice = itemView.findViewById(R.id.menuItemPriceTextView);
+            itemImage = itemView.findViewById(R.id.menuItemImage);
+            itemInitials = itemView.findViewById(R.id.menuItemInitials);
+            itemName = itemView.findViewById(R.id.menuItemName);
+            itemPrice = itemView.findViewById(R.id.menuItemPrice);
             addButton = itemView.findViewById(R.id.menuItemAddButton);
         }
 
         void bind(final MenuItem item) {
-            // Using getter methods to access private data
             itemName.setText(item.getName());
             itemPrice.setText(String.format(Locale.getDefault(), "₹%.2f", item.getPrice()));
-            itemImage.setImageResource(item.getImageResId());
 
-            // The listener now passes the entire item object back to the activity
+            String imageUrl = item.getImageUrl();
+            if (imageUrl != null && !imageUrl.isEmpty()) {
+                itemInitials.setVisibility(View.GONE);
+                itemImage.setVisibility(View.VISIBLE);
+                String fullUrl = ApiClient.BASE_URL + "uploads/" + imageUrl;
+                Glide.with(itemView.getContext())
+                        .load(fullUrl)
+                        .placeholder(R.drawable.ic_camera_background)
+                        .into(itemImage);
+            } else {
+                itemImage.setVisibility(View.GONE);
+                itemInitials.setVisibility(View.VISIBLE);
+                itemInitials.setText(TextDrawableUtil.getInitials(item.getName()));
+                itemInitials.setBackgroundColor(TextDrawableUtil.getColor(item.getName()));
+            }
+
             addButton.setOnClickListener(v -> listener.onAddItemClick(item));
         }
     }

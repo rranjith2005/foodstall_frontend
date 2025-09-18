@@ -21,7 +21,6 @@ public class Oview_receiptActivity extends AppCompatActivity {
 
         // Setup listeners for both back buttons for robust navigation
         findViewById(R.id.backButton).setOnClickListener(v -> onBackPressed());
-        findViewById(R.id.backArrowButton).setOnClickListener(v -> onBackPressed());
 
         // Populate the receipt with details
         populateReceiptDetails();

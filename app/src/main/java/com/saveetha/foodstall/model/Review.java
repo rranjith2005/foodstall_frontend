@@ -1,41 +1,74 @@
 package com.saveetha.foodstall.model;
 
+import com.google.gson.annotations.SerializedName;
+import java.util.Objects;
+
 public class Review {
-    // --- Fields for BOTH UIs ---
-    private String name; // Used as reviewerName
-    private String text;
-    private String time; // Can also be used for the date
-    private String ratingString; // For the old UI's TextView
-    private float ratingFloat;   // For the new UI's RatingBar
 
-    // --- Fields for specific UIs ---
-    private int profileImageResId; // Only for the old UI
-    private String stallName;      // Only for the new UI
+    @SerializedName("stallname")
+    private String stallName;
 
-    // --- CONSTRUCTOR for OLD UI data ---
-    public Review(String name, String text, String time, String rating, int profileImageResId) {
-        this.name = name;
-        this.text = text;
-        this.time = time;
-        this.ratingString = rating;
-        this.profileImageResId = profileImageResId;
-    }
+    @SerializedName("fullname")
+    private String reviewerName;
 
-    // --- CONSTRUCTOR for NEW UI data ---
-    public Review(String stallName, String name, float rating, String text, String date) {
+    @SerializedName("rating")
+    private float rating;
+
+    @SerializedName("review_text")
+    private String reviewText;
+
+    @SerializedName("review_date")
+    private String reviewDate;
+
+    @SerializedName("student_id")
+    private String studentId;
+
+    /**
+     * This constructor is used by the OwnerReviewsFragment.
+     * It includes the stall name.
+     */
+    public Review(String stallName, String reviewerName, float rating, String reviewText, String reviewDate) {
         this.stallName = stallName;
-        this.name = name; // 'name' is used for reviewerName
-        this.ratingFloat = rating;
-        this.text = text;
-        this.time = date; // 'time' is used for the date
+        this.reviewerName = reviewerName;
+        this.rating = rating;
+        this.reviewText = reviewText;
+        this.reviewDate = reviewDate;
     }
 
-    // --- Getters for all possible fields ---
-    public String getName() { return name; }
-    public String getText() { return text; }
-    public String getTime() { return time; }
-    public String getRatingString() { return ratingString; }
-    public int getProfileImageResId() { return profileImageResId; }
+    /**
+     * This constructor is used by UviewmenuActivity.
+     * It does not need the stall name.
+     */
+    public Review(String reviewerName, float rating, String reviewText, String reviewDate) {
+        this.reviewerName = reviewerName;
+        this.rating = rating;
+        this.reviewText = reviewText;
+        this.reviewDate = reviewDate;
+    }
+
+    // Getters
     public String getStallName() { return stallName; }
-    public float getRatingFloat() { return ratingFloat; }
+    public String getReviewerName() { return reviewerName; }
+    public float getRating() { return rating; }
+    public String getReviewText() { return reviewText; }
+    public String getReviewDate() { return reviewDate; }
+    public String getStudentId() { return studentId; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Review review = (Review) o;
+        return Float.compare(review.rating, rating) == 0 &&
+                Objects.equals(stallName, review.stallName) &&
+                Objects.equals(reviewerName, review.reviewerName) &&
+                Objects.equals(reviewText, review.reviewText) &&
+                Objects.equals(reviewDate, review.reviewDate) &&
+                Objects.equals(studentId, review.studentId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(stallName, reviewerName, rating, reviewText, reviewDate, studentId);
+    }
 }

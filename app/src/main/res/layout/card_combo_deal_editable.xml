@@ -1,67 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center_vertical"
-    android:layout_marginTop="8dp">
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp">
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/comboDescriptionEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Combo Description"
-            android:lines="2"
-            android:gravity="top|start"
-            style="@style/FormInputStyle"
-            android:background="@drawable/rounded_background_white"
-            android:layout_marginTop="0dp" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/comboPriceEditText"
+            <FrameLayout
+                android:id="@+id/imageContainer"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="16dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/itemImageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_camera_background"
+                    app:civ_border_color="#FF6B6B"
+                    app:civ_border_width="2dp" />
+
+                <TextView
+                    android:id="@+id/itemInitialsTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Price"
-                android:inputType="numberDecimal"
-                android:layout_marginEnd="8dp"
-                style="@style/FormInputStyle"
-                android:background="@drawable/rounded_background_white"
-                android:layout_marginTop="0dp" />
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/comboQuantityEditText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Quantity"
-                android:inputType="number"
-                style="@style/FormInputStyle"
-                android:background="@drawable/rounded_background_white"
-                android:layout_marginTop="0dp" />
+                <EditText
+                    android:id="@+id/comboNameEditText"
+                    style="@style/FormInputStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:hint="Combo Name"
+                    android:inputType="textCapWords" />
+
+                <EditText
+                    android:id="@+id/comboItemsEditText"
+                    style="@style/FormInputStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:hint="Items (e.g., Burger, Fries)"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/comboPriceEditText"
+                    style="@style/FormInputStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:hint="Price (₹)"
+                    android:inputType="numberDecimal" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/deleteComboButton"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_delete"
+                app:tint="#FF6B6B" />
         </LinearLayout>
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/deleteComboButton"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="16dp"
-        android:src="@drawable/ic_cross"
-        android:contentDescription="Delete"
-        app:tint="#FF6B6B" />
-</LinearLayout>
+</androidx.cardview.widget.CardView>

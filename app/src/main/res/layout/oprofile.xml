@@ -4,177 +4,165 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF6B6B"
+    android:background="#F8F9FA"
     tools:context=".OprofileActivity">
 
-    <!-- Top Background -->
-    <View
-        android:id="@+id/topBackground"
+    <!-- Top Bar -->
+    <LinearLayout
+        android:id="@+id/topBar"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="?attr/actionBarSize"
         android:background="#FF6B6B"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
-
-    <!-- Back Button -->
-
-    <!-- Page Title -->
-
-    <!-- User Profile Image with Camera Icon -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit Stall Profile"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/topBackground"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/topBackground"
-        app:layout_constraintVertical_bias="0.831" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <FrameLayout
-        android:id="@+id/profileImageContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Edit Profile"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profileImage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/sidd"
-            app:civ_border_color="@android:color/white"
-            app:civ_border_width="2dp" />
-
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_gravity="bottom|end"
-            android:background="@drawable/bg_white_button"
-            android:padding="8dp"
-            android:src="@drawable/ic_camera"
-            app:tint="#4B5563" />
-    </FrameLayout>
-
-    <!-- Form Fields Card -->
-    <androidx.cardview.widget.CardView
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:cardCornerRadius="24dp"
-        app:cardElevation="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintTop_toBottomOf="@id/guideline"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation_bar"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_bar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/topBar">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <!-- Profile Image Section -->
+            <FrameLayout
+                android:id="@+id/profileImageContainer"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="24dp">
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="24dp">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profileImage"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/sidd"
+                    app:civ_border_color="#FF6B6B"
+                    app:civ_border_width="3dp" />
 
-                <!-- Stall Name -->
-                <TextView style="@style/FormLabelStyle" android:text="Stall Name" />
-                <EditText
-                    android:id="@+id/stallNameEditText"
-                    style="@style/FormInputStyle"
-                    android:hint="Enter stall name" />
+                <ImageView
+                    android:id="@+id/editProfileImageButton"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="bottom|end"
+                    android:background="@drawable/bg_white_button"
+                    android:elevation="4dp"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_camera1"
+                    app:tint="#4B5563" />
 
-                <!-- Owner Name -->
-                <TextView style="@style/FormLabelStyle" android:text="Owner Name" />
-                <EditText
-                    android:id="@+id/ownerNameEditText"
-                    style="@style/FormInputStyle"
-                    android:hint="Enter owner name" />
 
-                <!-- Full Address -->
-                <TextView style="@style/FormLabelStyle" android:text="Full Address" />
-                <EditText
-                    android:id="@+id/addressEditText"
-                    style="@style/FormInputStyle"
-                    android:lines="4"
-                    android:gravity="top|start"
-                    android:hint="Enter full address" />
+            </FrameLayout>
 
-                <!-- Phone Number -->
-                <TextView style="@style/FormLabelStyle" android:text="Phone Number" />
-                <EditText
-                    android:id="@+id/phoneNumberEditText"
-                    style="@style/FormInputStyle"
-                    android:hint="Enter phone number"
-                    android:inputType="phone" />
+            <!-- Form Fields -->
+            <TextView style="@style/FormLabelStyle" android:text="Stall Name" />
+            <EditText
+                android:id="@+id/stallNameEditText"
+                style="@style/FormInputStyle"
+                android:drawableStart="@drawable/ic_profile_store"
+                android:drawablePadding="12dp"
+                android:hint="Enter stall name" />
 
-                <!-- Email Address -->
-                <TextView style="@style/FormLabelStyle" android:text="Email Address" />
-                <EditText
-                    android:id="@+id/emailEditText"
-                    style="@style/FormInputStyle"
-                    android:hint="Enter email address"
-                    android:inputType="textEmailAddress" />
+            <TextView style="@style/FormLabelStyle" android:text="Owner Name" />
+            <EditText
+                android:id="@+id/ownerNameEditText"
+                style="@style/FormInputStyle"
+                android:drawableStart="@drawable/ic_profile_person"
+                android:drawablePadding="12dp"
+                android:hint="Enter owner name" />
 
-                <!-- Password -->
-                <TextView style="@style/FormLabelStyle" android:text="Password" />
-                <EditText
-                    android:id="@+id/passwordEditText"
-                    style="@style/FormInputStyle"
-                    android:hint="••••••••••"
-                    android:inputType="textPassword" />
+            <TextView style="@style/FormLabelStyle" android:text="Full Address" />
+            <EditText
+                android:id="@+id/addressEditText"
+                style="@style/FormInputStyle"
+                android:lines="3"
+                android:gravity="top|start"
+                android:drawableStart="@drawable/ic_profile_location"
+                android:drawablePadding="12dp"
+                android:hint="Enter full address" />
 
-                <!-- FSSAI Number -->
-                <TextView style="@style/FormLabelStyle" android:text="FSSAI Number" />
-                <EditText
-                    android:id="@+id/fssaiNumberEditText"
-                    style="@style/FormInputStyle"
-                    android:hint="Enter FSSAI number"
-                    android:enabled="false"
-                    android:background="@drawable/rounded_background_gray" />
+            <TextView style="@style/FormLabelStyle" android:text="Phone Number" />
+            <EditText
+                android:id="@+id/phoneNumberEditText"
+                style="@style/FormInputStyle"
+                android:drawableStart="@drawable/ic_profile_phone"
+                android:drawablePadding="12dp"
+                android:hint="Enter phone number"
+                android:inputType="phone" />
 
-                <!-- Owner ID -->
-                <TextView style="@style/FormLabelStyle" android:text="Owner ID" />
-                <EditText
-                    android:id="@+id/ownerIdEditText"
-                    style="@style/FormInputStyle"
-                    android:hint="Enter Owner ID"
-                    android:enabled="false"
-                    android:background="@drawable/rounded_background_gray" />
+            <TextView style="@style/FormLabelStyle" android:text="Email Address" />
+            <EditText
+                android:id="@+id/emailEditText"
+                style="@style/FormInputStyle"
+                android:drawableStart="@drawable/ic_profile_email"
+                android:drawablePadding="12dp"
+                android:hint="Enter email address"
+                android:inputType="textEmailAddress" />
 
-                <!-- Action Buttons -->
-                <Button
-                    android:id="@+id/saveButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="32dp"
-                    android:backgroundTint="#FF6B6B"
-                    android:text="Save Changes"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    app:cornerRadius="12dp" />
+            <TextView style="@style/FormLabelStyle" android:text="Password" />
+            <EditText
+                android:id="@+id/passwordEditText"
+                style="@style/FormInputStyle"
+                android:drawableStart="@drawable/ic_profile_lock"
+                android:drawablePadding="12dp"
+                android:hint="Enter new password"
+                android:inputType="textPassword" />
 
-            </LinearLayout>
-        </ScrollView>
-    </androidx.cardview.widget.CardView>
+            <!-- Disabled Fields -->
+            <TextView
+                style="@style/FormLabelStyle"
+                android:layout_marginTop="24dp"
+                android:text="Official Details (Cannot be changed)"
+                android:textColor="#888888" />
+            <TextView style="@style/FormLabelStyle" android:text="FSSAI Number" android:layout_marginTop="8dp"/>
+            <EditText
+                android:id="@+id/fssaiNumberEditText"
+                style="@style/FormInputStyle"
+                android:enabled="false"
+                android:background="@drawable/rounded_background_gray" />
+            <TextView style="@style/FormLabelStyle" android:text="Owner ID" />
+            <EditText
+                android:id="@+id/ownerIdEditText"
+                style="@style/FormInputStyle"
+                android:enabled="false"
+                android:background="@drawable/rounded_background_gray" />
+
+            <!-- Save Button -->
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="#FF6B6B"
+                android:text="Save Changes"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                app:cornerRadius="12dp" />
+        </LinearLayout>
+    </ScrollView>
 
     <!-- Bottom Navigation Bar -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -188,4 +176,41 @@
         app:itemTextColor="@drawable/nav_selector"
         app:labelVisibilityMode="labeled"
         tools:checkedId="@id/nav_owner_profile" />
+
+    <!-- Loading Overlay -->
+    <FrameLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B3000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/loadingIcon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_hourglass1" />
+            <TextView
+                android:id="@+id/loadingText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Saving changes..."
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,178 +1,187 @@
 package com.saveetha.foodstall;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.pm.PackageManager;
-import android.location.Location;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.saveetha.foodstall.model.StallLocation;
-
-import org.osmdroid.config.Configuration;
-import org.osmdroid.events.MapEventsReceiver;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.MapEventsOverlay;
-import org.osmdroid.views.overlay.Marker;
-
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class Aset_locationActivity extends AppCompatActivity {
 
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-    private EditText ownerIdEditText, stallNameEditText, latitudeEditText, longitudeEditText;
-    private RadioGroup locationRadioGroup;
-    private CardView mapCard;
-    private Button setLocationButton;
-    private MapView mapView;
-    private FusedLocationProviderClient fusedLocationClient;
-    private Marker stallMarker;
-    private GeoPoint selectedLocation;
+    private EditText stallIdEditText, stallNameEditText, latitudeEditText, longitudeEditText;
+    private LinearLayout manualCoordinatesLayout;
+    private FrameLayout loadingOverlay;
+    private ImageView loadingIcon;
+    private TextView loadingText;
+
+    private static final ArrayList<StallLocation> savedLocations = new ArrayList<>();
+
+    private final ActivityResultLauncher<Intent> autoFetchResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == AppCompatActivity.RESULT_OK && result.getData() != null) {
+                    Intent data = result.getData();
+                    double latitude = data.getDoubleExtra("latitude", 0.0);
+                    double longitude = data.getDoubleExtra("longitude", 0.0);
+
+                    latitudeEditText.setText(String.format(Locale.US, "%.6f", latitude));
+                    longitudeEditText.setText(String.format(Locale.US, "%.6f", longitude));
+                    manualCoordinatesLayout.setVisibility(View.VISIBLE);
+                    Toast.makeText(this, "Location fetched successfully!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Could not fetch location.", Toast.LENGTH_SHORT).show();
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Configuration.getInstance().load(getApplicationContext(), getPreferences(MODE_PRIVATE));
         setContentView(R.layout.aset_location);
 
-        // Find all views
-        ownerIdEditText = findViewById(R.id.ownerIdEditText);
+        stallIdEditText = findViewById(R.id.stallIdEditText);
         stallNameEditText = findViewById(R.id.stallNameEditText);
         latitudeEditText = findViewById(R.id.latitudeEditText);
         longitudeEditText = findViewById(R.id.longitudeEditText);
-        locationRadioGroup = findViewById(R.id.locationRadioGroup);
-        mapCard = findViewById(R.id.mapCard);
-        setLocationButton = findViewById(R.id.setLocationButton);
-        mapView = findViewById(R.id.mapView);
-
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
-        setupMap();
-        setupRadioGroupListener();
+        manualCoordinatesLayout = findViewById(R.id.manualCoordinatesLayout);
+        CardView autoFetchCard = findViewById(R.id.autoFetchCard);
+        CardView manualEntryCard = findViewById(R.id.manualEntryCard);
+        Button setLocationButton = findViewById(R.id.setLocationButton);
+        Button viewSavedLocationsButton = findViewById(R.id.viewSavedLocationsButton);
+        loadingOverlay = findViewById(R.id.loadingOverlay);
+        loadingIcon = findViewById(R.id.loadingIcon);
+        loadingText = findViewById(R.id.loadingText);
 
         findViewById(R.id.backButton).setOnClickListener(v -> finish());
-        setLocationButton.setOnClickListener(v -> saveLocation());
 
-        // Initial setup for Auto Fetch
-        checkLocationPermissionAndGetLocation();
-    }
+        autoFetchCard.setOnClickListener(v -> {
+            Intent intent = new Intent(this, Ufetch_locationActivity.class);
+            autoFetchResultLauncher.launch(intent);
+        });
 
-    private void setupRadioGroupListener() {
-        locationRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            if (checkedId == R.id.autoFetchRadio) {
-                mapCard.setVisibility(View.GONE);
-                latitudeEditText.setEnabled(false);
-                longitudeEditText.setEnabled(false);
-                checkLocationPermissionAndGetLocation(); // Fetch location again
-            } else if (checkedId == R.id.manualEntryRadio) {
-                mapCard.setVisibility(View.GONE);
-                latitudeEditText.setEnabled(true);
-                longitudeEditText.setEnabled(true);
+        manualEntryCard.setOnClickListener(v -> {
+            manualCoordinatesLayout.setVisibility(manualCoordinatesLayout.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+            if(manualCoordinatesLayout.getVisibility() == View.VISIBLE) {
                 latitudeEditText.requestFocus();
-            } else if (checkedId == R.id.mapPickerRadio) {
-                mapCard.setVisibility(View.VISIBLE);
-                latitudeEditText.setEnabled(false);
-                longitudeEditText.setEnabled(false);
             }
         });
+
+        viewSavedLocationsButton.setOnClickListener(v -> showSavedLocationsDialog());
+        setLocationButton.setOnClickListener(v -> saveLocation());
     }
 
     private void saveLocation() {
-        // ... (saveLocation logic is unchanged from the previous version)
-    }
+        String stallId = stallIdEditText.getText().toString().trim();
+        String stallName = stallNameEditText.getText().toString().trim();
+        String latitudeStr = latitudeEditText.getText().toString().trim();
+        String longitudeStr = longitudeEditText.getText().toString().trim();
 
-    private void setupMap() {
-        mapView.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE); // Better quality map tiles
-        mapView.getController().setZoom(15.5);
-        mapView.setMultiTouchControls(true);
+        if (stallId.isEmpty() || stallName.isEmpty() || latitudeStr.isEmpty() || longitudeStr.isEmpty()) {
+            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        MapEventsReceiver mapEventsReceiver = new MapEventsReceiver() {
-            @Override
-            public boolean singleTapConfirmedHelper(GeoPoint p) {
-                updateMarkerLocation(p);
-                // Auto-fill the coordinates when map is tapped
-                latitudeEditText.setText(String.format(Locale.US, "%.4f", p.getLatitude()));
-                longitudeEditText.setText(String.format(Locale.US, "%.4f", p.getLongitude()));
-                return true;
+        for (StallLocation loc : savedLocations) {
+            if (loc.getStallId().equalsIgnoreCase(stallId) || loc.getName().equalsIgnoreCase(stallName)) {
+                new AlertDialog.Builder(this)
+                        .setTitle("Duplicate Entry")
+                        .setMessage("A location for Stall ID '" + stallId + "' or Stall Name '" + stallName + "' already exists.")
+                        .setPositiveButton("OK", null)
+                        .show();
+                return;
             }
-            @Override
-            public boolean longPressHelper(GeoPoint p) { return false; }
-        };
-        mapView.getOverlays().add(new MapEventsOverlay(mapEventsReceiver));
-    }
-
-    private void updateMarkerLocation(GeoPoint location) {
-        selectedLocation = location;
-        if (stallMarker == null) {
-            stallMarker = new Marker(mapView);
-            stallMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-            mapView.getOverlays().add(stallMarker);
         }
-        stallMarker.setPosition(location);
-        mapView.invalidate();
-    }
 
-    private void checkLocationPermissionAndGetLocation() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
-        } else {
-            fetchAndDisplayUserLocation();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            fetchAndDisplayUserLocation();
-        } else {
-            Toast.makeText(this, "Permission denied. Using default location.", Toast.LENGTH_SHORT).show();
-            mapView.getController().setCenter(new GeoPoint(13.0827, 80.2707)); // Default to Chennai
-        }
-    }
-
-    @SuppressLint("MissingPermission")
-    private void fetchAndDisplayUserLocation() {
-        fusedLocationClient.getLastLocation().addOnSuccessListener(this, location -> {
-            GeoPoint startPoint;
-            if (location != null) {
-                startPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
-                selectedLocation = startPoint;
-                latitudeEditText.setText(String.format(Locale.US, "%.4f", location.getLatitude()));
-                longitudeEditText.setText(String.format(Locale.US, "%.4f", location.getLongitude()));
-                Toast.makeText(this, "Current location fetched!", Toast.LENGTH_SHORT).show();
-            } else {
-                startPoint = new GeoPoint(13.0827, 80.2707); // Default to Chennai
-                Toast.makeText(this, "Could not get current location.", Toast.LENGTH_SHORT).show();
-            }
-            mapView.getController().animateTo(startPoint);
+        showLoadingOverlay(() -> {
+            double lat = Double.parseDouble(latitudeStr);
+            double lon = Double.parseDouble(longitudeStr);
+            savedLocations.add(new StallLocation(stallId, stallName, new GeoPoint(lat, lon)));
+            Toast.makeText(this, "Location set for " + stallName, Toast.LENGTH_SHORT).show();
+            clearInputFields();
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mapView.onResume();
+    // --- UPDATED PART START ---
+    // This method now uses a BottomSheetDialog for the professional pop-up effect.
+    private void showSavedLocationsDialog() {
+        if (savedLocations.isEmpty()) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Saved Locations")
+                    .setMessage("No locations have been saved yet.")
+                    .setPositiveButton("OK", null)
+                    .show();
+            return;
+        }
+
+        // Use the custom BottomSheetDialogTheme we created in styles.xml
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheetDialogTheme);
+        View dialogView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.dialog_location_table, null);
+        bottomSheetDialog.setContentView(dialogView);
+
+        TextView tableTextView = dialogView.findViewById(R.id.tableTextView);
+        Button closeButton = dialogView.findViewById(R.id.closeButton);
+
+        StringBuilder table = new StringBuilder();
+        table.append(String.format("%-10s | %-15s | %-10s | %s\n", "Stall ID", "Stall Name", "Latitude", "Longitude"));
+        table.append("------------------------------------------------------------\n");
+        for (StallLocation loc : savedLocations) {
+            table.append(String.format(Locale.US, "%-10s | %-15.15s | %-10.4f | %.4f\n",
+                    loc.getStallId(),
+                    loc.getName(),
+                    loc.getLocation().getLatitude(),
+                    loc.getLocation().getLongitude()));
+        }
+        tableTextView.setText(table.toString());
+
+        closeButton.setOnClickListener(v -> bottomSheetDialog.dismiss());
+
+        bottomSheetDialog.show();
+    }
+    // --- UPDATED PART END ---
+
+    private void showLoadingOverlay(Runnable onComplete) {
+        loadingText.setText("Updating...");
+        loadingOverlay.setVisibility(View.VISIBLE);
+        Animation rotation = AnimationUtils.loadAnimation(this, R.anim.hourglass_rotation);
+        loadingIcon.startAnimation(rotation);
+
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            loadingIcon.clearAnimation();
+            loadingOverlay.setVisibility(View.GONE);
+            if (onComplete != null) {
+                onComplete.run();
+            }
+        }, 1500);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mapView.onPause();
+    private void clearInputFields(){
+        stallIdEditText.setText("");
+        stallNameEditText.setText("");
+        latitudeEditText.setText("");
+        longitudeEditText.setText("");
+        manualCoordinatesLayout.setVisibility(View.GONE);
+        stallIdEditText.requestFocus();
     }
 }

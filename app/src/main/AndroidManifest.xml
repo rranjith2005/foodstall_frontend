@@ -13,6 +13,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
 
     <application
         android:allowBackup="true"
@@ -20,9 +23,25 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodstall">
+        <activity
+            android:name=".CreateNewPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VerifyOtpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AfaqActivity"
+            android:exported="false" />
         <activity
             android:name=".Otoday_ordersActivity"
             android:exported="false" />
@@ -100,6 +119,9 @@
             android:exported="false" />
         <activity
             android:name=".UnotificationsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UStallsMapActivity"
             android:exported="true" />
         <activity
             android:name=".Ulocation_preferenceActivity"
@@ -234,6 +256,9 @@
         <activity
             android:name=".ArejectionActivity"
             android:exported="true" />
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_APuQCp0MiHoD9M" />
     </application>
 
 </manifest>

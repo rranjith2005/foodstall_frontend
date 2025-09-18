@@ -7,35 +7,39 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.saveetha.foodstall.R;
+import com.saveetha.foodstall.TextDrawableUtil;
 import com.saveetha.foodstall.model.FavoriteStall;
+import java.util.ArrayList;
+import java.util.Locale;
 
-import java.util.List;
+import de.hdodenhof.circleimageview.CircleImageView;
 
-public class FavoriteStallsAdapter extends RecyclerView.Adapter<FavoriteStallsAdapter.ViewHolder> {
+public class FavoriteStallsAdapter extends RecyclerView.Adapter<FavoriteStallsAdapter.FavoriteViewHolder> {
 
-    public interface OnDeleteClickListener {
-        void onDeleteClick(int position);
+    // Listener to handle when the remove (heart) icon is clicked
+    public interface OnFavoriteRemoveClickListener {
+        void onRemoveClick(FavoriteStall stall, int position);
     }
 
-    private List<FavoriteStall> favoriteStalls;
-    private OnDeleteClickListener onDeleteClickListener;
+    private final ArrayList<FavoriteStall> favoriteStalls;
+    private final OnFavoriteRemoveClickListener listener;
 
-    public FavoriteStallsAdapter(List<FavoriteStall> favoriteStalls, OnDeleteClickListener listener) {
+    public FavoriteStallsAdapter(ArrayList<FavoriteStall> favoriteStalls, OnFavoriteRemoveClickListener listener) {
         this.favoriteStalls = favoriteStalls;
-        this.onDeleteClickListener = listener;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_favorite_stall, parent, false);
-        return new ViewHolder(view);
+    public FavoriteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // NOTE: Make sure you have a layout file named 'card_favorite_stall.xml'
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_favorite_stall, parent, false);
+        return new FavoriteViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FavoriteViewHolder holder, int position) {
         holder.bind(favoriteStalls.get(position));
     }
 
@@ -44,26 +48,45 @@ public class FavoriteStallsAdapter extends RecyclerView.Adapter<FavoriteStallsAd
         return favoriteStalls.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView stallImageView, deleteButton;
-        TextView stallNameTextView;
+    class FavoriteViewHolder extends RecyclerView.ViewHolder {
+        CircleImageView stallImageView;
+        TextView stallNameTextView, stallRatingTextView;
+        ImageView removeFavoriteButton;
 
-        ViewHolder(@NonNull View itemView) {
+        public FavoriteViewHolder(@NonNull View itemView) {
             super(itemView);
-            stallImageView = itemView.findViewById(R.id.stallImageView);
-            stallNameTextView = itemView.findViewById(R.id.stallNameTextView);
-            deleteButton = itemView.findViewById(R.id.deleteButton);
-
-            deleteButton.setOnClickListener(v -> {
-                if (onDeleteClickListener != null) {
-                    onDeleteClickListener.onDeleteClick(getAdapterPosition());
-                }
-            });
+            // NOTE: Ensure these IDs match your 'card_favorite_stall.xml' layout
+            stallImageView = itemView.findViewById(R.id.favoriteStallImageView);
+            stallNameTextView = itemView.findViewById(R.id.favoriteStallNameTextView);
+            stallRatingTextView = itemView.findViewById(R.id.favoriteStallRatingTextView);
+            removeFavoriteButton = itemView.findViewById(R.id.removeFavoriteButton);
         }
 
-        void bind(FavoriteStall stall) {
-            stallImageView.setImageResource(stall.getImageResId());
+        void bind(final FavoriteStall stall) {
             stallNameTextView.setText(stall.getName());
+            stallRatingTextView.setText(String.format(Locale.getDefault(), "%.1f ★", stall.getRating()));
+
+            // --- START OF UPDATED LOGIC ---
+            // This now handles both real images and initials, fixing the error.
+            String imageUrl = stall.getImageUrl();
+            if (imageUrl != null && !imageUrl.isEmpty()) {
+                // TODO: Add Glide/Picasso here to load the real image from the URL
+                // e.g., Glide.with(itemView.getContext()).load(BASE_URL + "uploads/" + imageUrl).into(stallImageView);
+                stallImageView.setImageResource(R.drawable.ic_sample_dish); // Placeholder
+            } else {
+                // If no image is available, create and set the initials drawable
+                stallImageView.setImageDrawable(TextDrawableUtil.getInitialDrawable(stall.getName()));
+            }
+            // --- END OF UPDATED LOGIC ---
+
+            removeFavoriteButton.setOnClickListener(v -> {
+                if (listener != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        listener.onRemoveClick(favoriteStalls.get(position), position);
+                    }
+                }
+            });
         }
     }
 }

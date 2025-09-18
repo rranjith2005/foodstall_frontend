@@ -1,77 +1,103 @@
 package com.saveetha.foodstall;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
+import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputEditText;
+// --- START OF FIX ---
+// 1. Import the new, correct StatusResponse class from the model package
+import com.saveetha.foodstall.model.StatusResponse;
+// --- END OF FIX ---
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AreasonActivity extends AppCompatActivity {
 
-    private FrameLayout loadingOverlay;
-    private ImageView loadingIcon;
+    private TextInputEditText reasonEditText;
+    private Button rejectButton;
+    private ProgressBar progressBar;
+
+    private String email;
+    private String status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.areason);
 
-        // Find views
-        TextView stallNameTextView = findViewById(R.id.stallNameTextView);
-        TextView ownerNameTextView = findViewById(R.id.ownerNameTextView);
-        EditText reasonEditText = findViewById(R.id.reasonEditText);
-        Button sendToOwnerButton = findViewById(R.id.sendToOwnerButton);
-        loadingOverlay = findViewById(R.id.loadingOverlay);
-        loadingIcon = findViewById(R.id.loadingIcon);
+        reasonEditText = findViewById(R.id.reasonEditText);
+        rejectButton = findViewById(R.id.rejectButton);
+        progressBar = findViewById(R.id.progressBar);
 
-        findViewById(R.id.backButton).setOnClickListener(v -> onBackPressed());
-
-        // Get and set data from the previous activity
         Intent intent = getIntent();
-        String stallName = intent.getStringExtra("STALL_NAME");
-        String ownerName = intent.getStringExtra("OWNER_NAME");
-        stallNameTextView.setText(stallName);
-        ownerNameTextView.setText(ownerName);
+        email = intent.getStringExtra("STALL_EMAIL");
+        status = intent.getStringExtra("STATUS_UPDATE");
 
-        // Set listener for the "Send to Owner" button
-        sendToOwnerButton.setOnClickListener(v -> {
+        if (email == null || status == null) {
+            Toast.makeText(this, "Error: Missing required data.", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        findViewById(R.id.backButton).setOnClickListener(v -> finish());
+
+        rejectButton.setOnClickListener(v -> {
             String reason = reasonEditText.getText().toString().trim();
             if (reason.isEmpty()) {
-                Toast.makeText(this, "Please provide a reason for rejection", Toast.LENGTH_SHORT).show();
-            } else {
-                // Show animation, then navigate
-                showLoadingOverlay(() -> {
-                    Toast.makeText(this, "Rejection reason sent to owner", Toast.LENGTH_SHORT).show();
-
-                    // Navigate to ArejectedActivity
-                    Intent rejectIntent = new Intent(AreasonActivity.this, ArejectionActivity.class);
-                    // Pass any necessary data to the next screen if needed
-                    // rejectIntent.putExtra("REASON", reason);
-                    startActivity(rejectIntent);
-
-                    // Finish the current and previous activity
-                    finishAffinity();
-                });
+                Toast.makeText(AreasonActivity.this, "Please provide a reason for rejection.", Toast.LENGTH_SHORT).show();
+                return;
             }
+            updateStallStatus(reason);
         });
     }
 
-    // Helper method to show animation and then run an action
-    private void showLoadingOverlay(Runnable onComplete) {
-        loadingOverlay.setVisibility(View.VISIBLE);
-        Animation rotation = AnimationUtils.loadAnimation(this, R.anim.hourglass_rotation);
-        loadingIcon.startAnimation(rotation);
+    private void updateStallStatus(String reason) {
+        progressBar.setVisibility(View.VISIBLE);
+        rejectButton.setEnabled(false);
 
-        // Wait for 1.5 seconds before completing the action
-        new Handler(Looper.getMainLooper()).postDelayed(onComplete, 1500);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        // 2. The Call object now correctly expects a StatusResponse
+        Call<StatusResponse> call = apiService.updateStallStatus(email, status, reason);
+
+        // 3. The Callback now correctly uses the StatusResponse type
+        call.enqueue(new Callback<StatusResponse>() {
+            @Override
+            public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+                progressBar.setVisibility(View.GONE);
+                rejectButton.setEnabled(true);
+
+                if (response.isSuccessful() && response.body() != null) {
+                    // 4. The response body is correctly cast to StatusResponse
+                    if ("success".equals(response.body().getStatus())) {
+                        Toast.makeText(AreasonActivity.this, "Stall has been rejected.", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(AreasonActivity.this, AhomeActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(AreasonActivity.this, "Failed to update: " + response.body().getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(AreasonActivity.this, "Server error. Please try again.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<StatusResponse> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                rejectButton.setEnabled(true);
+                Log.e("API_FAILURE", "Failed to update stall status", t);
+                Toast.makeText(AreasonActivity.this, "Network Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

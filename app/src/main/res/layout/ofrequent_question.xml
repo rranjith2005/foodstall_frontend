@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFE5E5"
+    android:background="#F8F9FA"
     tools:context=".Ofrequent_questionActivity">
 
+    <!-- Top Bar -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="0dp"
@@ -30,66 +31,41 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text=" Frequently Asked Question"
+            android:text="FAQ"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
-
     </LinearLayout>
 
-    <ScrollView
+    <!-- Search Bar -->
+    <EditText
+        android:id="@+id/searchEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/search_background"
+        android:drawableStart="@drawable/ic_search_gray"
+        android:drawablePadding="12dp"
+        android:elevation="2dp"
+        android:hint="Search questions..."
+        android:padding="12dp"
+        android:inputType="text"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/faqRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:padding="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBar">
+        app:layout_constraintTop_toBottomOf="@+id/searchEditText"
+        tools:listitem="@layout/list_item_faq" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <!-- FAQ Item 1 -->
-            <TextView
-                style="@style/FaqQuestionStyle"
-                android:text="How do I submit my stall for approval?" />
-            <TextView
-                style="@style/FaqAnswerStyle"
-                android:text="Fill in your stall details and submit the form for admin review. You will receive a notification when the status changes." />
-
-            <View style="@style/FaqDividerStyle" />
-
-            <!-- FAQ Item 2 -->
-            <TextView
-                style="@style/FaqQuestionStyle"
-                android:text="Why was my stall registration rejected?" />
-            <TextView
-                style="@style/FaqAnswerStyle"
-                android:text="Your stall was likely rejected due to incomplete or incorrect information. You will be notified with a reason to help you resubmit." />
-
-            <View style="@style/FaqDividerStyle" />
-
-            <!-- FAQ Item 3 -->
-            <TextView
-                style="@style/FaqQuestionStyle"
-                android:text="Can I temporarily close my stall?" />
-            <TextView
-                style="@style/FaqAnswerStyle"
-                android:text="Yes, you can. Go to your stall management page and toggle the 'Temporarily Closed' option, providing a reason for the closure." />
-
-            <View style="@style/FaqDividerStyle" />
-
-            <!-- FAQ Item 4 -->
-            <TextView
-                style="@style/FaqQuestionStyle"
-                android:text="How can I contact admin support?" />
-            <TextView
-                style="@style/FaqAnswerStyle"
-                android:text="You can reach our admin support team through the 'Help &amp; Support' section in your settings page." />
-
-        </LinearLayout>
-    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

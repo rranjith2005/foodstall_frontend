@@ -2,23 +2,33 @@ package com.saveetha.foodstall;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.saveetha.foodstall.adapter.TransactionAdapter;
 import com.saveetha.foodstall.model.Transaction;
+import com.saveetha.foodstall.model.WalletDetailsResponse;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UwalletActivity extends AppCompatActivity {
 
     private TextView walletBalanceTextView;
+    private RecyclerView transactionsRecyclerView;
+    private TransactionAdapter adapter;
+    private String studentId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,23 +36,62 @@ public class UwalletActivity extends AppCompatActivity {
         setContentView(R.layout.uwallet);
 
         walletBalanceTextView = findViewById(R.id.walletBalanceTextView);
+        transactionsRecyclerView = findViewById(R.id.transactionsRecyclerView);
 
-        // --- THIS IS THE UPDATED PART ---
+        SharedPreferences prefs = getSharedPreferences("StallSpotPrefs", MODE_PRIVATE);
+        studentId = prefs.getString("STUDENT_ID", null);
+
+        if (studentId == null) {
+            Toast.makeText(this, "Error: Could not verify user.", Toast.LENGTH_SHORT).show();
+            finish(); return;
+        }
+
+        setupRecyclerView();
+
         Button addMoneyButton = findViewById(R.id.addMoneyButton);
         addMoneyButton.setOnClickListener(v -> {
             Intent intent = new Intent(UwalletActivity.this, Uadd_moneyActivity.class);
-            // Add a flag to signal where the navigation came from
-            intent.putExtra("came_from_wallet", true);
             startActivity(intent);
         });
-        // --- END OF UPDATED PART ---
 
-        RecyclerView transactionsRecyclerView = findViewById(R.id.transactionsRecyclerView);
+        setupBottomNavigation();
+    }
+
+    private void setupRecyclerView() {
         transactionsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        TransactionAdapter adapter = new TransactionAdapter(this, getTransactions());
+        adapter = new TransactionAdapter(this, new ArrayList<>());
         transactionsRecyclerView.setAdapter(adapter);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Fetch fresh wallet data every time the screen is shown
+        fetchWalletDetails();
+    }
+
+    private void fetchWalletDetails() {
+        ApiClient.getClient().create(ApiService.class).getWalletDetails(studentId).enqueue(new Callback<WalletDetailsResponse>() {
+            @Override
+            public void onResponse(Call<WalletDetailsResponse> call, Response<WalletDetailsResponse> response) {
+                if (response.isSuccessful() && response.body() != null && "success".equals(response.body().getStatus())) {
+                    WalletDetailsResponse.WalletData data = response.body().getData();
+                    // Update the balance TextView
+                    walletBalanceTextView.setText(String.format(Locale.getDefault(), "₹%.2f", data.getBalance()));
+                    // Update the transaction list in the adapter
+                    adapter.updateList(data.getTransactions());
+                } else {
+                    Toast.makeText(UwalletActivity.this, "Failed to load wallet details.", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<WalletDetailsResponse> call, Throwable t) {
+                Toast.makeText(UwalletActivity.this, "Network Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setupBottomNavigation() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_bar);
         bottomNavigationView.setSelectedItemId(R.id.nav_wallet);
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -67,19 +116,5 @@ public class UwalletActivity extends AppCompatActivity {
             }
             return false;
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        walletBalanceTextView.setText(String.format(Locale.getDefault(), "₹%.2f", WalletManager.getBalance()));
-    }
-
-    private List<Transaction> getTransactions() {
-        List<Transaction> transactions = new ArrayList<>();
-        transactions.add(new Transaction(R.drawable.ic_add_money, "Added to Wallet", "Yesterday, 3:45 PM", "+ ₹500.00", true));
-        transactions.add(new Transaction(R.drawable.stall_sample3, "Cafe Central", "Today, 12:30 PM", "- ₹120.00", true));
-        transactions.add(new Transaction(R.drawable.stall_sample2, "Student Dining Hall", "Today, 10:15 AM", "- ₹85.00", true));
-        return transactions;
     }
 }

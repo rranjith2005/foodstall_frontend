@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFE5E5"
+    android:background="#F8F9FA"
     tools:context=".OpolicyActivity">
 
+    <!-- Top Bar -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="0dp"
@@ -24,13 +25,14 @@
             android:id="@+id/backButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_back_arrow_white" />
+            android:src="@drawable/ic_back_arrow_white"
+            android:contentDescription="Back" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Privacy Policy"
+            android:text="Privacy Policy &amp; Terms"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="20sp"
@@ -49,142 +51,64 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="24dp">
 
             <TextView
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="#222222"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Introduction"
-                android:layout_marginBottom="8dp" />
+                android:text="Terms and Conditions for Stall Owners"
+                android:textColor="@android:color/black"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:textColor="#444444"
-                android:textSize="16sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Welcome to Stall Spot. We are committed to protecting your privacy as a stall owner. This policy outlines how your data is collected, used, and protected."
-                android:layout_marginBottom="16dp" />
-
-            <TextView
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="#222222"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Information We Collect"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginTop="4dp"
+                android:text="Last Updated: 06 September 2025"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="12sp" />
 
             <TextView
-                android:textColor="#444444"
-                android:textSize="16sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="- Stall details (name, FSSAI number, menu)"
-                android:layout_marginBottom="4dp" />
-            <TextView
-                android:textColor="#444444"
-                android:textSize="16sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="- Owner contact information (email, phone, name)"
-                android:layout_marginBottom="4dp" />
-            <TextView
-                android:textColor="#444444"
-                android:textSize="16sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="- Transaction and revenue data for analytics"
-                android:layout_marginBottom="16dp" />
+                style="@style/PolicyHeaderStyle"
+                android:text="1. Introduction" />
 
             <TextView
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="#222222"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="How We Use Your Information"
-                android:layout_marginBottom="8dp" />
+                style="@style/PolicyBodyStyle"
+                android:text="Welcome to Stall Spot. These terms and conditions outline the rules and regulations for the use of Stall Spot's application as a stall owner. By accessing this app, we assume you accept these terms and conditions. Do not continue to use Stall Spot if you do not agree to all of the terms and conditions stated on this page." />
 
             <TextView
-                android:textColor="#444444"
-                android:textSize="16sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="- To display your stall to users"
-                android:layout_marginBottom="4dp" />
-            <TextView
-                android:textColor="#444444"
-                android:textSize="16sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="- For communication regarding stall status"
-                android:layout_marginBottom="4dp" />
-            <TextView
-                android:textColor="#444444"
-                android:textSize="16sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="- To provide you with revenue reports"
-                android:layout_marginBottom="16dp" />
+                style="@style/PolicyHeaderStyle"
+                android:text="2. Data We Collect" />
 
             <TextView
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="#222222"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Data Security"
-                android:layout_marginBottom="8dp" />
+                style="@style/PolicyBodyStyle"
+                android:text="As a stall owner, we collect information you provide directly to us, such as when you create or modify your account, request services, contact customer support, or otherwise communicate with us. This information may include: your name, email, phone number, stall name, FSSAI number, menu items, and other information you choose to provide." />
 
             <TextView
-                android:textColor="#444444"
-                android:textSize="16sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="- Your personal data is encrypted and securely stored."
-                android:layout_marginBottom="4dp" />
-            <TextView
-                android:textColor="#444444"
-                android:textSize="16sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="- We never sell your personal or stall data to third parties."
-                android:layout_marginBottom="16dp" />
-
-            <CheckBox
-                android:id="@+id/privacyPolicyCheckbox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="I have read and agree to the Owner Privacy Policy"
-                android:textColor="#444444"
-                android:textSize="16sp"
-                android:layout_marginBottom="16dp" />
-
-            <Button
-                android:id="@+id/acceptContinueButton"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:backgroundTint="#FF6B6B"
-                android:text="Accept &amp; Continue"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
-                app:cornerRadius="12dp"
-                android:layout_marginBottom="8dp" />
+                style="@style/PolicyHeaderStyle"
+                android:text="3. Your Responsibilities" />
 
             <TextView
-                android:id="@+id/goBackButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Skip"
-                android:textColor="#FF6B6B"
-                android:textSize="16sp"
-                android:layout_gravity="center_horizontal"
-                android:clickable="true"
-                android:focusable="true"
-                android:padding="8dp" />
+                style="@style/PolicyBodyStyle"
+                android:text="As a stall owner, you are responsible for maintaining the accuracy of your menu, pricing, and operating hours. You are also responsible for the quality and safety of the food you provide. All orders approved by you must be fulfilled in a timely manner. Failure to comply with these responsibilities may result in the suspension or termination of your account." />
+
+            <TextView
+                style="@style/PolicyHeaderStyle"
+                android:text="4. Limitation of Liability" />
+
+            <TextView
+                style="@style/PolicyBodyStyle"
+                android:text="In no event shall Stall Spot, nor any of its officers, directors, and employees, be held liable for anything arising out of or in any way connected with your use of this application, whether such liability is under contract. Stall Spot shall not be held liable for any indirect, consequential, or special liability arising out of or in any way related to your use of this application." />
+
+            <TextView
+                style="@style/PolicyHeaderStyle"
+                android:text="5. Contact Us" />
+
+            <TextView
+                style="@style/PolicyBodyStyle"
+                android:layout_marginBottom="24dp"
+                android:text="If you have any questions about these Terms, please contact us at support@stallspot.com." />
 
         </LinearLayout>
     </ScrollView>

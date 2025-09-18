@@ -1,17 +1,28 @@
 package com.saveetha.foodstall.model;
 
 public class Notification {
-    public String type;
-    public String title;
-    public String description;
-    public String location;
-    public String time;
+    private String type; // e.g., "New", "Offer", "Popular"
+    private String title;
+    private String message;
+    private String metadata; // e.g., "500m away"
+    private String timestamp;
+    private boolean isRead; // NEW: To track read/unread status
 
-    public Notification(String type, String title, String description, String location, String time) {
+    public Notification(String type, String title, String message, String metadata, String timestamp, boolean isRead) {
         this.type = type;
         this.title = title;
-        this.description = description;
-        this.location = location;
-        this.time = time;
+        this.message = message;
+        this.metadata = metadata;
+        this.timestamp = timestamp;
+        this.isRead = isRead;
     }
+
+    public String getType() { return type; }
+    public String getTitle() { return title; }
+    public String getMessage() { return message; }
+    public String getMetadata() { return metadata; }
+    public String getTimestamp() { return timestamp; }
+    public boolean isRead() { return isRead; }
+
+    public void setRead(boolean read) { isRead = read; }
 }
